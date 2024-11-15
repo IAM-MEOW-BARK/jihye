@@ -1,0 +1,117 @@
+/* 페이지 네비게이션 */
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.page-link, .page-number {
+    margin: 0 5px;
+    color: #555;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+
+nav.topmenu {
+    display: flex;
+    justify-content: center; 
+    padding: 11px;
+    
+    vertical-align: middle;
+    font-weight: 400;
+    
+}
+
+nav.topmenu ul {
+    list-style: none; 
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+nav.topmenu li {
+    margin: 0 10px; 
+    font-size: 13px; 
+}
+
+nav.topmenu a {
+    text-decoration: none; 
+    color: black; 
+	
+}
+
+
+nav.topmenu a.link {    
+    color: black; 
+   
+}
+
+nav.topmenu a.link :hover {    
+    color: #ff6600; 
+    font-weight: 1000;
+}
+
+
+nav.topmenu li:not(:last-child)::after {
+    content: "ㅣ"; 
+    margin-left: 10px;
+    color: #ccc; 
+}
+
+
+.notice-table {
+    width: 80%; 
+
+    border-collapse: collapse;
+    margin:auto;
+    margin-top: 20px;
+    
+    
+    vertical-align: middle;
+    font-weight: 400;
+    padding: 11px 0;
+    font-size: 12px;
+    line-height: 1.6;
+    border-bottom: 1px solid #d9d4cd;
+    border-top: 1px solid #d9d4cd;
+}
+
+.notice-table th{
+	font-weight: 400;
+	border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    border-left: none;
+    border-right: none;
+}
+
+.notice-table td{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+    border-left: none;
+    border-right: none;
+}
+
+.title{
+	width: 40%
+}
+.notice-table td:first-child{
+    font-weight: bold;
+    
+}
+
+.notice-table td:last-child {
+    border-bottom: none;
+}
+
+
+.container  {
+    width: 90%; 
+   
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
