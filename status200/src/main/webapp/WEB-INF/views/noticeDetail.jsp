@@ -25,15 +25,22 @@
    		 
    		 
    		 
-   		 <div class="qnaDetail-table">
+   		 <div class="noticeDetail-table">
    		 	<table border="1">
+ 
+   		 		
    		 		<tbody>
    		 			<tr>
+   		 				<th scope="row">제목</th>
+   		 				<td>공지사항 제목</td>
+  		 			</tr>
+  		 			<tr>
+  		 				<td colspan="2" class="noticeDetail-bon">
+  		 					<div class="detail">
+  		 						<p>공지사항 내용내용</p>
+  		 					</div>
+  		 				</td>
    		 				
-   		 				<td>코끼리 옷은 안 파나요? 우리집 코끼리 너무 귀여운데..</td>
-   		 				<td>코끼리</td>
-   		 				<td>2024/11/18</td>
-   		 				<td>답변완료</td>
   		 			</tr>
    		 		</tbody>
    		 	</table>

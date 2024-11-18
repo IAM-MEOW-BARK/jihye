@@ -540,6 +540,7 @@ progress {
   font-weight: 300;
   line-height: 1.2;
 }
+
 @media (min-width: 1200px) {
   .display-5 {
     font-size: 3rem;
@@ -554,6 +555,17 @@ progress {
 @media (min-width: 1200px) {
   .display-6 {
     font-size: 2.5rem;
+  }
+}
+  
+.display-7 {
+  font-size: calc(1.375rem + 1.5vw);
+  font-weight: 300;
+  line-height: 1.2;
+}
+@media (min-width: 1200px) {
+  .display-7 {
+    font-size: 2rem;
   }
 }
 
@@ -1140,10 +1152,9 @@ progress {
   .col-md-11 {
     flex: 0 0 auto;
     width: 91.66666667%;
-  }
-  .col-md-12 {
-    flex: 0 0 auto;
-    width: 100%;
+  }  
+  .col-md-img {
+  	width: 686px;
   }
   .offset-md-0 {
     margin-left: 0;
@@ -8002,6 +8013,10 @@ textarea.form-control-lg {
   text-decoration: underline !important;
 }
 
+.text-decoration-line-through {
+  text-decoration: line-through !important;
+}
+
 .text-lowercase {
   text-transform: lowercase !important;
 }
@@ -10820,69 +10835,24 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
-
-hr {
-	width: 50%
+.card-im {
+  width: 100%;
+  position: relative;
+}
+.card-im::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+.card-im img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 
-.button_reviewDetail{
-	text-align: center;
-}
-
-nav.topmenu {
-    display: flex;
-    justify-content: center; 
-    padding: 11px;
-    
-    vertical-align: middle;
-    font-weight: 400;
-    
-}
-
-nav.topmenu ul {
-    list-style: none; 
-    display: flex;
-    padding: 0;
-    margin: 0;
-}
-
-nav.topmenu li {
-    margin: 0 10px; 
-    font-size: 13px; 
-}
-
-nav.topmenu a {
-    text-decoration: none; 
-    color: black; 
-	
-}
-
-
-nav.topmenu a.link {    
-    color: black; 
-   
-}
-
-nav.topmenu a.link :hover {    
-    color: #ff6600; 
-    font-weight: 1000;
-}
-
-
-nav.topmenu li:not(:last-child)::after {
-    content: "ㅣ"; 
-    margin-left: 10px;
-    color: #ccc; 
-}
-
-.table {
-	 margin:auto;
-    margin-top: 20px;
-    
-	border-bottom: 1px solid #d9d4cd;
-    border-top: 1px solid #d9d4cd;
-}
-
-.paging {
-	text-align: center;
+.section-title {
+	font-size: 20px;
+	font-weight: border;
+	margin-left: 20px;
+	color: black;
 }
