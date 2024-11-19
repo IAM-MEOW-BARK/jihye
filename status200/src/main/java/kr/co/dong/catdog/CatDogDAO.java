@@ -74,6 +74,7 @@ public interface CatDogDAO {
     
     // 결제 skip 2차
     
+    
     // 상품 상세정보
     // 카테고리별 리스트
     // 공지사항 게시판 리스트
@@ -85,6 +86,7 @@ public interface CatDogDAO {
     // Q&A 상세보기
     
     // Q&A 글 작성
+    
     // Q&A 글 수정
     // Q&A 글 삭제
 }

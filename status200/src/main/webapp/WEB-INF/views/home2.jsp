@@ -35,7 +35,7 @@ desired effect
 
   <!-- Main Header -->
   
-  <%@ include file="include/main_header.jsp" %>
+  <%@ include file="include/header.jsp" %>
   
   <!-- Left side column. contains the logo and sidebar -->
 

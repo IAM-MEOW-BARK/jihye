@@ -8,62 +8,31 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
+        
         <title>상픔 상세페이지</title>
-        <!-- Favicon-->
+        
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-        <!-- Bootstrap icons-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-         <!-- 
-        <link href="css/styles.css" rel="stylesheet" />
-        -->
-          <link href="${pageContext.request.contextPath}/resources/css/productStyle.css" rel="stylesheet">
-		  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          	    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="${pageContext.request.contextPath}/resources/css/productStyle.css" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          	  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     </head>
+    
     <body>
-      	
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#!">냥멍</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+       <%@ include file="include/header.jsp"%>
         
-        
-        <!-- 상품 상세페이지 상단-->
+        <!-- 상품 상세페이지 상단 -->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6"><img class="card-img" src="https://img.dogpre.com/mobile/dogpre/product/105/104376_detailView_01201476.jpg" alt="..." /></div>
+                	<!-- 상품 썸네일 -->
                     <div class="col-md-6">
-                        
+                    	<img class="card-img" src="https://img.dogpre.com/mobile/dogpre/product/105/104376_detailView_01201476.jpg" alt="..." /></div>
+                    <!-- 상품 정보 -->
+                    <div class="col-md-6">
                         <!-- 상품명 -->
                         <h1 class="display-7 fw-bolder">패리스독 피너츠 빈티지 바라클라바</h1> &nbsp;
-                        
+
 						<!--  찜하기 버튼 -->
                     	<div class="col">
                     		<i id="heartBox" onclick="toggleLike()" class="fs-3 text-danger bi bi-heart"></i>
@@ -97,27 +66,25 @@
 							  </ul>							
 						</div>
 						
+						<!-- 상품 금액 -->
 						<div class="products-box-detail-allPrice">
 							<span class="products-box-detail-allPrice-title">주문금액</span>
 							<span class="products-box-detail-allPrice-figure">756,000</span> <span>원</span>
 						</div>
 						
-						<!-- 버튼 시작 -->
+						<!-- 장바구니 버튼 -->
 						<button type="button" class="buy-btn">장바구니</button>
 						
                      <br>
-                        <p>
                         <div class="d-flex">
                             <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                           
                         </div>
-                       
                     </div>
                 </div>
             </div>
         </section>
         
-        <!-- 상품 상세 정보 -->
+        <!-- 상품 상세 페이지 하단 -->
         <section class="py-5">
 			<div class="wrap-detail-info" style="padding-top: 0px;">
 				<!-- 상세정보 이동 탭 -->
