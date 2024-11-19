@@ -67,7 +67,6 @@
 						<!--  찜하기 버튼 -->
                     	<div class="col">
                     		<i id="heartBox" onclick="toggleLike()" class="fs-3 text-danger bi bi-heart"></i>
-        
                     		<input type="hidden" name="product_id" value="${productDetail.productDto.id}">
 							<input type="hidden" name="customer_id" value="${sessionUser.id}">                    		
                     	</div> <br><br>
@@ -86,10 +85,7 @@
 							<div class="products-box-detail-realInfo-content">오늘 주문 시 11월 13일(수) 출발</div>
 						</div>
 						
-						
 						<!-- 상품 옵션 -->
-						
-						
 						<div class="d-grid gap-2 col-8 mx-auto dropdown_option">
 						  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 						    상품 옵션
@@ -101,8 +97,6 @@
 							  </ul>							
 						</div>
 						
-						
-						
 						<div class="products-box-detail-allPrice">
 							<span class="products-box-detail-allPrice-title">주문금액</span>
 							<span class="products-box-detail-allPrice-figure">756,000</span> <span>원</span>
@@ -111,13 +105,6 @@
 						<!-- 버튼 시작 -->
 						<button type="button" class="buy-btn">장바구니</button>
 						
-			                        
-                        
-                        
-                        
-                        
-                        
-                        
                      <br>
                         <p>
                         <div class="d-flex">
@@ -130,13 +117,8 @@
             </div>
         </section>
         
-        
-        
-        
         <!-- 상품 상세 정보 -->
         <section class="py-5">
-        
-	        
 			<div class="wrap-detail-info" style="padding-top: 0px;">
 				<!-- 상세정보 이동 탭 -->
 				<div class="tab-detail-info">
@@ -147,7 +129,6 @@
 						<li class="active" id="tab-purchaseInfo"><a href="#detail-guideInfo-box" id="tab-purchaseInfo-a">취소/교환/반품 안내</a></li>
 					</ul>
 				</div>
-				
 				
 				<!-- 상품 상세정보 시작 -->
 	            <div class="container px-4 px-lg-5 mt-5 ">
@@ -245,7 +226,6 @@
 					
 										
 				</div>
-				<!-- 아래 박스 끝 -->		
 		</div>
         
         </section>

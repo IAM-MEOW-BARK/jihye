@@ -35,7 +35,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "qnaRegister";
+		return "productDetail";
 	}
 	
 	@RequestMapping(value="/main")
