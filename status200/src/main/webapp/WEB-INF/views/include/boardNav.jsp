@@ -11,15 +11,13 @@
     
 </head>
 <body>
-
 		<nav class="topmenu">
-			<ul class="nav">
-				<li><a href="noticeList.jsp" class="notice"> 공지사항 </a></li>
-				<li><a href="review.jsp" class="review"> 리뷰게시판 </a></li>
-				<li><a href="qna.jsp" class="qna"> Q/A </a></li>
-				<li><a href="ask.jsp" class="ask"> 자주묻는질문 </a></li>
-			</ul>
+ 			<ul class="nav">
+		        <li><a href="${pageContext.request.contextPath}/catdog/boardList" class="notice"> 공지사항 </a></li>
+		        <li><a href="${pageContext.request.contextPath}/reviewList" class="review"> 리뷰게시판 </a></li>
+		        <li><a href="${pageContext.request.contextPath}/qnaList" class="qna"> Q/A </a></li>
+		        <li><a href="${pageContext.request.contextPath}/askList" class="ask"> 자주묻는질문 </a></li>
+		    </ul>
 		</nav>
-		
 </body>
 </html>

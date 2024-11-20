@@ -24,35 +24,35 @@ public class BoardController {
 
 	@RequestMapping(value="catdog/boardList", method = RequestMethod.GET)
 	public ModelAndView boardList() {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView boardMav = new ModelAndView();
 		
 		List<BoardDTO> boardList = catdogService.boardList();
-		mav.addObject("boardList", boardList);
-		mav.setViewName("boardList");
-		return mav;
+		boardMav.addObject("boardList", boardList);
+		boardMav.setViewName("boardList");
+		return boardMav;
 	}
 	
 	@RequestMapping(value="catdog/reviewList", method = RequestMethod.GET)
 	public ModelAndView reviewList() {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView reviewMav = new ModelAndView();
 		
 		List<ReviewDTO> reviewList = catdogService.reviewList();
-		mav.addObject("reviewList", reviewList);
-		mav.setViewName("reviewList");
-		return mav;
+		reviewMav.addObject("reviewList", reviewList);
+		reviewMav.setViewName("reviewList");
+		return reviewMav;
 	}
 	
 	@RequestMapping(value="catdog/qnaList", method = RequestMethod.GET)
 	public ModelAndView qnaList() {
-		ModelAndView mav = new ModelAndView();
+		ModelAndView qnaMav = new ModelAndView();
 		
 		List<QADTO> qnaList = catdogService.qnaList();
-		mav.addObject("qnaList", qnaList);
-		mav.setViewName("qnaList");
-		return mav;
+		qnaMav.addObject("qnaList", qnaList);
+		qnaMav.setViewName("qnaList");
+		return qnaMav;
 	}
 	
-	@RequestMapping(value="catdog/noticeDetail", method = RequestMethod.GET)
+	@RequestMapping(value="catdog/boardDetail", method = RequestMethod.GET)
 	public String boardDetail(@RequestParam("board_no") int board_no, Model model) {
 		BoardDTO boardDTO = catdogService.boardDetail(board_no);
 		catdogService.boardUpdateReadCnt(board_no);
@@ -113,7 +113,7 @@ public class BoardController {
 			attr.addFlashAttribute("msg", "수정에 성공 하였습니다.");
 			return "redirect:qnaList";
 		}
-		return "redirect:update?bno=" + qaDTO.getQa_no();
+		return "redirect:update?qa_no=" + qaDTO.getQa_no();
 	}
 		
 	@RequestMapping(value="catdog/qnaDelete", method = RequestMethod.GET)
@@ -124,7 +124,7 @@ public class BoardController {
 			rttr.addFlashAttribute("msg","글삭제에 성공하였습니다.");
 			return "redirect:qnaList";
 		}
-		return "redirect:detail?bno=" + qa_no;
+		return "redirect:detail?qa_no=" + qa_no;
 	}
 	
 

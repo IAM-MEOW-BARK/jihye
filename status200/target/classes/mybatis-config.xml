@@ -4,7 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  <configuration>
  	<typeAliases>
- 		<typeAlias alias="BoardDTO" type="kr.co.dong.board.BoardDTO"/>
+ 		<typeAlias alias="BoardDTO" type="kr.co.dong.catdog.BoardDTO"/>
  		<typeAlias alias="BoardReply" type="kr.co.dong.board.BoardReply"/>
+ 		<typeAlias alias="ReviewDTO" type="kr.co.dong.catdog.ReviewDTO"/>
+ 		<typeAlias alias="QADTO" type="kr.co.dong.catdog.QADTO"/>
  	</typeAliases>
  </configuration>

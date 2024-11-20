@@ -10,6 +10,7 @@
 	<link href="${pageContext.request.contextPath}/resources/css/boardStyle.css" rel="stylesheet">
 </head>
 <body>
+<%@ include file="include/header.jsp"%>
 	<section class="py-5">
        	
        	 <nav class="topmenu">
@@ -41,7 +42,7 @@
    		 </div>
    		 
    		 <div class="allView-box">
-				<button type="button" class="allView-button" onclick = "location.href='reviewDetail.jsp'">전체보기</button>
+				<button type="button" class="allView-button">전체보기</button>
          </div>
   		 </section>
 </body>

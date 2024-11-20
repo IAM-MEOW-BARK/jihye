@@ -27,7 +27,7 @@
 			</ul>
 		</nav>
 
-
+		<form action="/catdog/qnaRegister" method="get">
 		<div id="wrap">
 			<h2>Q&A</h2>
 			
@@ -89,12 +89,12 @@
 		
 		
 			<div class="qnaRegister-box">
-				<button type="button" class="qnaRegister-button" onclick = "location.href='qnaRegister.jsp'">글 작성</button>
+				<button type="submit" class="qnaRegister-button">글 작성</button>
 			</div>
 			
 			</div>
 	
-
+	</form>
 	</section>
 	
 	
