@@ -26,8 +26,8 @@ import kr.co.dong.board.BoardReply;
 import kr.co.dong.board.BoardService;
 
 @Controller
-public class BoardController {
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+public class BoardController1 {
+	private static final Logger logger = LoggerFactory.getLogger(BoardController1.class);
 	
 	@Inject
 	BoardService boardService;

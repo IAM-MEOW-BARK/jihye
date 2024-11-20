@@ -141,7 +141,77 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return null;
 	}
 
+	@Override
+	public List<ProductGroupDTO> productDetail() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"productDetail");
+	}
 
+	@Override
+	public List<BoardDTO> boardList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"boardList");
+	}
 
 	
+	@Override
+	public List<ReviewDTO> reviewList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"reviewList");
+	}
+
+	@Override
+	public List<QADTO> qnaList() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+"qnaList");
+	}
+
+	@Override
+	public BoardDTO boardDetail(int board_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"boardDetail", board_no);
+	}
+
+	@Override
+	public ReviewDTO reviewDetail(int review_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"reviecDetail", review_no);
+	}
+
+	@Override
+	public QADTO qnaDetail(int qa_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+"qnaDetail", qa_no);
+	}
+
+	@Override
+	public int qnaRegister(QADTO qaDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(namespace+".qnaRegister", qaDTO);
+	}
+
+	@Override
+	public int qnaUpdate(QADTO qaDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".qnaUpdate", qaDTO);
+	}
+
+	@Override
+	public int qnaDelete(int qa_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace+".qnaDelete", qa_no);
+	}
+
+	@Override
+	public int boardUpdateReadCnt(int board_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".boardUpdateReadCnt", board_no);
+	}
+
+	@Override
+	public int reviewUpdateReadCnt(int review_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
+	}
+
 }

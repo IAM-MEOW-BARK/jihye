@@ -28,7 +28,7 @@
 		</nav>
 
 
-
+		
 		<div id="wrap">
 			<h2>리뷰 게시판</h2>
 			
@@ -89,7 +89,7 @@
 			</table>
 		
 		
-		
+			<!-- 페이징 처리 -->
 			<div class="paging">
 			   <c:if test="${pageListNUM>1}">
 					<a href="list?pageListNUM=${pageListNUM-1}&pageNUM=${pageListNUM*10-10}"> 이전 </a>
@@ -104,12 +104,22 @@
 				</c:if>
 			</div>
 		
-		
+			<!-- Q&A 글 작성 버튼 -->
 			<div class="qnaRegister-box">
 				<button type="button" class="qnaRegister-button" onclick = "location.href='qnaRegister.jsp'">글 작성</button>
 			</div>
-			
 			</div>
+			
+			<!-- 페이지네이션 테스트 -->
+			<nav aria-label="Page navigation example">
+			  <ul class="pagination">
+			    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+			    <li class="page-item"><a class="page-link" href="#">1</a></li>
+			    <li class="page-item"><a class="page-link" href="#">2</a></li>
+			    <li class="page-item"><a class="page-link" href="#">3</a></li>
+			    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+			  </ul>
+			</nav>
 	
 
 	</section>

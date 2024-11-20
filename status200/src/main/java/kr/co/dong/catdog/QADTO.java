@@ -9,6 +9,7 @@ public class QADTO {
 	private boolean secret;
 	private String qa_date;
 	private String qa_reply;
+	
 	public int getQa_no() {
 		return qa_no;
 	}

@@ -21,43 +21,69 @@
 	</select>
 	 -->
 	
-	<!-- 선택조회(글읽기) -->
-	<select id="detail" parameterType="java.lang.Integer"
-		resultType="BoardDTO">
+	
+	
+	
+	<!-- 공지사항 상세 글 조회  -->
+	<select id="boardDetail" parameterType="java.lang.Integer" resultType="BoardDTO">
 		select *
 		from board
-		where bno = #{bno}
+		where board_no = ${board_no}
 	</select>
-	<!-- 조회수 1 증가하는 SQL "updataReadCnt" -->
-	<update id="updateReadCnt" parameterType="java.lang.Integer">
+	
+	<!-- 공지사항 조회수 1 증가하는 SQL -->
+	<update id="boardUpdateReadCnt" parameterType="java.lang.Integer">
 		update board
-		set
-		readcnt
-		= readcnt + 1
-		where bno = #{bno}
+		set board_readcnt = board_readcnt + 1
+		where board_no = #{board_no}
 	</update>
-	<!-- 글 추가하는 SQL "insert" or "register" -->
-	<insert id="register" parameterType="BoardDTO">
-		insert into board(bno,
-		title, content, id, regdate, readcnt, etc,del)
-		values (#{bno},
-		#{title}, #{content}, #{id}, curdate(), 0, #{etc},0)
+	
+	<!-- 리뷰 상세 글 조회 -->
+	<select id="reviewDetail" parameterType="java.lang.Integer" resultType="ReviewDTO">
+		select *
+		from review
+		where review_no = ${review_no}
+	</select>
+	
+	<!-- 리뷰 조회수 1 증가하는 SQL -->
+	<update id="reviewUpdateReadCnt" parameterType="java.lang.Integer">
+		update review
+		set review_readcnt = review_readcnt + 1
+		where review_no = #{review_no}
+	</update>
+	
+	<!-- Q&A 상세 글 조회 -->
+	<select id="qnaDetail" parameterType="java.lang.Integer" resultType="QADTO">
+		select *
+		from qa
+		where qa_no = #{qa_no}
+	</select>
+	
+	<!-- Q&A 글 작성하는 SQL -->
+	<insert id="qnaRegister" parameterType="QADTO">
+		insert into qa(qa_no, product_group_id_fk2, userid, qa_content, qa_secret, qa_date, qa_reply)
+		values (#{qa_no}, #{product_group_id_fk2}, #{userid}, #{qa_content}, ${qa_content}, curdate(), #{qa_reply})
+		
 	</insert>
-	<!-- 글 삭제하는 SQL "delete" del 컬럼을 작성하여 1로 변경 -->
-	<update id="delete" parameterType="java.lang.Integer">
-		update board
+	
+	<!-- Q&A 글 수정하는 SQL -->
+	<update id="qnaUpdate" parameterType="QADTO">
+		update qa
 		set
-		del = 1
-		where bno = #{bno}
+		qa_content=#{qa_content}, qa_secret=#{qa_secret} , qa_date=curdate( )
+		where qa_no = #{qa_no}
 	</update>
-	<!-- 글 수정하는 SQL "update" -->
-	<update id="update" parameterType="kr.co.dong.board.BoardDTO">
-		update board
-		set
-		title=#{title}
-		, content=#{content} , regdate=curdate( )
-		where bno = #{bno}
+	
+	<!-- Q&A 글 삭제하는 SQL -->
+	<update id="qnaDelete" parameterType="java.lang.Integer">
+		delete from qa
+		where qa_no = #{qa_no}
 	</update>
+	
+
+	
+
+
 
 	<!-- 게시글번호에 해당하는 댓글 조회하는 SQL -->
 	<select id="detail1" parameterType="java.lang.Integer"
@@ -66,6 +92,7 @@
 		from board_reply
 		where bno = #{bno}
 	</select>
+	
 	<!-- 댓글쓰기 -->
 	<insert id="reply" parameterType="BoardReply">
 		insert into
@@ -81,6 +108,7 @@
 		from board_reply
 		where reno = #{reno}
 	</select>
+	
 	<!-- 댓글수정 -->
 	<update id="replyupdate" parameterType="BoardReply">
 		update board_reply

@@ -11,12 +11,13 @@
 	<script src="http://cdn.ckeditor.com/ckeditor5/11.2.0/classic/ckediter.js"></script>
 	<link href="${pageContext.request.contextPath}/resources/css/boardStyle.css" rel="stylesheet">
     
-
-
 </head>
 <body>
+<%@ include file="include/header.jsp"%>
+	
 	<section class="py-5">
 
+<%@ include file="include/boardNav.jsp"%>
 		<nav class="topmenu">
 			<ul class="nav">
 				<li><a href="noticeList.jsp" class="notice"> 공지사항 </a></li>
@@ -36,8 +37,8 @@
 		
 		
 		<div class="register-box">
-				<button type="submit" class="submit-button" onclick = "location.href='reviewDetail.jsp'">등록</button>
-				<button type="reset" class="reset-button" onclick = "location.href='reviewDetail.jsp'">취소</button>
+				<button type="submit" class="submit-button">등록</button>
+				<button type="reset" class="reset-button">취소</button>
          </div>
 		</section>
 		
