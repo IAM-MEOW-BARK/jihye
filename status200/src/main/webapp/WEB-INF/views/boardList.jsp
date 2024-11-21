@@ -13,6 +13,7 @@
 		  rel="stylesheet">
 </head>
 <body>
+	<%@ include file="include/header.jsp"%>
 	<section class="py-5">
 		<%@ include file="include/boardNav.jsp"%>
 		<!--	<form action="/catdog/noticeRegister" method="get">-->
@@ -35,7 +36,7 @@
 							</c:forEach>
 						</table>
 						
-					
+					${board.board_title}
 						
 
 					<!-- 
@@ -62,12 +63,7 @@
 			<!-- </form>  -->
 			
 			
-							<c:forEach var="board" items="${boardList}">
-									${board.board_no}
-									<a href="boardDetail?board_no=${board.board_no}"> ${board.board_title} </a>
-									${board.board_date}
-									${board.board_readcnt}
-							</c:forEach>
+							
 	</section>
 	
 	

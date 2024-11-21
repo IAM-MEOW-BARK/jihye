@@ -12,7 +12,6 @@
 <body>
 	<section class="py-5">
        	 <%@ include file="include/boardNav.jsp"%>
-			<form action="/catdog/boardList" method="get">
 		   		 <div class="noticeDetail-table">
 		   		 	<table border="1">
 		   		 		<tbody>
@@ -31,8 +30,9 @@
 		   		 		</tbody>
 		   		 	</table>
 		   		 </div>
+			<form action="boardList" method="get">
 		   		 <div class="allView-box">
-						<button type="button" class="allView-button">전체보기</button>
+						<button type="submit" class="allView-button">전체보기</button>
 		         </div>
 	         </form>
   		 </section>

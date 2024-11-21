@@ -5,7 +5,6 @@
  <configuration>
  	<typeAliases>
  		<typeAlias alias="NoticeDTO" type="kr.co.dong.catdog.NoticeDTO"/>
- 		<typeAlias alias="BoardReply" type="kr.co.dong.board.BoardReply"/>
  		<typeAlias alias="ReviewDTO" type="kr.co.dong.catdog.ReviewDTO"/>
  		<typeAlias alias="QADTO" type="kr.co.dong.catdog.QADTO"/>
  	</typeAliases>

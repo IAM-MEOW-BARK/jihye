@@ -13,10 +13,10 @@
 <body>
 		<nav class="topmenu">
  			<ul class="nav">
-		        <li><a href="${pageContext.request.contextPath}/catdog/boardList" class="notice"> 공지사항 </a></li>
-		        <li><a href="${pageContext.request.contextPath}/reviewList" class="review"> 리뷰게시판 </a></li>
-		        <li><a href="${pageContext.request.contextPath}/qnaList" class="qna"> Q/A </a></li>
-		        <li><a href="${pageContext.request.contextPath}/askList" class="ask"> 자주묻는질문 </a></li>
+		        <li><a href="boardList" class="notice"> 공지사항 </a></li>
+		        <li><a href="reviewList" class="review"> 리뷰게시판 </a></li>
+		        <li><a href="qnaList" class="qna"> Q/A </a></li>
+		        <li><a href="faqList" class="ask"> 자주묻는질문 </a></li>
 		    </ul>
 		</nav>
 </body>

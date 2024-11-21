@@ -39,7 +39,7 @@
                     <li class="nav-item active"><a href="/cartegory?tag=bath" class="nav-link">💚목욕/케어</a></li>
                     <li class="nav-item active"><a href="/cartegory?tag=walk" class="nav-link">💙산책/훈련</a></li>
                     <li class="nav-item active"><a href="/cartegory?tag=cloth" class="nav-link">💜의류/잡화</a></li>
-                    <li class="nav-item active"><a href="/cartegory?tag=notice" class="nav-link">공지사항</a></li>
+                    <li class="nav-item active"><a href="boardList" class="nav-link">공지사항</a></li>
                 </ul>
             </div>
             <!-- 로그인/장바구니/마이페이지 -->

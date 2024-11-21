@@ -3,7 +3,6 @@ package kr.co.dong.catdog;
 import java.util.List;
 import java.util.Map;
 
-
 public interface CatDogDAO {
 	// 로그인
 	public Map login(Map<String, Object> map);	

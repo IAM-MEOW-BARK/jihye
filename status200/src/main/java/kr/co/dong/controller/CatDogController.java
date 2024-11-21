@@ -1,10 +1,9 @@
-package kr.co.dong.catdog;
+package kr.co.dong.controller;
 
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,19 +13,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
-
+import kr.co.dong.catdog.CatDogService;
+import kr.co.dong.catdog.NoticeDTO;
+import kr.co.dong.catdog.QADTO;
+import kr.co.dong.catdog.ReviewDTO;
 
 
 @Controller
-public class BoardController {
-//	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+public class CatDogController {
 	
 	@Inject
 	CatDogService catdogService;
 	
 
-	@RequestMapping(value="catdog/boardList", method = RequestMethod.GET)
+	@RequestMapping(value="boardList", method = RequestMethod.GET)
 	public ModelAndView boardList() {
 		ModelAndView boardMav = new ModelAndView();
 		
@@ -36,7 +36,7 @@ public class BoardController {
 		return boardMav;
 	}
 	
-	@RequestMapping(value="catdog/reviewList", method = RequestMethod.GET)
+	@RequestMapping(value="reviewList", method = RequestMethod.GET)
 	public ModelAndView reviewList() {
 		ModelAndView reviewMav = new ModelAndView();
 		
@@ -46,7 +46,7 @@ public class BoardController {
 		return reviewMav;
 	}
 	
-	@RequestMapping(value="catdog/qnaList", method = RequestMethod.GET)
+	@RequestMapping(value="qnaList", method = RequestMethod.GET)
 	public ModelAndView qnaList() {
 		ModelAndView qnaMav = new ModelAndView();
 
@@ -56,16 +56,16 @@ public class BoardController {
 		return qnaMav;
 	}
 	
-	@RequestMapping(value="catdog/boardDetail", method = RequestMethod.GET)
+	@RequestMapping(value="boardDetail", method = RequestMethod.GET)
 	public String boardDetail(@RequestParam("board_no") int board_no, Model model) {
-		NoticeDTO boardDTO = catdogService.boardDetail(board_no);
+		NoticeDTO NoticeDTO = catdogService.boardDetail(board_no);
 		catdogService.boardUpdateReadCnt(board_no);
-		model.addAttribute("boardDetail", boardDTO);
+		model.addAttribute("boardDetail", NoticeDTO);
 		
 		return "boardDetail";
 	}
 	
-	@RequestMapping(value="catdog/reviewDetail", method = RequestMethod.GET)
+	@RequestMapping(value="reviewDetail", method = RequestMethod.GET)
 	public String reviewDetail(@RequestParam("review_no") int review_no, Model model) {
 		ReviewDTO reviewDTO = catdogService.reviewDetail(review_no);
 		catdogService.reviewUpdateReadCnt(review_no);

@@ -8,7 +8,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 
-
 @Service
 public class CatDogServiceImpl implements CatDogService {
 	
@@ -36,6 +35,7 @@ public class CatDogServiceImpl implements CatDogService {
 	@Override
 	public List<NoticeDTO> boardList() {
 		// TODO Auto-generated method stub
+		System.out.println("boardList() 호출됨");
 		return catDogDAO.boardList();
 	}
 
