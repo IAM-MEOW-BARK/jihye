@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
+
+
 @Controller
 public class BoardController {
+//	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Inject
 	CatDogService catdogService;
@@ -26,7 +30,7 @@ public class BoardController {
 	public ModelAndView boardList() {
 		ModelAndView boardMav = new ModelAndView();
 		
-		List<BoardDTO> boardList = catdogService.boardList();
+		List<NoticeDTO> boardList = catdogService.boardList();
 		boardMav.addObject("boardList", boardList);
 		boardMav.setViewName("boardList");
 		return boardMav;
@@ -45,7 +49,7 @@ public class BoardController {
 	@RequestMapping(value="catdog/qnaList", method = RequestMethod.GET)
 	public ModelAndView qnaList() {
 		ModelAndView qnaMav = new ModelAndView();
-		
+
 		List<QADTO> qnaList = catdogService.qnaList();
 		qnaMav.addObject("qnaList", qnaList);
 		qnaMav.setViewName("qnaList");
@@ -54,11 +58,11 @@ public class BoardController {
 	
 	@RequestMapping(value="catdog/boardDetail", method = RequestMethod.GET)
 	public String boardDetail(@RequestParam("board_no") int board_no, Model model) {
-		BoardDTO boardDTO = catdogService.boardDetail(board_no);
+		NoticeDTO boardDTO = catdogService.boardDetail(board_no);
 		catdogService.boardUpdateReadCnt(board_no);
 		model.addAttribute("boardDetail", boardDTO);
 		
-		return "noticeDetail";
+		return "boardDetail";
 	}
 	
 	@RequestMapping(value="catdog/reviewDetail", method = RequestMethod.GET)

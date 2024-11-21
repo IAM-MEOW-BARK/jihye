@@ -17,83 +17,74 @@
 
 	<!-- Product section-->
 	<section class="py-5">
-
-		<nav class="topmenu">
-			<ul class="nav">
-				<li><a href="noticeList.jsp" class="notice"> 공지사항 </a></li>
-				<li><a href="review.jsp" class="review"> 리뷰게시판 </a></li>
-				<li><a href="qna.jsp" class="qna"> Q/A </a></li>
-				<li><a href="ask.jsp" class="ask"> 자주묻는질문 </a></li>
-			</ul>
-		</nav>
+		<%@ include file="include/boardNav.jsp"%>
 
 		<form action="/catdog/qnaRegister" method="get">
-		<div id="wrap">
-			<h2>Q&A</h2>
-			
-			<table class="qna-table">
-				<tr>
-					<th>NO</th>
-					<th>내용</th>
-					<th>작성자</th>
-					<th>등록일</th>
-					<th>답변상태</th>
-				</tr>
+			<div id="wrap">
+				<h2>Q&A</h2>
 				
-				<tr>
-					<td>1</td>
-					<td><a href="detail?bno=${qna.no}"> 코끼리 옷은 안파나요? </a></td>
-					<td>푸들이</td>
-					<td>2024/11/14</td>
-					<td><span class="badge">답변완료</span></td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td><a href="detail?bno=${qna.no}"> 내용 </a></td>
-					<td>푸들이</td>
-					<td>2024/11/14</td>
-					<td><span class="badge">답변완료</span></td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td><a href="detail?bno=${qna.no}"> 내용 </a></td>
-					<td>푸들이</td>
-					<td>2024/11/14</td>
-					<td><span class="badge">답변완료</span></td>
-				</tr>
-				<tr>
-					<td>1</td>
-					<td><a href="detail?bno=${qna.no}"> 내용 </a></td>
-					<td>푸들이</td>
-					<td>2024/11/14</td>
-					<td><span>답변완료</span></td>
-				</tr>
+				<table class="qna-table">
+					<tr>
+						<th>NO</th>
+						<th>내용</th>
+						<th>작성자</th>
+						<th>등록일</th>
+						<th>답변상태</th>
+					</tr>
+					
+					<tr>
+						<td>1</td>
+						<td><a href="detail?bno=${qna.no}"> 코끼리 옷은 안파나요? </a></td>
+						<td>푸들이</td>
+						<td>2024/11/14</td>
+						<td><span class="badge">답변완료</span></td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td><a href="detail?bno=${qna.no}"> 내용 </a></td>
+						<td>푸들이</td>
+						<td>2024/11/14</td>
+						<td><span class="badge">답변완료</span></td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td><a href="detail?bno=${qna.no}"> 내용 </a></td>
+						<td>푸들이</td>
+						<td>2024/11/14</td>
+						<td><span class="badge">답변완료</span></td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td><a href="detail?bno=${qna.no}"> 내용 </a></td>
+						<td>푸들이</td>
+						<td>2024/11/14</td>
+						<td><span>답변완료</span></td>
+					</tr>
+					
+				</table>
+			
+			
+			
+				<div class="paging">
+				   <c:if test="${pageListNUM>1}">
+						<a href="list?pageListNUM=${pageListNUM-1}&pageNUM=${pageListNUM*10-10}"> 이전 </a>
+					</c:if>
 				
-			</table>
-		
-		
-		
-			<div class="paging">
-			   <c:if test="${pageListNUM>1}">
-					<a href="list?pageListNUM=${pageListNUM-1}&pageNUM=${pageListNUM*10-10}"> 이전 </a>
-				</c:if>
+					<c:forEach var="i" begin="${startPage }" end="${endPage }">
+						<a href="list?pageListNUM=${pageListNUM }&pageNUM=${i }"> ${i } </a>
+					</c:forEach>
+				
+					<c:if test="${pageListNUM<(totalPage/10)}">
+						<a href="list?pageListNUM=${pageListNUM+1}&pageNUM=${pageListNUM*10+1}"> 다음 </a>
+					</c:if>
+				</div>
 			
-				<c:forEach var="i" begin="${startPage }" end="${endPage }">
-					<a href="list?pageListNUM=${pageListNUM }&pageNUM=${i }"> ${i } </a>
-				</c:forEach>
 			
-				<c:if test="${pageListNUM<(totalPage/10)}">
-					<a href="list?pageListNUM=${pageListNUM+1}&pageNUM=${pageListNUM*10+1}"> 다음 </a>
-				</c:if>
-			</div>
-		
-		
-			<div class="qnaRegister-box">
-				<button type="submit" class="qnaRegister-button">글 작성</button>
-			</div>
-			
-			</div>
-	
+				<div class="qnaRegister-box">
+					<button type="submit" class="qnaRegister-button">글 작성</button>
+				</div>
+				
+				</div>
 	</form>
 	</section>
 	

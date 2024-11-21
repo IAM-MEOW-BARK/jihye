@@ -144,44 +144,44 @@ public class CatDogDAOImpl implements CatDogDAO{
 	@Override
 	public List<ProductGroupDTO> productDetail() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+"productDetail");
+		return sqlSession.selectList(namespace+".productDetail");
 	}
 
 	@Override
-	public List<BoardDTO> boardList() {
+	public List<NoticeDTO> boardList() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+"boardList");
+		return sqlSession.selectList(namespace+".boardList");
 	}
 
 	
 	@Override
 	public List<ReviewDTO> reviewList() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+"reviewList");
+		return sqlSession.selectList(namespace+".reviewList");
 	}
 
 	@Override
 	public List<QADTO> qnaList() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+"qnaList");
+		return sqlSession.selectList(namespace+".qnaList");
 	}
 
 	@Override
-	public BoardDTO boardDetail(int board_no) {
+	public NoticeDTO boardDetail(int board_no) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+"boardDetail", board_no);
+		return sqlSession.selectOne(namespace+".boardDetail", board_no);
 	}
 
 	@Override
 	public ReviewDTO reviewDetail(int review_no) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+"reviecDetail", review_no);
+		return sqlSession.selectOne(namespace+".reviewDetail", review_no);
 	}
 
 	@Override
 	public QADTO qnaDetail(int qa_no) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+"qnaDetail", qa_no);
+		return sqlSession.selectOne(namespace+".qnaDetail", qa_no);
 	}
 
 	@Override

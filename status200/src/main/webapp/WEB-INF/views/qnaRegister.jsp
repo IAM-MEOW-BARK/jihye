@@ -14,7 +14,7 @@
     
 </head>
 <body>
-	<%@ include file="include/header.jsp"%>\
+	<%@ include file="include/header.jsp"%>
 	<section class="py-5">
 
 	<%@ include file="include/boardNav.jsp"%>
@@ -33,7 +33,6 @@
 		         </div>
         	</form>
 		</section>
-		
 		
 	<script>
 		ClassicEditor

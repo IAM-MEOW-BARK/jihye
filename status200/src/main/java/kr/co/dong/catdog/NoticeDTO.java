@@ -1,6 +1,6 @@
 package kr.co.dong.catdog;
 
-public class BoardDTO {
+public class NoticeDTO {
 	private int board_no;
 	private String board_title;
 	private String board_content;

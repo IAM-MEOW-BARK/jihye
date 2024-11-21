@@ -3,10 +3,10 @@ package kr.co.dong.catdog;
 public class QADTO {
 
 	private int qa_no;
-	private int product_group_id;
+	private int product_group_id_fk2;
 	private String user_id;
 	private String qa_content;
-	private boolean secret;
+	private boolean qa_secret;
 	private String qa_date;
 	private String qa_reply;
 	
@@ -17,10 +17,10 @@ public class QADTO {
 		this.qa_no = qa_no;
 	}
 	public int getProduct_group_id() {
-		return product_group_id;
+		return product_group_id_fk2;
 	}
-	public void setProduct_group_id(int product_group_id) {
-		this.product_group_id = product_group_id;
+	public void setProduct_group_id(int product_group_id_fk2) {
+		this.product_group_id_fk2 = product_group_id_fk2;
 	}
 	public String getUser_id() {
 		return user_id;
@@ -35,10 +35,10 @@ public class QADTO {
 		this.qa_content = qa_content;
 	}
 	public boolean isSecret() {
-		return secret;
+		return qa_secret;
 	}
-	public void setSecret(boolean secret) {
-		this.secret = secret;
+	public void setSecret(boolean qa_secret) {
+		this.qa_secret = qa_secret;
 	}
 	public String getQa_date() {
 		return qa_date;
@@ -55,8 +55,8 @@ public class QADTO {
 	
 	@Override
 	public String toString() {
-		return "QADTO [qa_no=" + qa_no + ", product_group_id=" + product_group_id + ", user_id=" + user_id
-				+ ", qa_content=" + qa_content + ", secret=" + secret + ", qa_date=" + qa_date + ", qa_reply="
+		return "QADTO [qa_no=" + qa_no + ", product_group_id=" + product_group_id_fk2 + ", user_id=" + user_id
+				+ ", qa_content=" + qa_content + ", secret=" + qa_secret + ", qa_date=" + qa_date + ", qa_reply="
 				+ qa_reply + "]";
 	}
 }

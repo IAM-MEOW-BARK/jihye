@@ -35,7 +35,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "qnaList";
+		return "boardList";
 	}
 	
 	@RequestMapping(value="/main")

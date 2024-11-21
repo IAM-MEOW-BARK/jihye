@@ -81,7 +81,7 @@ public interface CatDogDAO {
     // 카테고리별 리스트
     
     // 공지사항 게시판 리스트
-    public List<BoardDTO> boardList();
+    public List<NoticeDTO> boardList();
     
     // 리뷰 게시판 리스트
     public List<ReviewDTO> reviewList();
@@ -90,7 +90,7 @@ public interface CatDogDAO {
     public List<QADTO> qnaList();
     
     // 공지사항 상세보기, 조회수
-    public BoardDTO boardDetail(int board_no);
+    public NoticeDTO boardDetail(int board_no);
     public int boardUpdateReadCnt(int board_no);
     
     // 리뷰 상세보기, 조회수

@@ -12,47 +12,72 @@ etc varchar(45)
 package kr.co.dong.board;
 
 public class BoardDTO {
-	private int board_no;
-	private String board_title;
-	private String board_content;
-	private String board_date;
-	private int board_readcnt;
-	public int getBoard_no() {
-		return board_no;
+	private int bno;
+	private String title;
+	private String content;
+	private String id;
+	private String regdate;
+	private int readcnt;
+	private String etc;
+	private int del;
+	
+	public int getBno() {
+		return bno;
 	}
-	public void setBoard_no(int board_no) {
-		this.board_no = board_no;
+	public void setBno(int bno) {
+		this.bno = bno;
 	}
-	public String getBoard_title() {
-		return board_title;
+	public String getTitle() {
+		return title;
 	}
-	public void setBoard_title(String board_title) {
-		this.board_title = board_title;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getBoard_content() {
-		return board_content;
+	
+	
+	public String getContent() {
+		return content;
 	}
-	public void setBoard_content(String board_content) {
-		this.board_content = board_content;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public String getBoard_date() {
-		return board_date;
+	public String getId() {
+		return id;
 	}
-	public void setBoard_date(String board_date) {
-		this.board_date = board_date;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public int getBoard_readcnt() {
-		return board_readcnt;
+	public String getRegdate() {
+		return regdate;
 	}
-	public void setBoard_readcnt(int board_readcnt) {
-		this.board_readcnt = board_readcnt;
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+	public int getReadcnt() {
+		return readcnt;
+	}
+	public void setReadcnt(int readcnt) {
+		this.readcnt = readcnt;
+	}
+	public String getEtc() {
+		return etc;
+	}
+	public void setEtc(String etc) {
+		this.etc = etc;
+	}
+	public int getDel() {
+		return del;
+	}
+	public void setDel(int del) {
+		this.del = del;
 	}
 	@Override
 	public String toString() {
-		return "BoardDTO [board_no=" + board_no + ", board_title=" + board_title + ", board_content=" + board_content
-				+ ", board_date=" + board_date + ", board_readcnt=" + board_readcnt + "]";
+		return "BoardDTO [bno=" + bno + ", title=" + title + ", content=" + content + ", id=" + id + ", regdate="
+				+ regdate + ", readcnt=" + readcnt + ", etc=" + etc + ", del=" + del + "]";
 	}
 	
 	
 	
+
 }

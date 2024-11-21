@@ -19,7 +19,7 @@
     </head>
     
     <body>
-       <%@ include file="include/header.jsp"%>
+       <!-- %@ include file="include/header.jsp"%> -->
         
         <!-- 상품 상세페이지 상단 -->
         <section class="py-5">
@@ -112,10 +112,6 @@
 					<div id="detail-qna-box">
 						<div class="detail-qna-header">Q&A (0)</div>
 					</div>
-					
-					
-					
-					
 					<div id="detail-guideInfo-box">
 					
 						<div class="detail-guideInfo-header">취소/교환/반품 안내</div>

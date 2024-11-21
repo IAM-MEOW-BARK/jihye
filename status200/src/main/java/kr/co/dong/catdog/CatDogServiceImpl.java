@@ -34,7 +34,7 @@ public class CatDogServiceImpl implements CatDogService {
 	}
 
 	@Override
-	public List<BoardDTO> boardList() {
+	public List<NoticeDTO> boardList() {
 		// TODO Auto-generated method stub
 		return catDogDAO.boardList();
 	}
@@ -52,7 +52,7 @@ public class CatDogServiceImpl implements CatDogService {
 	}
 
 	@Override
-	public BoardDTO boardDetail(int board_no) {
+	public NoticeDTO boardDetail(int board_no) {
 		// TODO Auto-generated method stub
 		return catDogDAO.boardDetail(board_no);
 	}
