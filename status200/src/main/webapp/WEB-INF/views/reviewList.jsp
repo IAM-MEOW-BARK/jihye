@@ -14,7 +14,7 @@
 		  rel="stylesheet">
 </head>
 <body>
-
+<%@ include file="include/header.jsp"%>
 	<!-- Product section-->
 	<section class="py-5">
 		<%@ include file="include/boardNav.jsp"%>
@@ -39,22 +39,18 @@
 					</tr>
 					
 					<tr>
-						<td>1</td>
-						<td>★★★★★</td>
-						<td><img src="https://img.dogpre.com/mobile/dogpre/product/101/100681_detailView_05431052.jpg" class="fixed-size-img"></td>
-						<td><a href="detail?bno=${qna.no}"> 상품명입니다. </a></td>
-						<td>푸들이</td>
-						<td>2024/11/14</td>
-						<td>10</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>★★★★★</td>
-						<td><img src="https://img.dogpre.com/mobile/dogpre/product/101/100681_detailView_05431052.jpg" class="fixed-size-img"></td>
-						<td><a href="detail?bno=${qna.no}"> 제목 </a></td>
-						<td>푸들이</td>
-						<td>2024/11/14</td>
-						<td>10</td>
+						<c:forEach var="review" items="${reviewList}">
+								<tr>
+									<td>${review.review_no}</td>
+									<td>${review.review_score}</td>
+									<td>${review.review_img}</td>
+									<td><a href="reviewDetail?review_no=${review.review_no}"> ${ }</a></td>
+									<td>${review.user_id}</td>
+									<td>${review.review_date}</td>
+									<td>${review.review_readcnt}</td>
+								</tr>
+						</c:forEach>				
+						
 					</tr>
 					<tr>
 						<td>1</td>

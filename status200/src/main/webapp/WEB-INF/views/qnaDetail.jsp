@@ -12,23 +12,23 @@
 <body>
 	<section class="py-5">
     	<%@ include file="include/boardNav.jsp"%>
-			<form action="/catdog/qnaList" method="get">
 		   		 <div class="qnaDetail-table">
 		   		 	<table border="1">
 		   		 		<tbody>
 		   		 			<tr>
-		   		 				
-		   		 				<td>코끼리 옷은 안 파나요? 우리집 코끼리 너무 귀여운데..</td>
-		   		 				<td>코끼리</td>
-		   		 				<td>2024/11/18</td>
-		   		 				<td>답변완료</td>
+		   		 		   <!-- <td>${qnaDetail.qna_secret}</td>  -->
+		   		 				<td>${qnaDetail.qna_content}</td>
+		   		 				<td>${qnaDetail.user_id}</td>
+		   		 				<td>${qnaDetail.qna_date}</td>
+		   		 				<td> </td>
 		  		 			</tr>
 		   		 		</tbody>
 		   		 	</table>
 		   		 </div>
 		   		 
+			<form action="qnaList" method="get">
 		   		 <div class="allView-box">
-						<button type="button" class="allView-button">전체보기</button>
+						<button type="submit" class="allView-button">전체보기</button>
 		         </div>
 		       </form>	
 	 </section>

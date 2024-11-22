@@ -27,7 +27,7 @@ public class CatDogServiceImpl implements CatDogService {
 	}
 
 	@Override
-	public List<ProductGroupDTO> productDetail() {
+	public List<ProductDTO> productDetail() {
 		// TODO Auto-generated method stub
 		return catDogDAO.productDetail();
 	}
@@ -46,7 +46,7 @@ public class CatDogServiceImpl implements CatDogService {
 	}
 
 	@Override
-	public List<QADTO> qnaList() {
+	public List<QNADTO> qnaList() {
 		// TODO Auto-generated method stub
 		return catDogDAO.qnaList();
 	}
@@ -64,27 +64,27 @@ public class CatDogServiceImpl implements CatDogService {
 	}
 
 	@Override
-	public QADTO qnaDetail(int qa_no) {
+	public QNADTO qnaDetail(int qna_no) {
 		// TODO Auto-generated method stub
-		return catDogDAO.qnaDetail(qa_no);
+		return catDogDAO.qnaDetail(qna_no);
 	}
 
 	@Override
-	public int qnaRegister(QADTO qaDTO) {
+	public int qnaRegister(QNADTO qnaDTO) {
 		// TODO Auto-generated method stub
-		return catDogDAO.qnaRegister(qaDTO);
+		return catDogDAO.qnaRegister(qnaDTO);
 	}
 
 	@Override
-	public int qnaUpdate(QADTO qaDTO) {
+	public int qnaUpdate(QNADTO qnaDTO) {
 		// TODO Auto-generated method stub
-		return catDogDAO.qnaUpdate(qaDTO);
+		return catDogDAO.qnaUpdate(qnaDTO);
 	}
 
 	@Override
-	public int qnaDelete(int qa_no) {
+	public int qnaDelete(int qna_no) {
 		// TODO Auto-generated method stub
-		return catDogDAO.qnaDelete(qa_no);
+		return catDogDAO.qnaDelete(qna_no);
 	}
 
 	@Override

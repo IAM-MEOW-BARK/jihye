@@ -26,6 +26,7 @@
 								<th>등록일</th>
 								<th>조회수</th>
 							</tr>
+							
 							<c:forEach var="board" items="${boardList}">
 								<tr>
 									<td>${board.board_no}</td>
@@ -36,9 +37,6 @@
 							</c:forEach>
 						</table>
 						
-					${board.board_title}
-						
-
 					<!-- 
 					<div class="paging">
 					   <c:if test="${pageListNUM>1}">
@@ -58,15 +56,11 @@
 					<div class="qnaRegister-box">
 						<button type="submit" class="qnaRegister-button">글 작성</button> <!-- 작성버튼 여기에 넣을지 말지 고민 -->
 					</div>
+				
 					
 					</div>
-			<!-- </form>  -->
-			
-			
-							
+			<!-- </form>  -->					
 	</section>
-	
-	
 
 </body>
 </html>

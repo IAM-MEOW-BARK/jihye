@@ -31,7 +31,7 @@
                     <!-- 상품 정보 -->
                     <div class="col-md-6">
                         <!-- 상품명 -->
-                        <h1 class="display-7 fw-bolder">패리스독 피너츠 빈티지 바라클라바</h1> &nbsp;
+                        <h1 class="display-7 fw-bolder">${product.product_name}</h1> &nbsp;
 
 						<!--  찜하기 버튼 -->
                     	<div class="col">
@@ -43,7 +43,7 @@
                      	<!-- 상품 가격 -->
                      	<div class="products-box-detail-price border-btm-e1e1e1">
 							<span class="products-box-detail-postInfo-title">가격</span>
-							<span class="products-box-detail-price-figure">756,000</span> <span>원</span>
+							<span class="products-box-detail-price-figure">${product.group_price}</span> <span>원</span>
 						</div>
 						
 						<!-- 배송 정보 -->

@@ -14,12 +14,11 @@
 		  rel="stylesheet">
 </head>
 <body>
-
+	<%@ include file="include/header.jsp"%>
 	<!-- Product section-->
 	<section class="py-5">
 		<%@ include file="include/boardNav.jsp"%>
 
-		<form action="/catdog/qnaRegister" method="get">
 			<div id="wrap">
 				<h2>Q&A</h2>
 				
@@ -32,35 +31,15 @@
 						<th>답변상태</th>
 					</tr>
 					
-					<tr>
-						<td>1</td>
-						<td><a href="detail?bno=${qna.no}"> 코끼리 옷은 안파나요? </a></td>
-						<td>푸들이</td>
-						<td>2024/11/14</td>
-						<td><span class="badge">답변완료</span></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="detail?bno=${qna.no}"> 내용 </a></td>
-						<td>푸들이</td>
-						<td>2024/11/14</td>
-						<td><span class="badge">답변완료</span></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="detail?bno=${qna.no}"> 내용 </a></td>
-						<td>푸들이</td>
-						<td>2024/11/14</td>
-						<td><span class="badge">답변완료</span></td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><a href="detail?bno=${qna.no}"> 내용 </a></td>
-						<td>푸들이</td>
-						<td>2024/11/14</td>
-						<td><span>답변완료</span></td>
-					</tr>
-					
+					<c:forEach var="qna" items="${qnaList}">
+						<tr>
+							<td>${qna.qna_no}</td>
+							<td><a href="qnaDetail?qna_no=${qna.qna_no}"> ${qna.qna_content} </a></td>
+							<td>${qna.user_id}</td>
+							<td>${qna.qna_date}</td>
+							<td>${qna.qna_reply}</td> 
+						</tr>
+					</c:forEach>
 				</table>
 			
 			
@@ -79,13 +58,15 @@
 					</c:if>
 				</div>
 			
-			
+
+			<form action="qnaRegister" method="get">
 				<div class="qnaRegister-box">
 					<button type="submit" class="qnaRegister-button">글 작성</button>
 				</div>
+			</form>
 				
 				</div>
-	</form>
+
 	</section>
 	
 	

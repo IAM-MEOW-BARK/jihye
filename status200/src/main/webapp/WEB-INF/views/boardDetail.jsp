@@ -17,12 +17,12 @@
 		   		 		<tbody>
 		   		 			<tr>
 		   		 				<th scope="row">제목</th>
-		   		 				<td>${board.board_title}</td>
+		   		 				<td>${boardDetail.board_title}</td>
 		  		 			</tr>
 		  		 			<tr>
 		  		 				<td colspan="2" class="noticeDetail-bon">
 		  		 					<div class="detail">
-		  		 						<p>${board.board_content}</p>
+		  		 						<p>${boardDetail.board_content}</p>
 		  		 					</div>
 		  		 				</td>
 		   		 				

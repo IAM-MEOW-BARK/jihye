@@ -18,7 +18,6 @@
 	<section class="py-5">
 
 	<%@ include file="include/boardNav.jsp"%>
-			<form action="/catdog/qnaRegister" method="post">
 				<div id="wrap">
 					<h2>질문하기</h2>
 					<div id="editor">
@@ -27,6 +26,7 @@
 				</div>
 				
 				
+			<form action="qnaRegister" method="post">
 				<div class="register-box">
 						<button type="submit" class="submit-button">등록</button>
 						<button type="reset" class="reset-button">취소</button>

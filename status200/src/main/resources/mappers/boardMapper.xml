@@ -4,6 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.dong.boardMapper">
 
+	<!-- 상품 상세 정보 -->
+	<select id="productDetail" resultType="productDTO">
+		select *
+		from product 
+	</select>
+	
 	<!-- 공지사항 리스트 -->
 	<select id="boardList" resultType="NoticeDTO">
 		select *
@@ -12,14 +18,16 @@
 	 
 	<!-- 리뷰 리스트 -->
 	<select id="reviewList" resultType="ReviewDTO">
-		select *
-		from review
+		SELECT *
+		FROM review r
+		LEFT OUTER JOIN product p
+		ON (r.product_code = p.product_code)
 	</select>
 	
 	<!-- Q&A 리스트 -->
-	<select id="qnaList" resultType="QADTO">
+	<select id="qnaList" resultType="QNADTO">
 		select *
-		from qa
+		from qna
 	</select>
 	 
 	
@@ -52,30 +60,30 @@
 	</update>
 	
 	<!-- Q&A 상세 글 조회 -->
-	<select id="qnaDetail" parameterType="java.lang.Integer" resultType="QADTO">
+	<select id="qnaDetail" parameterType="java.lang.Integer" resultType="QNADTO">
 		select *
-		from qa
-		where qa_no = #{qa_no}
+		from qna
+		where qna_no = #{qna_no}
 	</select>
 	
 	<!-- Q&A 글 작성하는 SQL -->
-	<insert id="qnaRegister" parameterType="QADTO">
-		insert into qa(qa_no, product_group_id_fk2, user_id, qa_content, qa_secret, qa_date, qa_reply)
-		values (#{qa_no}, #{product_group_id_fk2}, #{user_id}, #{qa_content}, false, curdate(), #{qa_reply})		
+	<insert id="qnaRegister" parameterType="QNADTO">
+		insert into qna(qna_no, product_group_id_fk2, user_id, qna_content, qna_secret, qna_date, qna_reply)
+		values (#{qna_no}, #{product_group_id_fk2}, #{user_id}, #{qna_content}, false, curdate(), #{qna_reply})		
 	</insert>
 	
 	<!-- Q&A 글 수정하는 SQL -->
-	<update id="qnaUpdate" parameterType="QADTO">
-		update qa
+	<update id="qnaUpdate" parameterType="QNADTO">
+		update qna
 		set
-		qa_content=#{qa_content}, qa_secret=false , qa_date=curdate()
-		where qa_no = #{qa_no}
+		qa_content=#{qna_content}, qna_secret=false , qna_date=curdate()
+		where qa_no = #{qna_no}
 	</update>
 	
 	<!-- Q&A 글 삭제하는 SQL -->
 	<update id="qnaDelete" parameterType="java.lang.Integer">
-		delete from qa
-		where qa_no = #{qa_no}
+		delete from qna
+		where qa_no = #{qna_no}
 	</update>
 	
 

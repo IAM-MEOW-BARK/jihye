@@ -75,7 +75,7 @@ public interface CatDogDAO {
     
     
     // 상품 상세정보
-    public List<ProductGroupDTO> productDetail();
+    public List<ProductDTO> productDetail();
     
     // 카테고리별 리스트
     
@@ -86,7 +86,7 @@ public interface CatDogDAO {
     public List<ReviewDTO> reviewList();
     
     // Q&A 게시판 리스트
-    public List<QADTO> qnaList();
+    public List<QNADTO> qnaList();
     
     // 공지사항 상세보기, 조회수
     public NoticeDTO boardDetail(int board_no);
@@ -97,15 +97,15 @@ public interface CatDogDAO {
     public int reviewUpdateReadCnt(int review_no);
     
     // Q&A 상세보기, 조회수
-    public QADTO qnaDetail(int qa_no);
+    public QNADTO qnaDetail(int qna_no);
     
     // Q&A 글 작성 
-    public int qnaRegister(QADTO qaDTO);
+    public int qnaRegister(QNADTO qnaDTO);
     
     // Q&A 글 수정
-    public int qnaUpdate(QADTO qaDTO);
+    public int qnaUpdate(QNADTO qnaDTO);
     
     // Q&A 글 삭제
-    public int qnaDelete(int qa_no);
+    public int qnaDelete(int qna_no);
     
 }

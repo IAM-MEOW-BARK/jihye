@@ -13,24 +13,24 @@
 <%@ include file="include/header.jsp"%>
 	<section class="py-5">
        	<%@ include file="include/boardNav.jsp"%>
-			<form action="/catdog/reviewList" method="get">
 		   		 <div class="reviewDetail-table">
 		   		 	<table border="1">
 		   		 		<tbody>
 		   		 			<tr>
-		   		 				<td>★★★★★</td>
-		   		 				<td><img src="https://img.dogpre.com/mobile/dogpre/product/101/100326_list_L1_01056064.jpg"></td>
-		   		 				<td>판다가 키우고 싶어서 대신 옷을 샀어요!</td>
-		   		 				<td>코끼리</td>
-		   		 				<td>2024/11/18</td>
-		   		 				<td>94</td>
+		   		 				<td>${reviewDetail.review_score}</td>
+		   		 				<td>${reviewDetail.review_img}</td>
+		   		 				<td>${reviewDetail.review_content}</td>
+		   		 				<td>${reviewDetail.user_id}</td>
+		   		 				<td>${reviewDetail.review_date}</td>
+		   		 				<td>${reviewDetail.review_readcnt}</td>
 		  		 			</tr>
 		   		 		</tbody>
 		   		 	</table>
 		   		 </div>
 		   		 
+			<form action="reviewList" method="get">
 		   		 <div class="allView-box">
-						<button type="button" class="allView-button">전체보기</button>
+						<button type="submit" class="allView-button">전체보기</button>
 		         </div>
          </form>
  	</section>
