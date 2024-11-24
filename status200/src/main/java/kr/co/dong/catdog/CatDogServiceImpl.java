@@ -33,28 +33,51 @@ public class CatDogServiceImpl implements CatDogService {
 	}
 
 	@Override
-	public List<NoticeDTO> boardList() {
+	public List<NoticeDTO> noticeList(int start, int pageSize) {
 		// TODO Auto-generated method stub
-		System.out.println("boardList() 호출됨");
-		return catDogDAO.boardList();
+		return catDogDAO.noticeList(start, pageSize);
 	}
 
 	@Override
-	public List<ReviewDTO> reviewList() {
+	public List<ReviewDTO> reviewList(int start, int pageSize) {
 		// TODO Auto-generated method stub
-		return catDogDAO.reviewList();
+		return catDogDAO.reviewList(start, pageSize);
 	}
 
 	@Override
-	public List<QNADTO> qnaList() {
+	public List<QnaDTO> qnaList(int start, int pageSize) {
 		// TODO Auto-generated method stub
-		return catDogDAO.qnaList();
+		return catDogDAO.qnaList(start, pageSize);
+	}
+	
+	@Override
+	public List<FaqDTO> faqList(int start, int pageSize) {
+		// TODO Auto-generated method stub
+		return catDogDAO.faqList(start, pageSize);
 	}
 
 	@Override
-	public NoticeDTO boardDetail(int board_no) {
+	public int reviewTotalPost() {
 		// TODO Auto-generated method stub
-		return catDogDAO.boardDetail(board_no);
+		return catDogDAO.reviewTotalPost();
+	}
+
+	@Override
+	public int qnaTotalPost() {
+		// TODO Auto-generated method stub
+		return catDogDAO.qnaTotalPost();
+	}
+
+	@Override
+	public int faqTotalPost() {
+		// TODO Auto-generated method stub
+		return catDogDAO.faqTotalPost();
+	}
+
+	@Override
+	public NoticeDTO noticeDetail(int board_no) {
+		// TODO Auto-generated method stub
+		return catDogDAO.noticeDetail(board_no);
 	}
 
 	@Override
@@ -64,19 +87,37 @@ public class CatDogServiceImpl implements CatDogService {
 	}
 
 	@Override
-	public QNADTO qnaDetail(int qna_no) {
+	public QnaDTO qnaDetail(int qna_no) {
 		// TODO Auto-generated method stub
 		return catDogDAO.qnaDetail(qna_no);
 	}
+	
+	@Override
+	public int noticeRegister(NoticeDTO noticeDTO) {
+		// TODO Auto-generated method stub
+		return catDogDAO.noticeRegister(noticeDTO);
+	}
 
 	@Override
-	public int qnaRegister(QNADTO qnaDTO) {
+	public int noticeUpdate(NoticeDTO noticeDTO) {
+		// TODO Auto-generated method stub
+		return catDogDAO.noticeUpdate(noticeDTO);
+	}
+
+	@Override
+	public int noticeDelete(int notice_no) {
+		// TODO Auto-generated method stub
+		return catDogDAO.noticeDelete(notice_no);
+	}
+
+	@Override
+	public int qnaRegister(QnaDTO qnaDTO) {
 		// TODO Auto-generated method stub
 		return catDogDAO.qnaRegister(qnaDTO);
 	}
 
 	@Override
-	public int qnaUpdate(QNADTO qnaDTO) {
+	public int qnaUpdate(QnaDTO qnaDTO) {
 		// TODO Auto-generated method stub
 		return catDogDAO.qnaUpdate(qnaDTO);
 	}
@@ -88,9 +129,9 @@ public class CatDogServiceImpl implements CatDogService {
 	}
 
 	@Override
-	public int boardUpdateReadCnt(int board_no) {
+	public int noticeUpdateReadCnt(int board_no) {
 		// TODO Auto-generated method stub
-		return catDogDAO.boardUpdateReadCnt(board_no);
+		return catDogDAO.noticeUpdateReadCnt(board_no);
 	}
 
 	@Override
@@ -98,5 +139,17 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.reviewUpdateReadCnt(review_no);
 	}
+
+	@Override
+	public int noticeTotalPost() {
+		// TODO Auto-generated method stub
+		return catDogDAO.noticeTotalPost();
+	}
+
+
+	
+
+
+
 
 }

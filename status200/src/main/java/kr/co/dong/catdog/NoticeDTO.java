@@ -1,46 +1,55 @@
 package kr.co.dong.catdog;
 
 public class NoticeDTO {
-	private int board_no;
-	private String board_title;
-	private String board_content;
-	private String board_date;
-	private int board_readcnt;
+	private int notice_no;
+	private String notice_title;
+	private String notice_content;
+	private String notice_date;
+	private int notice_readcnt;
+	private int admin_pwd;
 	
-	public int getBoard_no() {
-		return board_no;
+	public int getNotice_no() {
+		return notice_no;
 	}
-	public void setBoard_no(int board_no) {
-		this.board_no = board_no;
+	public void setNotice_no(int notice_no) {
+		this.notice_no = notice_no;
 	}
-	public String getBoard_title() {
-		return board_title;
+	public String getNotice_title() {
+		return notice_title;
 	}
-	public void setBoard_title(String board_title) {
-		this.board_title = board_title;
+	public void setNotice_title(String notice_title) {
+		this.notice_title = notice_title;
 	}
-	public String getBoard_content() {
-		return board_content;
+	public String getNotice_content() {
+		return notice_content;
 	}
-	public void setBoard_content(String board_content) {
-		this.board_content = board_content;
+	public void setNotice_content(String notice_content) {
+		this.notice_content = notice_content;
 	}
-	public String getBoard_date() {
-		return board_date;
+	public String getNotice_date() {
+		return notice_date;
 	}
-	public void setBoard_date(String board_date) {
-		this.board_date = board_date;
+	public void setNotice_date(String notice_date) {
+		this.notice_date = notice_date;
 	}
-	public int getBoard_readcnt() {
-		return board_readcnt;
+	public int getNotice_readcnt() {
+		return notice_readcnt;
 	}
-	public void setBoard_readcnt(int board_readcnt) {
-		this.board_readcnt = board_readcnt;
+	public void setNotice_readcnt(int notice_readcnt) {
+		this.notice_readcnt = notice_readcnt;
 	}
+	public int getAdmin_pwd() {
+		return admin_pwd;
+	}
+	public void setAdmin_pwd(int admin_pwd) {
+		this.admin_pwd = admin_pwd;
+	}
+	
 	@Override
 	public String toString() {
-		return "BoardDTO [board_no=" + board_no + ", board_title=" + board_title + ", board_content=" + board_content
-				+ ", board_date=" + board_date + ", board_readcnt=" + board_readcnt + "]";
+		return "NoticeDTO [notice_no=" + notice_no + ", notice_title=" + notice_title + ", notice_content="
+				+ notice_content + ", notice_date=" + notice_date + ", notice_readcnt=" + notice_readcnt
+				+ ", admin_pwd=" + admin_pwd + "]";
 	}
 	
 	

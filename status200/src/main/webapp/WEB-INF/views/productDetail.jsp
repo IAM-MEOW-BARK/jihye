@@ -34,11 +34,11 @@
                         <h1 class="display-7 fw-bolder">${product.product_name}</h1> &nbsp;
 
 						<!--  찜하기 버튼 -->
-                    	<div class="col">
-                    		<i id="heartBox" onclick="toggleLike()" class="fs-3 text-danger bi bi-heart"></i>
-                    		<input type="hidden" name="product_id" value="${productDetail.productDto.id}">
-							<input type="hidden" name="customer_id" value="${sessionUser.id}">                    		
-                    	</div> <br><br>
+                    	
+                    	
+                    	
+                    	
+                    	
                 		
                      	<!-- 상품 가격 -->
                      	<div class="products-box-detail-price border-btm-e1e1e1">

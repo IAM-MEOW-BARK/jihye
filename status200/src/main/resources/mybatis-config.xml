@@ -6,7 +6,8 @@
  	<typeAliases>
  		<typeAlias alias="NoticeDTO" type="kr.co.dong.catdog.NoticeDTO"/>
  		<typeAlias alias="ReviewDTO" type="kr.co.dong.catdog.ReviewDTO"/>
- 		<typeAlias alias="QNADTO" type="kr.co.dong.catdog.QNADTO"/>
+ 		<typeAlias alias="QnaDTO" type="kr.co.dong.catdog.QnaDTO"/>
+ 		<typeAlias alias="FaqDTO" type="kr.co.dong.catdog.FaqDTO"/>
  		<typeAlias alias="ProductDTO" type="kr.co.dong.catdog.ProductDTO"/>
  	</typeAliases>
  </configuration>

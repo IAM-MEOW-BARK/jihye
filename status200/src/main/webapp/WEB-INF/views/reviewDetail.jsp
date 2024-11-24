@@ -12,7 +12,7 @@
 <body>
 <%@ include file="include/header.jsp"%>
 	<section class="py-5">
-       	<%@ include file="include/boardNav.jsp"%>
+       	<%@ include file="include/board_nav.jsp"%>
 		   		 <div class="reviewDetail-table">
 		   		 	<table border="1">
 		   		 		<tbody>

@@ -1,93 +1,49 @@
-nav.topmenu {
-    display: flex;
-    justify-content: center; 
-    padding: 11px;
-    
-    vertical-align: middle;
-    font-weight: 400;
-    
-}
 
-nav.topmenu ul {
-    list-style: none; 
-    display: flex;
-    padding: 0;
-    margin: 0;
-}
 
-nav.topmenu li {
-    margin: 0 10px; 
-    font-size: 13px; 
-}
 
-nav.topmenu a {
-    text-decoration: none; 
-    color: black; 
+ nav.middlemenu ul {
+		    list-style: none; 
+		    display: flex;
+		    padding: 0;
+		    margin: 0;
+		}
 	
-}
-
-
-nav.topmenu a.link {    
-    color: black; 
-   
-}
-
-nav.topmenu a.link :hover {    
-    color: #ff6600; 
-    font-weight: 1000;
-}
-
-
-nav.topmenu li:not(:last-child)::after {
-    content: "ㅣ"; 
-    margin-left: 10px;
-    color: #ccc; 
-}
-
-nav.middlemenu ul {
-    list-style: none; 
-    display: flex;
-    padding: 0;
-    margin: 0;
-}
-
-nav.middlemenu li {
-    margin: 0 10px; 
-    font-size: 13px; 
-}
-
-nav.middlemenu a {
-    text-decoration: none; 
-    color: black; 
-}
-
-.middlemenu {
-	margin-top: 30px;
-	margin-bottom: 30px;
-}
-
-.middlemenu li{
-	border: 1px solid #ff6600;
-	background-color: white;
-	border-radius: 4px;
-	padding: 0px 2px;
-	color: #ff6600;
-	font-size: 11px;
-	font-weight: 400;
-	box-shadow: none;
-	box-sizing: border-box; /* Ensure border and padding are included in size */
-    line-height: 1; /* Adjust line height if needed */
-}
-
-.middlemenu li:hover {
-    background-color: #ff6600;
-}
-
-.middlemenu li:hover a {
-    color: #ffffff !important;
-	transition: none;
-}
-
+	nav.middlemenu li {
+	    margin: 0 10px; 
+	    font-size: 13px; 
+	}
+	
+	nav.middlemenu a {
+	    text-decoration: none; 
+	    color: black; 
+	}
+	
+	.middlemenu {
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
+	
+	.middlemenu li{
+		border: 1px solid #ff6600;
+		background-color: white;
+		border-radius: 4px;
+		padding: 0px 2px;
+		color: #ff6600;
+		font-size: 11px;
+		font-weight: 400;
+		box-shadow: none;
+		box-sizing: border-box; /* Ensure border and padding are included in size */
+	    line-height: 1; /* Adjust line height if needed */
+	}
+	
+	.middlemenu li:hover {
+	    background-color: #ff6600;
+	}
+	
+	.middlemenu li:hover a {
+	    color: #ffffff !important;
+		transition: none;
+	}
 h2 {
   margin-top: 80px;
   margin-bottom: 25px;
@@ -210,8 +166,6 @@ a:hover{
     display: flex; 
     gap: 20px; 
 }
-
-
 .notice-table th:nth-child(2), .notice-table td:nth-child(2) {
     width: 600px; 
     word-wrap: break-word; 

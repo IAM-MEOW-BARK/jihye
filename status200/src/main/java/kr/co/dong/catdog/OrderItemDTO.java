@@ -8,6 +8,7 @@ public class OrderItemDTO {
 	private int order_status;
 	private int order_return;
 	private int product_price;
+	
 	public int getOrder_item_id() {
 		return order_item_id;
 	}

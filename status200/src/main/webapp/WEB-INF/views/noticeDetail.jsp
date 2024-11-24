@@ -28,6 +28,7 @@
         table th, table td {
             border: 1px solid #ccc;
             padding: 10px;
+            
             font-size: 13px;
         }
 
@@ -46,31 +47,18 @@
             text-align: left;
         }
         
-		 /* 특정 셀 스타일 */
-        .content-cell {
-            height: 500px; /* 원하는 높이 */
-            
-        }
-		.reply-label {
-            display: inline-block;
-            padding: 5px 10px;;
-            background-color: #ff6600;
-            color: white;
-            border-radius: 4px;
-            margin: 10px 5px;
-            font-size: 11px;
-        }
-        .reply-content {
-            margin-top: 5px;
-            color: #333;
-        }
+      	tbody {
+	        height: 500px; /* 원하는 높이 설정 */
+	        
+	    }
+
         /* 버튼 스타일 */
         .button-container {
             text-align: center;
             margin-top: 20px;
         }
 
-        .qnaList {
+        .noticeList {
             padding: 8px 17px;
             border: 1px solid #ff6600;
             background-color: #ffffff;
@@ -81,10 +69,10 @@
             font-size: 11px;
         }
 
-        .qnaList:hover {
+        .noticeList:hover {
             background-color: #ff6600;
             color: #ffffff;
-            
+            text-decoration: none;
         }
     </style>
 </head>
@@ -92,49 +80,25 @@
 	<%@ include file="include/board_nav.jsp"%>
 
     <div class="container">
-        <!-- Q&A 상세 테이블 -->
+        <!-- 공지사항 상세 테이블 -->
         <table>
             <thead>
                 <tr>
-                    <th>상품명</th>
-                    <td>${qnaDetail.product_name}</td>
+                    <th>제목</th>
+                    <td>${noticeDetail.notice_title}</td>
                 </tr>
             </thead>
             <tbody>
-             	<tr>
-                    <th>작성자</th>
-                    <td>${qnaDetail.user_id}</td>
-                </tr>
                 <tr>
-                    <th>작성일</th>
-                    <td>${qnaDetail.qna_date}</td>
-                </tr>
-                <tr class="content-cell">
                     <th>내용</th>
-                    <td>${qnaDetail.qna_content}
-                    	 <!-- 답변 표시 (조건부) -->
-                        <c:if test="${qnaDetail.qna_reply != null && !qnaDetail.qna_reply.isEmpty()}">
-                            <div class="reply-container">
-                                <span class="reply-arrow">↳</span>
-                                <span class="reply-label">답변</span>
-                                <span class="reply-content">${qnaDetail.qna_reply}</span>
-                            </div>
-                        </c:if>
-                    
-                    </td>
+                    <td>${noticeDetail.notice_content}</td>
                 </tr>
-              <!--  
-              	<tr>
-                    <th>답변</th>
-                    <td>${qnaDetail.qna_reply}</td>
-                </tr>
-               -->   
             </tbody>
         </table>
 
         <!-- 전체보기 버튼 -->
         <div class="button-container">
-            <a href="qnaList" class="qnaList">전체보기</a>
+            <a href="noticeList" class="noticeList">전체보기</a>
         </div>
     </div>
 </body>

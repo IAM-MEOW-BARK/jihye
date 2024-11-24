@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>공지사항</title>
+    <title>FAQ</title>
     <style type="text/css">
         /* 전체 레이아웃 */
         body {
@@ -83,27 +83,27 @@
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <h2>공지글 작성</h2>
+        <h2>FAQ 작성</h2>
         
-        <form action="noticeRegister" method="post">
+        <form action="faqRegister" method="post">
         	<div class="line"></div>
         	 
-            <!-- 제목 -->
+            <!-- 질문 -->
             <div class="form-group">
-                <label for="title">제목</label>
-                <input type="text" id="notice_title" name="notice_title" placeholder="제목을 입력하세요.">
+                <label for="title">질문</label>
+                <input type="text" id="faq_content" name="faq_content" placeholder="제목을 입력하세요.">
             </div>
 
-            <!-- 내용 -->
+            <!-- 답변 -->
             <div class="form-group">
-                <label for="content">내용</label>
-                <textarea id="notice_content" name="notice_content" placeholder="내용을 입력하세요."></textarea>
+                <label for="content">답변</label>
+                <textarea id="faq_reply" name="faq_reply" placeholder="내용을 입력하세요."></textarea>
             </div>
 
             <!-- 비밀번호 -->
             <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" id="notice_pwd" name="admin_pwd" placeholder="비밀번호를 입력하세요.">
+                <input type="password" id="faq_pwd" name="admin_pwd" placeholder="비밀번호를 입력하세요.">
             </div>
             
             <div class="line"></div>

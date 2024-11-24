@@ -215,7 +215,7 @@
 						<div class="col">
 							<div class="product-item">
 								<figure>
-									<a href="index.html" title="Product Title"> <img src="${pageContext.request.contextPath}/resources/bootstrap/images/product-thumb-1.png" alt="Product Thumbnail" class="tab-image" />
+									<a href="productDetail" title="Product Title"> <img src="${pageContext.request.contextPath}/resources/bootstrap/images/product-thumb-1.png" alt="Product Thumbnail" class="tab-image" />
 									</a>
 								</figure>
 								<div class="d-flex flex-column text-center">

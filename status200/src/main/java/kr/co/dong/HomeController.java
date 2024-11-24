@@ -46,10 +46,3 @@ public class HomeController {
 	}
 	
 }
-
-
-
-
-
-
-

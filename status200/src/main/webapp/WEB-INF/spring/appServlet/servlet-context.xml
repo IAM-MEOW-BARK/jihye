@@ -35,15 +35,16 @@
 	<!-- 인터셉터를 위한 매핑경로설정하여 Auth의 메소드를 수행하게한다. -->
 	<interceptors>
 		<interceptor>
-			<mapping path="/catdog/boardList" />
+			<mapping path="/catdog/noticeList" />
 			<mapping path="/catdog/reviewList" />
 			<mapping path="/catdog/qnaList" />
-			<mapping path="/catdog/boardDetail" />
+			<mapping path="/catdog/noticeDetail" />
 			<mapping path="/catdog/reviewDetail" />
 			<mapping path="/catdog/qnaDetail" />
 			<mapping path="/catdog/qnaRegister" />
 			<mapping path="/catdog/qnaUpdate" />
 			<mapping path="/catdog/qnaDelete" />
+			
 			
 			<!-- 
 			<mapping path="/board/register" />

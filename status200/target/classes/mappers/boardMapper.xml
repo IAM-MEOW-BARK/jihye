@@ -8,41 +8,52 @@
 	<select id="productDetail" resultType="productDTO">
 		select *
 		from product 
+		where product_code = #{product_code}
 	</select>
 	
 	<!-- 공지사항 리스트 -->
-	<select id="boardList" resultType="NoticeDTO">
+	<select id="noticeList" parameterType="map" resultType="NoticeDTO">
 		select *
-		from board
+		from notice
+		order by notice_no desc
+       	limit #{start}, #{pageSize}
 	</select>
 	 
 	<!-- 리뷰 리스트 -->
-	<select id="reviewList" resultType="ReviewDTO">
-		SELECT *
-		FROM review r
-		LEFT OUTER JOIN product p
-		ON (r.product_code = p.product_code)
+	<select id="reviewList" parameterType="map" resultType="ReviewDTO">
+		select *
+		from review 
+		order by review_no desc
+       	limit #{start}, #{pageSize}
 	</select>
 	
 	<!-- Q&A 리스트 -->
-	<select id="qnaList" resultType="QNADTO">
+	<select id="qnaList" parameterType="map" resultType="QnaDTO">
 		select *
 		from qna
+		order by qna_no desc
+       	limit #{start}, #{pageSize}
 	</select>
 	 
+ 	<select id="faqList" parameterType="map" resultType="FaqDTO">
+		select *
+		from faq
+		order by faq_no desc
+       	limit #{start}, #{pageSize}
+	</select>
 	
 	<!-- 공지사항 상세 글 조회  -->
-	<select id="boardDetail" parameterType="java.lang.Integer" resultType="NoticeDTO">
+	<select id="noticeDetail" parameterType="java.lang.Integer" resultType="NoticeDTO">
 		select *
-		from board
-		where board_no = #{board_no}
+		from notice
+		where notice_no = #{notice_no}
 	</select>
 	
 	<!-- 공지사항 조회수 1 증가하는 SQL -->
-	<update id="boardUpdateReadCnt" parameterType="java.lang.Integer">
-		update board
-		set board_readcnt = board_readcnt + 1
-		where board_no = #{board_no}
+	<update id="noticeUpdateReadCnt" parameterType="java.lang.Integer">
+		update notice
+		set notice_readcnt = notice_readcnt + 1
+		where notice_no = #{notice_no}
 	</update>
 	
 	<!-- 리뷰 상세 글 조회 -->
@@ -60,20 +71,41 @@
 	</update>
 	
 	<!-- Q&A 상세 글 조회 -->
-	<select id="qnaDetail" parameterType="java.lang.Integer" resultType="QNADTO">
-		select *
-		from qna
-		where qna_no = #{qna_no}
+	<select id="qnaDetail" parameterType="java.lang.Integer" resultType="QnaDTO">
+		select q.*, p.product_name
+		from qna q left join product p on q.product_code_fk = p.product_code
+		where q.qna_no = #{qna_no}
 	</select>
 	
+	<!-- 공지사항 글 작성하는 SQL -->
+	<insert id="noticeRegister" parameterType="NoticeDTO">
+		insert into notice(notice_no, notice_title, notice_content, notice_date, notice_readcnt, admin_pwd)
+		values (#{notice_no}, #{notice_title}, #{notice_content}, curdate(), #{notice_readcnt}, #{admin_pwd})		
+	</insert>
+	
+	<!-- 공지사항 글 수정하는 SQL -->
+	<update id="noticeUpdate" parameterType="NoticeDTO">
+		update notice
+		set
+		notice_title=#{notice_title}, notice_content=#{notice_content}, qna_date=curdate()
+		where notice_no = #{notice_no}
+	</update>
+	
+	<!-- 공지사항 글 삭제하는 SQL -->
+	<update id="noticeDelete" parameterType="java.lang.Integer">
+		delete from notice
+		where notice_no = #{notice_no}
+	</update>
+	
+	
 	<!-- Q&A 글 작성하는 SQL -->
-	<insert id="qnaRegister" parameterType="QNADTO">
+	<insert id="qnaRegister" parameterType="QnaDTO">
 		insert into qna(qna_no, product_group_id_fk2, user_id, qna_content, qna_secret, qna_date, qna_reply)
 		values (#{qna_no}, #{product_group_id_fk2}, #{user_id}, #{qna_content}, false, curdate(), #{qna_reply})		
 	</insert>
 	
 	<!-- Q&A 글 수정하는 SQL -->
-	<update id="qnaUpdate" parameterType="QNADTO">
+	<update id="qnaUpdate" parameterType="QnaDTO">
 		update qna
 		set
 		qa_content=#{qna_content}, qna_secret=false , qna_date=curdate()
@@ -86,7 +118,25 @@
 		where qa_no = #{qna_no}
 	</update>
 	
-
+	<!-- 공지사항 페이징 -->
+	<select id="noticeTotalPost" resultType="java.lang.Integer">
+		select count(*) from notice;
+	</select>
+	
+	<!-- 리뷰 페이징 -->
+	<select id="reviewTotalPost" resultType="java.lang.Integer">
+		select count(*) from review;
+	</select>
+	
+	<!-- Q&A 페이징 -->
+	<select id="qnaTotalPost" resultType="java.lang.Integer">
+		select count(*) from qna;
+	</select>
+	
+	<select id="faqTotalPost" resultType="java.lang.Integer">
+		select count(*) from faq;
+	</select>
+	
 </mapper>
   
   

@@ -1,7 +1,6 @@
 package kr.co.dong.catdog;
 
-public class QNADTO {
-
+public class QnaDTO {
 	private int qna_no;
 	private int product_code_fk;
 	private String user_id;
@@ -9,6 +8,7 @@ public class QNADTO {
 	private boolean qna_secret;
 	private String qna_date;
 	private String qna_reply;
+	private String product_name;
 	
 	public int getQna_no() {
 		return qna_no;
@@ -52,13 +52,17 @@ public class QNADTO {
 	public void setQna_reply(String qna_reply) {
 		this.qna_reply = qna_reply;
 	}
-	@Override
-	public String toString() {
-		return "QNADTO [qna_no=" + qna_no + ", product_code_fk=" + product_code_fk + ", user_id=" + user_id
-				+ ", qna_content=" + qna_content + ", qna_secret=" + qna_secret + ", qna_date=" + qna_date
-				+ ", qna_reply=" + qna_reply + "]";
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "QnaDTO [qna_no=" + qna_no + ", product_code_fk=" + product_code_fk + ", user_id=" + user_id
+				+ ", qna_content=" + qna_content + ", qna_secret=" + qna_secret + ", qna_date=" + qna_date
+				+ ", qna_reply=" + qna_reply + ", product_name=" + product_name + "]";
+	}
 }

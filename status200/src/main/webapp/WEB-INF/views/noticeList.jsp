@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>리뷰 게시판</title>
+    <title>공지사항</title>
     <style>
         /* 전체 레이아웃 */
         body {
@@ -35,7 +35,7 @@
             font-weight: bold;
         }
 		table th:nth-child(1), table td:nth-child(1),
-		table th:nth-child(5), table td:nth-child(5) { 
+		table th:nth-child(4), table td:nth-child(4) { 
 		    width: 10%; 
 		}
 		table th:nth-child(2), table td:nth-child(2) { 
@@ -49,17 +49,16 @@
 			text-align: center;
 			}
 		
-		table th:nth-child(3), table td:nth-child(3),
-		table th:nth-child(4), table td:nth-child(4) { 
-		    width: 15%;
+		table th:nth-child(3), table td:nth-child(3) { 
+		    width: 20%;
 		}
-		a {
+		a{
 			text-decoration: none; /* 공통적으로 필요한 경우 */
 	        color: inherit;
 		}
 		.pagination-container {
             display: flex;
-            justify-content: center; /* 양쪽 정렬 */
+            justify-content: space-between; /* 양쪽 정렬 */
             align-items: center; /* 세로 정렬 */
             margin: 20px 0;
         }
@@ -77,35 +76,46 @@
 	        color: #ff6600; 
 	        font-weight: bold; 
 	    }
-
+        .write_button {
+         	padding: 8px 17px;
+         	margin-right: 10px;
+            cursor: pointer;
+            font-size: 11px;
+            border: 1px solid #ff6600;
+            border-radius: 4px;
+            background-color: #ffffff;
+            color: #ff6600;
+            
+        }
+         .write_button:hover {
+        	
+            background-color: #ff6600;
+            color: #ffffff;
+        }  
     </style>
 </head>
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <!-- 리뷰글 리스트 테이블 -->
+        <!-- 공지글 리스트 테이블 -->
         <table>
             <thead>
                 <tr>
                     <th>NO</th>
-                    <th>제목/상품</th>
-                    <th>작성자</th>
+                    <th>제목</th>
                     <th>등록일</th>
                     <th>조회수</th>
                 </tr>
             </thead>
             <tbody>
-				<c:forEach var="review" items="${reviewList}">
-						<tr>
-							<td>${review.review_no}</td>
-							<td>${review.review_score}</td>
-							<td>${review.review_img}</td>
-							<td><a href="reviewDetail?review_no=${review.review_no}"> ${review.review_no}</a></td>
-							<td>${review.user_id}</td>
-							<td>${review.review_date}</td>
-							<td>${review.review_readcnt}</td>
-						</tr>
-				</c:forEach>		
+				<c:forEach var="notice" items="${noticeList}">
+					<tr>
+						<td>${notice.notice_no}</td>
+						<td><a href="noticeDetail?notice_no=${notice.notice_no}"> ${notice.notice_title} </a></td>
+						<td>${notice.notice_date}</td>
+						<td>${notice.notice_readcnt}</td>
+					</tr>
+				</c:forEach>
             </tbody>
         </table>
         
@@ -125,6 +135,8 @@
                 </c:if>
             </div>
             
+            <!-- 글쓰기 버튼 -->
+            <a class="write_button" href="noticeRegister">글쓰기</a>
         </div>
     </div>
 </body>

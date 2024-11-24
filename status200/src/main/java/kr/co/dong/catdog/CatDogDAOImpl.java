@@ -1,5 +1,6 @@
 package kr.co.dong.catdog;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -148,28 +149,68 @@ public class CatDogDAOImpl implements CatDogDAO{
 	}
 
 	@Override
-	public List<NoticeDTO> boardList() {
+	public List<NoticeDTO> noticeList(int start, int pageSize) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("start", start);
+	    map.put("pageSize", pageSize);
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".boardList");
+		return sqlSession.selectList(namespace+".noticeList", map);
 	}
 
 	
 	@Override
-	public List<ReviewDTO> reviewList() {
+	public List<ReviewDTO> reviewList(int start, int pageSize) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("start", start);
+	    map.put("pageSize", pageSize);
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".reviewList");
+		return sqlSession.selectList(namespace+".reviewList", map);
 	}
 
 	@Override
-	public List<QNADTO> qnaList() {
+	public List<QnaDTO> qnaList(int start, int pageSize) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("start", start);
+	    map.put("pageSize", pageSize);
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace+".qnaList");
+		return sqlSession.selectList(namespace+".qnaList", map);
+	}
+	
+	@Override
+	public List<FaqDTO> faqList(int start, int pageSize) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("start", start);
+	    map.put("pageSize", pageSize);
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".faqList", map);
+	}
+	@Override
+	public int noticeTotalPost() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".noticeTotalPost");
 	}
 
 	@Override
-	public NoticeDTO boardDetail(int board_no) {
+	public int reviewTotalPost() {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".boardDetail", board_no);
+		return sqlSession.selectOne(namespace+".reviewTotalPost");
+	}
+
+	@Override
+	public int qnaTotalPost() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".qnaTotalPost");
+	}
+
+	@Override
+	public int faqTotalPost() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".faqTotalPost");
+	}
+	@Override
+	public NoticeDTO noticeDetail(int board_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".noticeDetail", board_no);
 	}
 
 	@Override
@@ -179,19 +220,37 @@ public class CatDogDAOImpl implements CatDogDAO{
 	}
 
 	@Override
-	public QNADTO qnaDetail(int qna_no) {
+	public QnaDTO qnaDetail(int qna_no) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".qnaDetail", qna_no);
 	}
 
 	@Override
-	public int qnaRegister(QNADTO qnaDTO) {
+	public int noticeRegister(NoticeDTO noticeDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(namespace + ".noticeRegister", noticeDTO);
+	}
+	
+	@Override
+	public int noticeUpdate(NoticeDTO noticeDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".noticeUpdate", noticeDTO);
+	}
+	
+	@Override
+	public int noticeDelete(int notice_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace+".noticeDelete", notice_no);
+	}
+	
+	@Override
+	public int qnaRegister(QnaDTO qnaDTO) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert(namespace+".qnaRegister", qnaDTO);
 	}
 
 	@Override
-	public int qnaUpdate(QNADTO qnaDTO) {
+	public int qnaUpdate(QnaDTO qnaDTO) {
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".qnaUpdate", qnaDTO);
 	}
@@ -203,9 +262,9 @@ public class CatDogDAOImpl implements CatDogDAO{
 	}
 
 	@Override
-	public int boardUpdateReadCnt(int board_no) {
+	public int noticeUpdateReadCnt(int board_no) {
 		// TODO Auto-generated method stub
-		return sqlSession.update(namespace+".boardUpdateReadCnt", board_no);
+		return sqlSession.update(namespace+".noticeUpdateReadCnt", board_no);
 	}
 
 	@Override
@@ -213,5 +272,7 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
+
+
 
 }
