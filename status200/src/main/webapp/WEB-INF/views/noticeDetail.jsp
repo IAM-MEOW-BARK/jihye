@@ -58,7 +58,7 @@
             margin-top: 20px;
         }
 
-        .noticeList {
+        .noticeList, .noticeUpdate, .noticeDelete {
             padding: 8px 17px;
             border: 1px solid #ff6600;
             background-color: #ffffff;
@@ -69,7 +69,7 @@
             font-size: 11px;
         }
 
-        .noticeList:hover {
+        .noticeList:hover, .noticeUpdate:hover, .noticeDelete:hover {
             background-color: #ff6600;
             color: #ffffff;
             text-decoration: none;
@@ -98,7 +98,9 @@
 
         <!-- 전체보기 버튼 -->
         <div class="button-container">
-            <a href="noticeList" class="noticeList">전체보기</a>
+            <a href="noticeList" class="noticeList">목록</a>
+            <a href="noticeUpdate?notice_no=${noticeDetail.notice_no}" class="noticeUpdate">수정</a>
+            <a href="noticeDelete?notice_no=${noticeDetail.notice_no }" class="noticeDelete">삭제</a>
         </div>
     </div>
 </body>

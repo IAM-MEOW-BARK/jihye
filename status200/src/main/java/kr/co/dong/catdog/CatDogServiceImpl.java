@@ -55,7 +55,11 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.faqList(start, pageSize);
 	}
-
+	@Override
+	public int noticeTotalPost() {
+		// TODO Auto-generated method stub
+		return catDogDAO.noticeTotalPost();
+	}
 	@Override
 	public int reviewTotalPost() {
 		// TODO Auto-generated method stub
@@ -75,9 +79,9 @@ public class CatDogServiceImpl implements CatDogService {
 	}
 
 	@Override
-	public NoticeDTO noticeDetail(int board_no) {
+	public NoticeDTO noticeDetail(int notice_no) {
 		// TODO Auto-generated method stub
-		return catDogDAO.noticeDetail(board_no);
+		return catDogDAO.noticeDetail(notice_no);
 	}
 
 	@Override
@@ -127,11 +131,17 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.qnaDelete(qna_no);
 	}
+	@Override
+	public int faqRegister(FaqDTO faqDTO) {
+		// TODO Auto-generated method stub
+		return catDogDAO.faqRegister(faqDTO);
+	}
+
 
 	@Override
-	public int noticeUpdateReadCnt(int board_no) {
+	public int noticeUpdateReadCnt(int notice_no) {
 		// TODO Auto-generated method stub
-		return catDogDAO.noticeUpdateReadCnt(board_no);
+		return catDogDAO.noticeUpdateReadCnt(notice_no);
 	}
 
 	@Override
@@ -139,17 +149,6 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.reviewUpdateReadCnt(review_no);
 	}
-
-	@Override
-	public int noticeTotalPost() {
-		// TODO Auto-generated method stub
-		return catDogDAO.noticeTotalPost();
-	}
-
-
-	
-
-
 
 
 }

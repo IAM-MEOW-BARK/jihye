@@ -35,32 +35,20 @@
             font-weight: bold;
         }
 		table th:nth-child(1), table td:nth-child(1),
-		table th:nth-child(5), table td:nth-child(5) { 
-		    width: 10%; 
+		table th:nth-child(7), table td:nth-child(7) { 
+		    width: 5%; 
 		}
-		table th:nth-child(2), table td:nth-child(2) { 
-		    width: 50%;
-		    white-space: nowrap;
-		    overflow: hidden; 
-		    text-overflow: ellipsis; 
-		    text-align: left;
-		}
-		table th:nth-child(2) {
-			text-align: center;
-			}
-		
-		table th:nth-child(3), table td:nth-child(3),
-		table th:nth-child(4), table td:nth-child(4) { 
-		    width: 15%;
+		table th:nth-child(4), table td:nth-child(4) {
+		    width: 40%; 
 		}
 		a {
-			text-decoration: none; /* 공통적으로 필요한 경우 */
+			text-decoration: none;
 	        color: inherit;
 		}
 		.pagination-container {
             display: flex;
-            justify-content: center; /* 양쪽 정렬 */
-            align-items: center; /* 세로 정렬 */
+            justify-content: center; 
+            align-items: center; 
             margin: 20px 0;
         }
         .pagination {
@@ -88,6 +76,8 @@
             <thead>
                 <tr>
                     <th>NO</th>
+                    <th>별점</th>
+                    <th>사진</th>
                     <th>제목/상품</th>
                     <th>작성자</th>
                     <th>등록일</th>
@@ -100,7 +90,7 @@
 							<td>${review.review_no}</td>
 							<td>${review.review_score}</td>
 							<td>${review.review_img}</td>
-							<td><a href="reviewDetail?review_no=${review.review_no}"> ${review.review_no}</a></td>
+							<td><a href="reviewDetail?review_no=${review.review_no}"> ${review.product_name}</a></td>
 							<td>${review.user_id}</td>
 							<td>${review.review_date}</td>
 							<td>${review.review_readcnt}</td>
@@ -114,14 +104,14 @@
             <!-- 페이징 처리 -->
             <div class="pagination">
                 <c:if test="${startPage > 1}">
-                    <a href="noticeList?pageNum=${startPage - 1}&pageListNum=${pageListNum-1}">&lt;</a>
+                    <a href="reviewList?pageNum=${startPage - 1}&pageListNum=${pageListNum-1}">&lt;</a>
                 </c:if>
                 <c:forEach begin="${startPage}" end="${endPage}" var="page">
-                    <a href="noticeList?pageNum=${page}&pageListNum=${pageListNum}" 
+                    <a href="reviewList?pageNum=${page}&pageListNum=${pageListNum}" 
                        class="${currentPage == page ? 'active' : ''}">${page}</a>
                 </c:forEach>
                 <c:if test="${endPage  < totalPage}">
-                    <a href="noticeList?pageNum=${endPage + 1}&pageListNum=${pageListNum+1}">&gt;</a>
+                    <a href="reviewList?pageNum=${endPage + 1}&pageListNum=${pageListNum+1}">&gt;</a>
                 </c:if>
             </div>
             

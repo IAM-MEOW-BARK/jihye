@@ -73,9 +73,7 @@
 		    white-space: nowrap;
 		    overflow: hidden; 
 		    padding-left: 30px;
-		    text-align: left;
 		    text-overflow: ellipsis; 
-		   
 		}
         
         .faq-click {
@@ -89,6 +87,7 @@
         }
         .active-content {
             display: table-row;
+            text-align: left;
         }
 
         /* 페이징 및 버튼 스타일 */
@@ -159,7 +158,7 @@
                     <tr class="faq-click">
                         <td>${faq.faq_no}</td>
                         <td>${faq.faq_division}</td>
-                        <td>${faq.faq_content}</td>
+                        <td>${faq.faq_question}</td>
                     </tr>
                     <!-- 답변 -->
                     <tr class="accordion-content">

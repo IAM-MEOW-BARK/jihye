@@ -208,9 +208,9 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.selectOne(namespace+".faqTotalPost");
 	}
 	@Override
-	public NoticeDTO noticeDetail(int board_no) {
+	public NoticeDTO noticeDetail(int notice_no) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".noticeDetail", board_no);
+		return sqlSession.selectOne(namespace+".noticeDetail", notice_no);
 	}
 
 	@Override
@@ -260,19 +260,21 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.delete(namespace+".qnaDelete", qna_no);
 	}
-
 	@Override
-	public int noticeUpdateReadCnt(int board_no) {
+	public int faqRegister(FaqDTO faqDTO) {
 		// TODO Auto-generated method stub
-		return sqlSession.update(namespace+".noticeUpdateReadCnt", board_no);
+		return sqlSession.insert(namespace+".faqRegister", faqDTO);
 	}
 
+	
+	@Override
+	public int noticeUpdateReadCnt(int notice_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".noticeUpdateReadCnt", notice_no);
+	}
 	@Override
 	public int reviewUpdateReadCnt(int review_no) {
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
-
-
-
 }

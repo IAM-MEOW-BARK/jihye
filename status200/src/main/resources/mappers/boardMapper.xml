@@ -21,8 +21,9 @@
 	 
 	<!-- 리뷰 리스트 -->
 	<select id="reviewList" parameterType="map" resultType="ReviewDTO">
-		select *
-		from review 
+		select r.*, p.product_name
+		from review r left join product p on r.product_code = p.product_code
+		
 		order by review_no desc
        	limit #{start}, #{pageSize}
 	</select>
@@ -35,6 +36,7 @@
        	limit #{start}, #{pageSize}
 	</select>
 	 
+	<!-- FAQ 리스트 -->
  	<select id="faqList" parameterType="map" resultType="FaqDTO">
 		select *
 		from faq
@@ -58,8 +60,8 @@
 	
 	<!-- 리뷰 상세 글 조회 -->
 	<select id="reviewDetail" parameterType="java.lang.Integer" resultType="ReviewDTO">
-		select *
-		from review
+		select r.*, p.product_name
+		from review r left join product p on r.product_code = p.product_code
 		where review_no = #{review_no}
 	</select>
 	
@@ -86,8 +88,7 @@
 	<!-- 공지사항 글 수정하는 SQL -->
 	<update id="noticeUpdate" parameterType="NoticeDTO">
 		update notice
-		set
-		notice_title=#{notice_title}, notice_content=#{notice_content}, qna_date=curdate()
+		set notice_title = #{notice_title}, notice_content = #{notice_content}, admin_pwd = #{admin_pwd}
 		where notice_no = #{notice_no}
 	</update>
 	
@@ -107,15 +108,14 @@
 	<!-- Q&A 글 수정하는 SQL -->
 	<update id="qnaUpdate" parameterType="QnaDTO">
 		update qna
-		set
-		qa_content=#{qna_content}, qna_secret=false , qna_date=curdate()
-		where qa_no = #{qna_no}
+		set qna_content=#{qna_content}, qna_date=curdate()
+		where qna_no = #{qna_no}
 	</update>
 	
 	<!-- Q&A 글 삭제하는 SQL -->
 	<update id="qnaDelete" parameterType="java.lang.Integer">
 		delete from qna
-		where qa_no = #{qna_no}
+		where qna_no = #{qna_no}
 	</update>
 	
 	<!-- 공지사항 페이징 -->

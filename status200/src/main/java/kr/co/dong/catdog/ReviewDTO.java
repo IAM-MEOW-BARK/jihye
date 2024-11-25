@@ -11,6 +11,7 @@ public class ReviewDTO {
 	private String review_date;
 	private int review_readcnt;
 	private int order_status;
+	private String product_name;
 	
 	public int getReview_no() {
 		return review_no;
@@ -66,12 +67,18 @@ public class ReviewDTO {
 	public void setOrder_status(int order_status) {
 		this.order_status = order_status;
 	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
 	@Override
 	public String toString() {
 		return "ReviewDTO [review_no=" + review_no + ", product_code=" + product_code + ", user_id=" + user_id
 				+ ", review_score=" + review_score + ", review_img=" + review_img + ", review_content=" + review_content
 				+ ", review_date=" + review_date + ", review_readcnt=" + review_readcnt + ", order_status="
-				+ order_status + "]";
+				+ order_status + ", product_name=" + product_name + "]";
 	}
 	
 	

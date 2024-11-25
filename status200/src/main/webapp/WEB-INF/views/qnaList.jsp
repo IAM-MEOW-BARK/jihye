@@ -126,14 +126,14 @@
             <!-- 페이징 처리 -->
             <div class="pagination">
                 <c:if test="${startPage > 1}">
-                    <a href="noticeList?pageNum=${startPage - 1}&pageListNum=${pageListNum-1}">&lt;</a>
+                    <a href="qnaList?pageNum=${startPage - 1}&pageListNum=${pageListNum-1}">&lt;</a>
                 </c:if>
                 <c:forEach begin="${startPage}" end="${endPage}" var="page">
-                    <a href="noticeList?pageNum=${page}&pageListNum=${pageListNum}" 
+                    <a href="qnaList?pageNum=${page}&pageListNum=${pageListNum}" 
                        class="${currentPage == page ? 'active' : ''}">${page}</a>
                 </c:forEach>
                 <c:if test="${endPage  < totalPage}">
-                    <a href="noticeList?pageNum=${endPage + 1}&pageListNum=${pageListNum+1}">&gt;</a>
+                    <a href="qnaList?pageNum=${endPage + 1}&pageListNum=${pageListNum+1}">&gt;</a>
                 </c:if>
             </div>
             

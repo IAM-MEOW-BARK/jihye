@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>FAQ</title>
+    <title>공지사항</title>
     <style type="text/css">
         /* 전체 레이아웃 */
         body {
@@ -83,39 +83,34 @@
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <h2>FAQ 작성</h2>
+        <h2>공지글 작성</h2>
         
-        <form action="faqRegister" method="post">
+        <form action="noticeUpdate" method="post">
         	<div class="line"></div>
         	 
-        	 <div class="form-group">
-                <label for="title">구분</label>
-                <input type="text" id="faq_division" name="faq_division" placeholder="을 입력하세요.">
-            </div>
-            
-            <!-- 질문 -->
+            <!-- 제목 -->
             <div class="form-group">
-                <label for="title">질문</label>
-                <input type="text" id="faq_question" name="faq_question" placeholder="질문을 입력하세요.">
+                <label for="title">제목</label>
+                <input type="text" id="notice_title" name="notice_title" value="${noticeUpdate.notice_title}">
             </div>
 
-            <!-- 답변 -->
+            <!-- 내용 -->
             <div class="form-group">
-                <label for="content">답변</label>
-                <textarea id="faq_reply" name="faq_reply" placeholder="답변을 입력하세요."></textarea>
+                <label for="content">내용</label>
+                <textarea id="notice_content" name="notice_content">${noticeUpdate.notice_content}</textarea>
             </div>
 
             <!-- 비밀번호 -->
             <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" id="faq_pwd" name="admin_pwd" placeholder="비밀번호를 입력하세요.">
+                <input type="password" id="notice_pwd" name="admin_pwd" placeholder="비밀번호를 입력하세요.">
             </div>
             
             <div class="line"></div>
 
             <!-- 버튼 -->
             <div class="form-button">
-                <button type="submit">등록</button>
+                <button type="submit">수정</button>
                 <button type="reset">취소</button>
             </div>
         </form>

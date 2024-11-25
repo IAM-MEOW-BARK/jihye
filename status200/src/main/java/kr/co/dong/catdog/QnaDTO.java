@@ -8,6 +8,7 @@ public class QnaDTO {
 	private boolean qna_secret;
 	private String qna_date;
 	private String qna_reply;
+	private String qna_pwd;
 	private String product_name;
 	
 	public int getQna_no() {
@@ -59,10 +60,17 @@ public class QnaDTO {
 		this.product_name = product_name;
 	}
 	
+	public String getQna_pwd() {
+		return qna_pwd;
+	}
+	public void setQna_pwd(String qna_pwd) {
+		this.qna_pwd = qna_pwd;
+	}
 	@Override
 	public String toString() {
 		return "QnaDTO [qna_no=" + qna_no + ", product_code_fk=" + product_code_fk + ", user_id=" + user_id
 				+ ", qna_content=" + qna_content + ", qna_secret=" + qna_secret + ", qna_date=" + qna_date
-				+ ", qna_reply=" + qna_reply + ", product_name=" + product_name + "]";
+				+ ", qna_reply=" + qna_reply + ", qna_pwd=" + qna_pwd + ", product_name=" + product_name + "]";
 	}
+
 }

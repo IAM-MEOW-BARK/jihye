@@ -104,14 +104,14 @@ public interface CatDogDAO {
     public int faqTotalPost();
     
     // 공지사항 상세보기, 조회수
-    public NoticeDTO noticeDetail(int board_no);
-    public int noticeUpdateReadCnt(int board_no);
+    public NoticeDTO noticeDetail(int notice_no);
+    public int noticeUpdateReadCnt(int notice_no);
     
     // 리뷰 상세보기, 조회수
     public ReviewDTO reviewDetail(int review_no);
     public int reviewUpdateReadCnt(int review_no);
     
-    // Q&A 상세보기, 조회수
+    // Q&A 상세보기
     public QnaDTO qnaDetail(int qna_no);
     
     //공지사항 글 작성
@@ -132,6 +132,13 @@ public interface CatDogDAO {
     // Q&A 글 삭제
     public int qnaDelete(int qna_no);
     
+    // FAQ 글 작성 
+    public int faqRegister(FaqDTO faqDTO);
+    
+    // FAQ 글 수정
+    
+    
+    // FAQ 글 삭제
 
     
 }

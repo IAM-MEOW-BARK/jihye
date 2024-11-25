@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.co.dong.catdog.CatDogDAO;
 import kr.co.dong.catdog.NoticeDTO;
+import kr.co.dong.catdog.ReviewDTO;
 //현재 테스트 코드를 실행할 때 스프링이 로딩 되도록 하는 부분.
 @RunWith(SpringJUnit4ClassRunner.class)
 //속성 경로에 xml파일을 이용해 스프링이 로딩 된다.
@@ -26,6 +27,7 @@ public class BoardCreateTest {
 		
 		for(int i=1; i<100;i++) {
 			noticeDTO = new NoticeDTO();
+			
 			noticeDTO.setNotice_title("Test title[" + i + "]");
 			noticeDTO.setNotice_content("Test Content - " +i);
 			noticeDTO.setAdmin_pwd(1234);
