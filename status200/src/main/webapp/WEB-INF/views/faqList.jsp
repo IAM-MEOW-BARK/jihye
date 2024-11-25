@@ -83,11 +83,11 @@
             display: none;
             background-color: #f9f9f9;
             padding: 10px;
-            text-align: left;
+            
         }
         .active-content {
             display: table-row;
-            text-align: left;
+            
         }
 
         /* 페이징 및 버튼 스타일 */
@@ -133,12 +133,12 @@
     <!-- 네비게이션 메뉴 -->
     <nav class="division_nav">
         <ul>
-            <li><a href="#" class="active">전체</a></li>
-            <li><a href="#">회원서비스</a></li>
-            <li><a href="#">배송</a></li>
-            <li><a href="#">주문/결제</a></li>
-            <li><a href="#">반품/교환/취소</a></li>
-            <li><a href="#">기타</a></li>
+            <li><a href="faqList" class="${selectedDivision == null ? 'active' : ''}">전체</a></li>
+	        <li><a href="faqList?faq_division=1" class="${selectedDivision == 1 ? 'active' : ''}">회원서비스</a></li>
+	        <li><a href="faqList?faq_division=2" class="${selectedDivision == 2 ? 'active' : ''}">배송</a></li>
+	        <li><a href="faqList?faq_division=3" class="${selectedDivision == 3 ? 'active' : ''}">주문/결제</a></li>
+	        <li><a href="faqList?faq_division=4" class="${selectedDivision == 4 ? 'active' : ''}">반품/교환/취소</a></li>
+	        <li><a href="faqList?faq_division=5" class="${selectedDivision == 5 ? 'active' : ''}">기타</a></li>
         </ul>
     </nav>
 
@@ -157,12 +157,20 @@
                     <!-- 질문 -->
                     <tr class="faq-click">
                         <td>${faq.faq_no}</td>
-                        <td>${faq.faq_division}</td>
+                       <td>
+			                <c:choose>
+			                    <c:when test="${faq.faq_division == 1}">회원서비스</c:when>
+			                    <c:when test="${faq.faq_division == 2}">배송</c:when>
+			                    <c:when test="${faq.faq_division == 3}">주문/결제</c:when>
+			                    <c:when test="${faq.faq_division == 4}">반품/교환/취소</c:when>
+			                    <c:otherwise>기타</c:otherwise>
+			                </c:choose>
+			            </td>
                         <td>${faq.faq_question}</td>
                     </tr>
                     <!-- 답변 -->
                     <tr class="accordion-content">
-                        <td colspan="3">${faq.faq_reply}</td>
+                        <td colspan="3" style="text-align: left;">${faq.faq_reply}</td>
                     </tr>
                 </c:forEach>
             </tbody>

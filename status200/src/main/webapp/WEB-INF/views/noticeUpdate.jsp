@@ -86,8 +86,9 @@
         <h2>공지글 작성</h2>
         
         <form action="noticeUpdate" method="post">
+        	<input type="hidden" name="notice_no" value="${noticeUpdate.notice_no}">
         	<div class="line"></div>
-        	 
+        	 	
             <!-- 제목 -->
             <div class="form-group">
                 <label for="title">제목</label>

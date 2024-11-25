@@ -150,5 +150,17 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.reviewUpdateReadCnt(review_no);
 	}
 
+	@Override
+	public List<FaqDTO> faqListDivision(int start, int pageSize, int faq_division) {
+		// TODO Auto-generated method stub
+		return catDogDAO.faqListDivision(start, pageSize, faq_division);
+	}
+
+	@Override
+	public int faqTotalPostDivision(int faq_division) {
+		// TODO Auto-generated method stub
+		return catDogDAO.faqTotalPostDivision(faq_division);
+	}
+
 
 }

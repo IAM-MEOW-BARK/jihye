@@ -19,7 +19,7 @@
         }
         table {
             width: 100%;
-            border-collapse: collapse; /* 테두리를 하나로 합침 */
+            border-collapse: collapse;
             margin-bottom: 20px;
             table-layout: fixed;
         }
@@ -29,22 +29,34 @@
             padding: 10px;
             text-align: center;
             font-size: 13px;
+            width: 5%; 
         }
         table th {
             background-color: #feebe1;
             font-weight: bold;
         }
-		table th:nth-child(1), table td:nth-child(1),
-		table th:nth-child(7), table td:nth-child(7) { 
-		    width: 5%; 
+        table th:nth-child(2), table th:nth-child(3) {
+            background-color: #feebe1; 
+            color: transparent; 
+            width: 15%; 
+        }
+		table th:nth-child(3), table td:nth-child(3),
+		table th:nth-child(6), table td:nth-child(6) { 
+		    width: 5px; 
 		}
 		table th:nth-child(4), table td:nth-child(4) {
-		    width: 40%; 
+		    width: 30%; 
+		    text-align:left;
 		}
 		a {
 			text-decoration: none;
 	        color: inherit;
-		}
+		}   
+		.stars {
+		 display: inline-block;
+            font-size: 14px;
+            color: #ffa500; /* 별 색상 */
+        } 
 		.pagination-container {
             display: flex;
             justify-content: center; 
@@ -88,7 +100,20 @@
 				<c:forEach var="review" items="${reviewList}">
 						<tr>
 							<td>${review.review_no}</td>
-							<td>${review.review_score}</td>
+							<td>
+								<div class="stars">
+                                    <c:forEach begin="1" end="5" var="i">
+                                        <c:choose>
+                                            <c:when test="${i <= review.review_score}">
+                                                ★
+                                            </c:when>
+                                            <c:otherwise>
+                                                ☆
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </div>
+							</td>
 							<td>${review.review_img}</td>
 							<td><a href="reviewDetail?review_no=${review.review_no}"> ${review.product_name}</a></td>
 							<td>${review.user_id}</td>

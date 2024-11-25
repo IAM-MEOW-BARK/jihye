@@ -44,6 +44,21 @@
        	limit #{start}, #{pageSize}
 	</select>
 	
+	<select id="faqTotalPostDivision" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+	    SELECT COUNT(*) 
+	    FROM faq
+	    WHERE faq_division = #{faq_division}
+	</select>
+	
+	<select id="faqListDivision" parameterType="map" resultType="FaqDTO">
+	    SELECT *
+	    FROM faq
+	    WHERE faq_division = #{faq_division}
+	    ORDER BY faq_no DESC
+	    LIMIT #{start}, #{pageSize}
+	</select>
+	
+	
 	<!-- 공지사항 상세 글 조회  -->
 	<select id="noticeDetail" parameterType="java.lang.Integer" resultType="NoticeDTO">
 		select *
@@ -116,6 +131,25 @@
 	<update id="qnaDelete" parameterType="java.lang.Integer">
 		delete from qna
 		where qna_no = #{qna_no}
+	</update>
+	
+		<!-- FAQ 글 작성하는 SQL -->
+	<insert id="faqRegister" parameterType="FaqDTO">
+		insert into faq(faq_no, faq_division, faq_question, faq_reply, admin_pwd)
+		values (#{faq_no}, #{faq_division}, #{faq_question}, #{faq_reply}, #{admin_pwd})		
+	</insert>
+	
+	<!-- FAQ 글 수정하는 SQL -->
+	<update id="faqUpdate" parameterType="FaqDTO">
+		update faq
+		set faq_content=#{faq_content}
+		where faq_no = #{faq_no}
+	</update>
+	
+	<!-- FAQ 글 삭제하는 SQL -->
+	<update id="faqDelete" parameterType="java.lang.Integer">
+		delete from faq
+		where faq_no = #{faq_no}
 	</update>
 	
 	<!-- 공지사항 페이징 -->

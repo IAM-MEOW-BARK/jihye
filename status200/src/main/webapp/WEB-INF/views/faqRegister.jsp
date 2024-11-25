@@ -16,8 +16,13 @@
             padding: 20px;
         }
 		.line {
-		    border-top: 1px solid #ccc; /* 얇은 라인 */
-		    margin: 20px 0;            /* 위아래 간격 */
+		    border-top: 1px solid #ccc; 
+		    margin: 20px 0;            
+		}
+		#faq_division {
+			height: 40px;
+			border: 1px solid #ccc;
+            border-radius: 4px;
 		}
         .form-group {
             display: flex;
@@ -25,7 +30,7 @@
             margin-bottom: 20px;
         }
         .form-group label {
-            width: 10%; /* 레이블 넓이 */
+            width: 10%; 
             font-weight: 500;
             color: #333;
         }
@@ -88,10 +93,18 @@
         <form action="faqRegister" method="post">
         	<div class="line"></div>
         	 
-        	 <div class="form-group">
-                <label for="title">구분</label>
-                <input type="text" id="faq_division" name="faq_division" placeholder="을 입력하세요.">
-            </div>
+        	 <!-- 구분 -->
+			<div class="form-group">
+			    <label for="faq_division">구분</label>
+			    <select id="faq_division" name="faq_division">
+			        <option value="" selected disabled>구분을 선택하세요</option>
+			        <option value="1">회원서비스</option>
+			        <option value="2">배송</option>
+			        <option value="3">주문/결제</option>
+			        <option value="4">반품/교환/취소</option>
+			        <option value="5">기타</option>
+			    </select>
+			</div>
             
             <!-- 질문 -->
             <div class="form-group">

@@ -34,6 +34,10 @@ public interface CatDogService {
     // FAQ 게시판 리스트
     public List<FaqDTO> faqList(int start, int pageSize);
     
+    // FAQ 구분 리스트
+    public List<FaqDTO> faqListDivision(int start, int pageSize, int faq_division);
+    public int faqTotalPostDivision(int faq_division);
+    
     //공지사항 페이징 처리
     public int noticeTotalPost();
     

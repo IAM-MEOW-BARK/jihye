@@ -170,31 +170,43 @@ public class CatDogController {
 		return mav;
 	}
 	
-	@RequestMapping(value="faqList", method = RequestMethod.GET)
-	public ModelAndView faqList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-							    @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum) {
-				
-		int pageSize = 10; // 한 페이지당 게시글 수
+	@RequestMapping(value = "faqList", method = RequestMethod.GET)
+	public ModelAndView faqList(
+	    @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+	    @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum,
+	    @RequestParam(value = "faq_division", required = false) Integer faq_division // 구분값 추가
+	) {
+	    int pageSize = 10; // 한 페이지당 게시글 수
 	    int pageListSize = 10; // 한 번에 표시할 페이지 수
 	    
-	    // 전체 게시글 수
-	    int totalPost = catDogService.faqTotalPost();
+	    int totalPost;
+	    List<FaqDTO> faqList;
+
+	    if (faq_division == null) {
+	        // 전체 게시글 수 및 리스트 가져오기
+	        totalPost = catDogService.faqTotalPost();
+	        faqList = catDogService.faqList((pageNum - 1) * pageSize, pageSize);
+	    } else {
+	        // 특정 구분에 해당하는 게시글 수 및 리스트 가져오기
+	        totalPost = catDogService.faqTotalPostDivision(faq_division);
+	        faqList = catDogService.faqListDivision((pageNum - 1) * pageSize, pageSize, faq_division);
+	    }
+
+	    // 총 페이지 계산
 	    int totalPage = (int) Math.ceil((double) totalPost / pageSize);
 
-	    // 현재 페이지에서 가져올 데이터의 시작 인덱스 계산
-	    int start = (pageNum - 1) * pageSize;
-	    
 	    // 현재 페이지 번호 목록의 시작과 끝
 	    int startPage = (pageListNum - 1) * pageListSize + 1;
 	    int endPage = Math.min(startPage + pageListSize - 1, totalPage);
 
 	    ModelAndView mav = new ModelAndView();
-	    mav.addObject("faqList", catDogService.faqList(start, pageSize)); // 게시글 목록
+	    mav.addObject("faqList", faqList); // 게시글 목록
 	    mav.addObject("totalPage", totalPage); // 전체 페이지 수
 	    mav.addObject("currentPage", pageNum); // 현재 페이지 번호
-	    mav.addObject("pageListNum", pageListNum);
+	    mav.addObject("pageListNum", pageListNum); // 현재 페이지 리스트 번호
 	    mav.addObject("startPage", startPage); // 페이지 네비게이션 시작
 	    mav.addObject("endPage", endPage); // 페이지 네비게이션 끝
+	    mav.addObject("selectedDivision", faq_division); // 선택된 구분값
 	    mav.setViewName("faqList");
 	    return mav;
 	}

@@ -85,6 +85,7 @@
     <div class="container">
         <h2>공지글 작성</h2>
         
+ 
         <form action="noticeRegister" method="post">
         	<div class="line"></div>
         	 
@@ -115,5 +116,7 @@
             </div>
         </form>
     </div>
+    
+	
 </body>
 </html>

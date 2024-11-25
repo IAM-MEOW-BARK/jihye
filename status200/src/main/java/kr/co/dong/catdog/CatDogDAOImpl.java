@@ -185,6 +185,21 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.selectList(namespace+".faqList", map);
 	}
 	@Override
+	public List<FaqDTO> faqListDivision(int start, int pageSize, int faq_division) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("start", start);
+	    map.put("pageSize", pageSize);
+	    map.put("faq_division", faq_division);
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".faqListDivision", map);
+	}
+
+	@Override
+	public int faqTotalPostDivision(int faq_division) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".faqTotalPostDivision", faq_division);
+	}
+	@Override
 	public int noticeTotalPost() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".noticeTotalPost");
@@ -277,4 +292,6 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
+
+
 }

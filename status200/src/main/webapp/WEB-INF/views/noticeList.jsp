@@ -139,5 +139,8 @@
             <a class="write_button" href="noticeRegister">글쓰기</a>
         </div>
     </div>
+    
+    
+  
 </body>
 </html>

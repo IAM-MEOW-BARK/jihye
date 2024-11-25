@@ -70,7 +70,7 @@
             margin-top: 20px;
         }
 
-        .qnaList {
+        .reviewList {
             padding: 8px 17px;
             border: 1px solid #ff6600;
             background-color: #ffffff;
@@ -81,7 +81,7 @@
             font-size: 11px;
         }
 
-        .qnaList:hover {
+        .reviewList:hover {
             background-color: #ff6600;
             color: #ffffff;
             
@@ -125,7 +125,7 @@
 
         <!-- 전체보기 버튼 -->
         <div class="button-container">
-            <a href="qnaList" class="qnaList">전체보기</a>
+            <a href="reviewList" class="reviewList">전체보기</a>
         </div>
     </div>
 </body>

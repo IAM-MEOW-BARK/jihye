@@ -96,7 +96,7 @@
         	border: 1px solid #ff6600;
             background-color: #ff6600;
             color: #ffffff;
-        }  
+        } 
     </style>
 </head>
 <body>
@@ -165,15 +165,7 @@
             }
         });
         
-      // 상품검색 버튼 동작 추가
-        document.querySelector('.search-button').addEventListener('click', function () {
-            const productCode = document.getElementById('product_code_fk').value;
-            if (productCode.trim() === '') {
-                alert('상품코드를 입력하세요.');
-            } else {
-                alert(`검색된 상품코드: ${product_code_fk}`);
-            }
-        });
+        
     </script>
 </body>
 
