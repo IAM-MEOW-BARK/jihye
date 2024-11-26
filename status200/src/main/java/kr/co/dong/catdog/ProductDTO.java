@@ -4,7 +4,7 @@ public class ProductDTO {
 	private int product_code;
 	private String product_name;
 	private int product_category;
-	private int group_price;
+	private int product_price;
 	private String thumbnail_img;
 	private String product_img;
 	private String product_info;
@@ -29,11 +29,11 @@ public class ProductDTO {
 	public void setProduct_category(int product_category) {
 		this.product_category = product_category;
 	}
-	public int getGroup_price() {
-		return group_price;
+	public int getProduct_price() {
+		return product_price;
 	}
-	public void setGroup_price(int group_price) {
-		this.group_price = group_price;
+	public void setProduct_price(int product_price) {
+		this.product_price = product_price;
 	}
 	public String getThumbnail_img() {
 		return thumbnail_img;
@@ -68,7 +68,7 @@ public class ProductDTO {
 	@Override
 	public String toString() {
 		return "ProductDTO [product_code=" + product_code + ", product_name=" + product_name + ", product_category="
-				+ product_category + ", group_price=" + group_price + ", thumbnail_img=" + thumbnail_img
+				+ product_category + ", product_price=" + product_price + ", thumbnail_img=" + thumbnail_img
 				+ ", product_img=" + product_img + ", product_info=" + product_info + ", product_regdate="
 				+ product_regdate + ", product_update=" + product_update + "]";
 	}

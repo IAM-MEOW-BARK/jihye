@@ -51,19 +51,11 @@
             height: 500px; /* 원하는 높이 */
             
         }
-		.reply-label {
-            display: inline-block;
-            padding: 5px 10px;;
-            background-color: #ff6600;
-            color: white;
-            border-radius: 4px;
-            margin: 10px 5px;
-            font-size: 11px;
-        }
-        .reply-content {
-            margin-top: 5px;
-            color: #333;
-        }
+        .stars {
+			display: inline-block;
+            font-size: 14px;
+            color: #ffa500;
+        } 
         /* 버튼 스타일 */
         .button-container {
             text-align: center;
@@ -111,7 +103,20 @@
                 </tr>
                 <tr>
                 	<th>별점</th>
-                	<td>${reviewDetail.review_score}</td>
+                	<td>
+                		<div class="stars">
+                            <c:forEach begin="1" end="5" var="i">
+                                <c:choose>
+                                    <c:when test="${i <= reviewDetail.review_score}">
+                                        ★
+                                    </c:when>
+                                    <c:otherwise>
+                                        ☆
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:forEach>
+                        </div>
+                	</td>
                 </tr>
                 
                 <tr class="content-cell">

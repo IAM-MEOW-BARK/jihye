@@ -95,6 +95,7 @@
     </style>
 </head>
 <body>
+	<%@ include file="include/header.jsp"%>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
         <!-- 공지글 리스트 테이블 -->

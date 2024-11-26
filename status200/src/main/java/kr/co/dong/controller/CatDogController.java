@@ -72,18 +72,50 @@ public class CatDogController {
       return "redirect:/";
    }
 	
-	
+ 
+   
+
+   
+   
+	// 상품 상세페이지
 	@RequestMapping(value="productDetail", method = RequestMethod.GET)
-	public ModelAndView productDetail() {
-		ModelAndView productMav = new ModelAndView();
+	public String productDetail(@RequestParam("product_code") int product_code, Model model) {
+		ProductDTO productDTO = catDogService.productDetail(product_code);
+		model.addAttribute("productDetail", productDTO);
 		
-		List<ProductDTO> productDetail = catDogService.productDetail();
-		productMav.addObject("productDetail", productDetail);
-		productMav.setViewName("productDetail");
-		return productMav;
+		return "productDetail";
 	}
 	
-	//공지사항 리스트
+   // 카테고리 리스트
+   @RequestMapping(value = "categoryList", method = RequestMethod.GET)
+   public ModelAndView categoryList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+		   							@RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum) {
+	   	int pageSize = 10; // 한 페이지당 게시글 수
+	    int pageListSize = 10; // 한 번에 표시할 페이지 수
+	    
+	    // 전체 게시글 수
+	    int totalPost = catDogService.categoryTotalPost();
+	    int totalPage = (int) Math.ceil((double) totalPost / pageSize);
+
+	    // 현재 페이지에서 가져올 데이터의 시작 인덱스 계산
+	    int start = (pageNum - 1) * pageSize;
+	    
+	    // 현재 페이지 번호 목록의 시작과 끝
+	    int startPage = (pageListNum - 1) * pageListSize + 1;
+	    int endPage = Math.min(startPage + pageListSize - 1, totalPage);
+
+	    ModelAndView mav = new ModelAndView();
+	    mav.addObject("categoryList", catDogService.categoryList(start, pageSize)); // 게시글 목록
+	    mav.addObject("totalPage", totalPage); // 전체 페이지 수
+	    mav.addObject("currentPage", pageNum); // 현재 페이지 번호
+	    mav.addObject("pageListNum", pageListNum); // 1~10, 11~20 ...
+	    mav.addObject("startPage", startPage); // 페이지 네비게이션 시작
+	    mav.addObject("endPage", endPage); // 페이지 네비게이션 끝
+	    mav.setViewName("categoryList");
+	    return mav;
+   }
+   
+	// 공지사항 리스트
 	@RequestMapping(value = "noticeList", method = RequestMethod.GET)
 	public ModelAndView noticeList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 	                               @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum) {
@@ -105,13 +137,14 @@ public class CatDogController {
 	    mav.addObject("noticeList", catDogService.noticeList(start, pageSize)); // 게시글 목록
 	    mav.addObject("totalPage", totalPage); // 전체 페이지 수
 	    mav.addObject("currentPage", pageNum); // 현재 페이지 번호
-	    mav.addObject("pageListNum", pageListNum);
+	    mav.addObject("pageListNum", pageListNum); // 1~10, 11~20 ...
 	    mav.addObject("startPage", startPage); // 페이지 네비게이션 시작
 	    mav.addObject("endPage", endPage); // 페이지 네비게이션 끝
 	    mav.setViewName("noticeList");
 	    return mav;
 	}
 	
+	// 리뷰 리스트
 	@RequestMapping(value = "reviewList", method = RequestMethod.GET)
 	public ModelAndView reviewList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 								   @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum) {
@@ -141,6 +174,7 @@ public class CatDogController {
 	    return mav;
 	}
 	
+	// Q&A 리스트
 	@RequestMapping(value="qnaList", method = RequestMethod.GET)
 	public ModelAndView qnaList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 							    @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum) {
@@ -170,6 +204,7 @@ public class CatDogController {
 		return mav;
 	}
 	
+	// FAQ 리스트
 	@RequestMapping(value = "faqList", method = RequestMethod.GET)
 	public ModelAndView faqList(
 	    @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
@@ -210,7 +245,8 @@ public class CatDogController {
 	    mav.setViewName("faqList");
 	    return mav;
 	}
-		
+	
+	// 공지사항 상세조회
 	@RequestMapping(value="noticeDetail", method = RequestMethod.GET)
 	public String noticeDetail(@RequestParam("notice_no") int notice_no, Model model) {
 		NoticeDTO noticeDTO = catDogService.noticeDetail(notice_no);
@@ -219,7 +255,19 @@ public class CatDogController {
 		
 		return "noticeDetail";
 	}
+//  공지사항 현재 페이지로 이동
+//	@RequestMapping(value="noticeDetail", method = RequestMethod.GET)
+//	public String noticeDetail(@RequestParam("notice_no") int notice_no, Model model,
+//							   @RequestParam("pageNum") int pageNum,
+//							   @RequestParam("pageListNum") int pageListNum) {
+//		NoticeDTO noticeDTO = catDogService.noticeDetail(notice_no);
+//		catDogService.noticeUpdateReadCnt(notice_no);
+//		model.addAttribute("noticeDetail", noticeDTO);
+//		
+//		return "noticeDetail";
+//	}
 	
+	// 리뷰 상세조회
 	@RequestMapping(value="reviewDetail", method = RequestMethod.GET)
 	public String reviewDetail(@RequestParam("review_no") int review_no, Model model) {
 		ReviewDTO reviewDTO = catDogService.reviewDetail(review_no);
@@ -229,6 +277,7 @@ public class CatDogController {
 		return "reviewDetail";
 	}
 	
+	// Q&A 상세조회
 	@RequestMapping(value="qnaDetail", method = RequestMethod.GET)
 	public String qnaDetail(@RequestParam("qna_no") int qna_no, Model model) {
 		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
@@ -237,7 +286,7 @@ public class CatDogController {
 		return "qnaDetail";
 	}
 	
-	
+	// 공지사항 작성
 	@RequestMapping(value="noticeRegister", method = RequestMethod.GET)
 	public String noticeRegister() {
 		return "noticeRegister";
@@ -254,7 +303,8 @@ public class CatDogController {
 		}
 		return "redirect:noticeList";
 	}	
-
+	
+	// 공지사항 수정
 	@RequestMapping(value="noticeUpdate", method = RequestMethod.GET)
 	public String noticeUpdate(@RequestParam("notice_no") int notice_no, Model model) {
 		NoticeDTO noticeDTO = catDogService.noticeDetail(notice_no);
@@ -275,7 +325,8 @@ public class CatDogController {
 		}
 		return "redirect:noticeUpdate?notice_no=" + noticeDTO.getNotice_no();
 	}
-		
+	
+	// 공지사항 삭제
 	@RequestMapping(value="noticeDelete", method = RequestMethod.GET)
 	public String noticeDelete(@RequestParam("notice_no") int notice_no, RedirectAttributes rttr){
 		int r = catDogService.noticeDelete(notice_no);
@@ -287,6 +338,7 @@ public class CatDogController {
 		return "redirect:noticeDetail?notice_no=" + notice_no;
 	}
 	
+	// Q&A 작성
 	@RequestMapping(value="qnaRegister", method = RequestMethod.GET)
 	public String qnaRegister() {
 		return "qnaRegister";
@@ -304,6 +356,7 @@ public class CatDogController {
 		return "redirect:qnaList";
 	}	
 
+	// Q&A 수정
 	@RequestMapping(value="qnaUpdate", method = RequestMethod.GET)
 	public String qnaUpdate(@RequestParam("qna_no") int qna_no, Model model) {
 		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
@@ -323,7 +376,8 @@ public class CatDogController {
 		}
 		return "redirect:qnaUpdate?qna_no=" + qnaDTO.getQna_no();
 	}
-		
+	
+	// Q&A 삭제
 	@RequestMapping(value="qnaDelete", method = RequestMethod.GET)
 	public String qnaDelete(@RequestParam("qna_no") int qna_no, RedirectAttributes rttr){
 		int r = catDogService.qnaDelete(qna_no);
@@ -341,7 +395,7 @@ public class CatDogController {
 	
 	
 	
-	
+	// FAQ 작성
 	@RequestMapping(value="faqRegister", method = RequestMethod.GET)
 	public String faqRegister() {
 		return "faqRegister";
@@ -354,11 +408,13 @@ public class CatDogController {
 		int r = catDogService.faqRegister(faqDTO);
 		
 		if(r>0) {
-			rttr.addFlashAttribute("msg","추가에 성공하였습니다.");	//세션저장
+			rttr.addFlashAttribute("msg","추가에 성공하였습니다.");
 		}
 		return "redirect:faqList";
 	}	
 
+	// FAQ 수정
 	
+	// FAQ 삭제
 
 }

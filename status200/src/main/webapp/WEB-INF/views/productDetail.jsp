@@ -24,63 +24,67 @@
         <!-- 상품 상세페이지 상단 -->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                	<!-- 상품 썸네일 -->
-                    <div class="col-md-6">
-                    	<img class="card-img" src="https://img.dogpre.com/mobile/dogpre/product/105/104376_detailView_01201476.jpg" alt="..." /></div>
-                    <!-- 상품 정보 -->
-                    <div class="col-md-6">
-                        <!-- 상품명 -->
-                        <h1 class="display-7 fw-bolder">${product.product_name}</h1> &nbsp;
+            	
+            	<input type="hidden" name="product_code" value="${productDetail.product_code}">
+	                <div class="row gx-4 gx-lg-5 align-items-center">
+	                	<!-- 상품 썸네일 -->
+	                    <div class="col-md-6">
+	                    	<img src="${pageContext.request.contextPath}/resources/upload/${productDetail.thumbnail_img}" alt="Product Thumbnail" class="card-img" /></div>
+	                    <!-- 상품 정보 -->
+	                    <div class="col-md-6">
+	                        <!-- 상품명 -->
+	                        <h1 class="display-7 fw-bolder">${productDetail.product_name}</h1>
+	
+							<!--  찜하기 버튼 -->
+	                    	
+	                    	
+	                    	
+	                    	
+	                    	
+	                		
+	                     	<!-- 상품 가격 -->
+	                     	<div class="products-box-detail-price border-btm-e1e1e1">
+								<span class="products-box-detail-postInfo-title">가격</span>
+								<span class="products-box-detail-price-figure">${productDetail.product_price}</span> <span>원</span>
+							</div>
+							
+							<!-- 배송 정보 -->
+							<div class="products-box-detail-postInfo">
+								<span class="products-box-detail-postInfo-title">배송정보</span>
+								<span class="products-box-detail-postInfo-content">무료배송</span>
+								<div class="products-box-detail-realInfo-title">제주 3,000원 추가/도서산간 5,000원 추가</div>	
+								<div class="products-box-detail-realInfo-content">오늘 주문 시 11월 13일(수) 출발</div>
+							</div>
+							
+							<!-- 상품 옵션 -->
+							<div class="d-grid gap-2 col-8 mx-auto dropdown_option">
+							  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							    상품 옵션
+							  </button>
+								  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+								    <li><a class="dropdown-item" href="#">Action</a></li>
+								    <li><a class="dropdown-item" href="#">Another action</a></li>
+								    <li><a class="dropdown-item" href="#">Something else here</a></li>
+								  </ul>							
+							</div>
+							
+							<!-- 상품 금액 -->
+							<div class="products-box-detail-allPrice">
+								<span class="products-box-detail-allPrice-title">주문금액</span>
+								<span class="products-box-detail-allPrice-figure">${productDetail.product_price}</span> <span>원</span>
+							</div>
+							
+							<!-- 장바구니 버튼 -->
+							<button type="button" class="buy-btn">장바구니</button>
+							
+	                     <br>
+	                        <div class="d-flex">
+	                            <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
+	                        </div>
+	                    </div>
+	                </div>
+               
 
-						<!--  찜하기 버튼 -->
-                    	
-                    	
-                    	
-                    	
-                    	
-                		
-                     	<!-- 상품 가격 -->
-                     	<div class="products-box-detail-price border-btm-e1e1e1">
-							<span class="products-box-detail-postInfo-title">가격</span>
-							<span class="products-box-detail-price-figure">${product.group_price}</span> <span>원</span>
-						</div>
-						
-						<!-- 배송 정보 -->
-						<div class="products-box-detail-postInfo">
-							<span class="products-box-detail-postInfo-title">배송정보</span>
-							<span class="products-box-detail-postInfo-content">무료배송</span>
-							<div class="products-box-detail-realInfo-title">제주 3,000원 추가/도서산간 5,000원 추가</div>	
-							<div class="products-box-detail-realInfo-content">오늘 주문 시 11월 13일(수) 출발</div>
-						</div>
-						
-						<!-- 상품 옵션 -->
-						<div class="d-grid gap-2 col-8 mx-auto dropdown_option">
-						  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-						    상품 옵션
-						  </button>
-							  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							    <li><a class="dropdown-item" href="#">Action</a></li>
-							    <li><a class="dropdown-item" href="#">Another action</a></li>
-							    <li><a class="dropdown-item" href="#">Something else here</a></li>
-							  </ul>							
-						</div>
-						
-						<!-- 상품 금액 -->
-						<div class="products-box-detail-allPrice">
-							<span class="products-box-detail-allPrice-title">주문금액</span>
-							<span class="products-box-detail-allPrice-figure">756,000</span> <span>원</span>
-						</div>
-						
-						<!-- 장바구니 버튼 -->
-						<button type="button" class="buy-btn">장바구니</button>
-						
-                     <br>
-                        <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
         
@@ -105,6 +109,7 @@
                			</div>
   					<div id="detail-info-box">
 						<div class="detail-info-header">상품설명</div>
+						
 					</div>
 					<div id="detail-review-box">
 						<div class="detail-review-header">리뷰 (0)</div>

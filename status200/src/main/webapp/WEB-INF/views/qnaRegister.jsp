@@ -109,7 +109,7 @@
              
             <!-- 상품코드 -->
             <div class="form-group">
-                <label for="code">상품코드</label>
+                <label for="code">상품명</label>
                 <input type="text" id="product_code" name="product_code_fk" placeholder="상품을 검색하세요.">
                 <button type="button">상품검색</button>
             </div>

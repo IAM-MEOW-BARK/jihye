@@ -81,7 +81,7 @@
             font-size: 11px;
         }
 
-        .qnaList:hover, qnaUpdate:hover, qnaDelete:hover {
+        .qnaList:hover, .qnaUpdate:hover, .qnaDelete:hover {
             background-color: #ff6600;
             color: #ffffff;
             

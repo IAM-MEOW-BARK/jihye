@@ -11,43 +11,39 @@ public interface CatDogService {
 	// 회원가입
 	public int create(MemberDTO meber) throws Exception;
 	
-	
+	// 상품 등록
+    public int addProduct(ProductDTO productDTO) throws Exception;
 	
 	
 	
 	
 	
 	// 상품 상세정보
-    public List<ProductDTO> productDetail();
+    public ProductDTO productDetail(int product_code);
     
     // 카테고리별 리스트
+   	public List <ProductDTO> categoryList(int start, int pageSize);
+   	public int categoryTotalPost();
     
     // 공지사항 게시판 리스트
     public List<NoticeDTO> noticeList(int start, int pageSize);
+    public int noticeTotalPost();
     
     // 리뷰 게시판 리스트
     public List<ReviewDTO> reviewList(int start, int pageSize);
+    public int reviewTotalPost();
     
     // Q&A 게시판 리스트
     public List<QnaDTO> qnaList(int start, int pageSize);
+    public int qnaTotalPost();
     
     // FAQ 게시판 리스트
     public List<FaqDTO> faqList(int start, int pageSize);
+    public int faqTotalPost();
     
     // FAQ 구분 리스트
     public List<FaqDTO> faqListDivision(int start, int pageSize, int faq_division);
     public int faqTotalPostDivision(int faq_division);
-    
-    //공지사항 페이징 처리
-    public int noticeTotalPost();
-    
-    //리뷰 페이징 처리
-    public int reviewTotalPost();
-    
-    //Q&A 페이징 처리
-    public int qnaTotalPost();
-    
-    public int faqTotalPost();
     
     // 공지사항 상세보기
     public NoticeDTO noticeDetail(int notice_no);

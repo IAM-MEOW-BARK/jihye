@@ -5,10 +5,23 @@
 <mapper namespace="kr.co.dong.boardMapper">
 
 	<!-- 상품 상세 정보 -->
-	<select id="productDetail" resultType="productDTO">
+	<select id="productDetail" parameterType="java.lang.Integer" resultType="productDTO">
 		select *
 		from product 
 		where product_code = #{product_code}
+	</select>
+	
+	<!-- 카테고리 리스트 -->
+	<select id="categoryList" parameterType="map" resultType="ProductDTO">
+		select *
+		from product
+		order by product_regdate desc
+		limit #{start}, #{pageSize} 
+	</select>
+	
+	<!-- 카테고리 페이징 -->
+	<select id="categoryTotalPost" resultType="java.lang.Integer">
+		select count(*) from product;
 	</select>
 	
 	<!-- 공지사항 리스트 -->
@@ -19,6 +32,11 @@
        	limit #{start}, #{pageSize}
 	</select>
 	 
+	<!-- 공지사항 페이징 -->
+	<select id="noticeTotalPost" resultType="java.lang.Integer">
+		select count(*) from notice;
+	</select>
+	
 	<!-- 리뷰 리스트 -->
 	<select id="reviewList" parameterType="map" resultType="ReviewDTO">
 		select r.*, p.product_name
@@ -26,6 +44,11 @@
 		
 		order by review_no desc
        	limit #{start}, #{pageSize}
+	</select>
+	
+	<!-- 리뷰 페이징 -->
+	<select id="reviewTotalPost" resultType="java.lang.Integer">
+		select count(*) from review;
 	</select>
 	
 	<!-- Q&A 리스트 -->
@@ -36,6 +59,11 @@
        	limit #{start}, #{pageSize}
 	</select>
 	 
+	<!-- Q&A 페이징 -->
+	<select id="qnaTotalPost" resultType="java.lang.Integer">
+		select count(*) from qna;
+	</select>
+	
 	<!-- FAQ 리스트 -->
  	<select id="faqList" parameterType="map" resultType="FaqDTO">
 		select *
@@ -44,12 +72,19 @@
        	limit #{start}, #{pageSize}
 	</select>
 	
+	<!-- FAQ 페이징 -->
+	<select id="faqTotalPost" resultType="java.lang.Integer">
+		select count(*) from faq;
+	</select>
+	
+	<!-- FAQ 구분 리스트 -->
 	<select id="faqTotalPostDivision" parameterType="java.lang.Integer" resultType="java.lang.Integer">
 	    SELECT COUNT(*) 
 	    FROM faq
 	    WHERE faq_division = #{faq_division}
 	</select>
 	
+	<!-- FAQ 구분 페이징 -->
 	<select id="faqListDivision" parameterType="map" resultType="FaqDTO">
 	    SELECT *
 	    FROM faq
@@ -57,7 +92,6 @@
 	    ORDER BY faq_no DESC
 	    LIMIT #{start}, #{pageSize}
 	</select>
-	
 	
 	<!-- 공지사항 상세 글 조회  -->
 	<select id="noticeDetail" parameterType="java.lang.Integer" resultType="NoticeDTO">
@@ -113,7 +147,6 @@
 		where notice_no = #{notice_no}
 	</update>
 	
-	
 	<!-- Q&A 글 작성하는 SQL -->
 	<insert id="qnaRegister" parameterType="QnaDTO">
 		insert into qna(qna_no, product_group_id_fk2, user_id, qna_content, qna_secret, qna_date, qna_reply)
@@ -151,26 +184,6 @@
 		delete from faq
 		where faq_no = #{faq_no}
 	</update>
-	
-	<!-- 공지사항 페이징 -->
-	<select id="noticeTotalPost" resultType="java.lang.Integer">
-		select count(*) from notice;
-	</select>
-	
-	<!-- 리뷰 페이징 -->
-	<select id="reviewTotalPost" resultType="java.lang.Integer">
-		select count(*) from review;
-	</select>
-	
-	<!-- Q&A 페이징 -->
-	<select id="qnaTotalPost" resultType="java.lang.Integer">
-		select count(*) from qna;
-	</select>
-	
-	<select id="faqTotalPost" resultType="java.lang.Integer">
-		select count(*) from faq;
-	</select>
-	
 </mapper>
   
   

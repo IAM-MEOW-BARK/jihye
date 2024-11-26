@@ -24,8 +24,8 @@
             table-layout: fixed;
         }
         table th, table td {
-            border-top: 1px solid #ccc; /* 위쪽 줄만 추가 */
-            border-bottom: 1px solid #ccc; /* 아래쪽 줄만 추가 */
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
             padding: 10px;
             text-align: center;
             font-size: 13px;
@@ -53,9 +53,9 @@
 	        color: inherit;
 		}   
 		.stars {
-		 display: inline-block;
+			display: inline-block;
             font-size: 14px;
-            color: #ffa500; /* 별 색상 */
+            color: #ffa500;
         } 
 		.pagination-container {
             display: flex;
@@ -114,7 +114,7 @@
                                     </c:forEach>
                                 </div>
 							</td>
-							<td>${review.review_img}</td>
+							<td><img src="${pageContext.request.contextPath}/resources/upload/${review.review_img}" alt="Review Image" class="tab-image" /></td>
 							<td><a href="reviewDetail?review_no=${review.review_no}"> ${review.product_name}</a></td>
 							<td>${review.user_id}</td>
 							<td>${review.review_date}</td>
