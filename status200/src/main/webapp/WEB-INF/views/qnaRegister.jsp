@@ -111,7 +111,7 @@
             <div class="form-group">
                 <label for="code">상품명</label>
                 <input type="text" id="product_code" name="product_code_fk" placeholder="상품을 검색하세요.">
-                <button type="button">상품검색</button>
+                <button type="button" onclick="openSearchPopup()">상품검색</button>
             </div>
 
             <!-- 내용 -->
@@ -147,6 +147,10 @@
 
     <!-- JavaScript -->
     <script>
+	    function openSearchPopup() {
+	        window.open('productSearch?keyword=', '상품 검색', 'width=800,height=600,scrollbars=yes');
+	    }
+	
         const publicRadio = document.querySelector('input[name="qna_secret"][value="public"]');
         const privateRadio = document.querySelector('input[name="qna_secret"][value="private"]');
         const passwordInput = document.getElementById('qna_pwd');

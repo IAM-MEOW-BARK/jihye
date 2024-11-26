@@ -272,6 +272,11 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.delete(namespace+".qnaDelete", qna_no);
 	}
 	@Override
+	public List<ProductDTO> productSearch(String keyword) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".productSearch", keyword);
+	}
+	@Override
 	public int faqRegister(FaqDTO faqDTO) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert(namespace+".faqRegister", faqDTO);
@@ -286,4 +291,5 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
+
 }

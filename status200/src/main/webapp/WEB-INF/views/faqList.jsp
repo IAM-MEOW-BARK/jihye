@@ -64,10 +64,6 @@
             background-color: #feebe1;
             font-weight: bold;
         }
-        table th:nth-child(1), table td:nth-child(1),
-		table th:nth-child(2), table td:nth-child(2) { 
-		    width: 5%; 
-		}
 		table th:nth-child(3), table td:nth-child(3) { 
 		    width: 50%;
 		    white-space: nowrap;
@@ -82,7 +78,6 @@
         .accordion-content {
             display: none;
             background-color: #f9f9f9;
-            padding: 10px;
             
         }
         .active-content {
@@ -147,8 +142,8 @@
         <table>
             <thead>
                 <tr>
-                    <th>NO</th>
-                    <th>구분</th>
+                    <th style="width:5%;">NO</th>
+                    <th style="width:10%;">구분</th>
                     <th>내용</th>
                 </tr>
             </thead>

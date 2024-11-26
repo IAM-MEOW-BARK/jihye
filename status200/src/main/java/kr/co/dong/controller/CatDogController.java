@@ -247,25 +247,28 @@ public class CatDogController {
 	}
 	
 	// 공지사항 상세조회
-	@RequestMapping(value="noticeDetail", method = RequestMethod.GET)
-	public String noticeDetail(@RequestParam("notice_no") int notice_no, Model model) {
-		NoticeDTO noticeDTO = catDogService.noticeDetail(notice_no);
-		catDogService.noticeUpdateReadCnt(notice_no);
-		model.addAttribute("noticeDetail", noticeDTO);
-		
-		return "noticeDetail";
-	}
-//  공지사항 현재 페이지로 이동
 //	@RequestMapping(value="noticeDetail", method = RequestMethod.GET)
-//	public String noticeDetail(@RequestParam("notice_no") int notice_no, Model model,
-//							   @RequestParam("pageNum") int pageNum,
-//							   @RequestParam("pageListNum") int pageListNum) {
+//	public String noticeDetail(@RequestParam("notice_no") int notice_no, Model model) {
 //		NoticeDTO noticeDTO = catDogService.noticeDetail(notice_no);
 //		catDogService.noticeUpdateReadCnt(notice_no);
 //		model.addAttribute("noticeDetail", noticeDTO);
 //		
 //		return "noticeDetail";
 //	}
+    //공지사항 현재 페이지로 이동
+	@RequestMapping(value="noticeDetail", method = RequestMethod.GET)
+	public String noticeDetail(@RequestParam("notice_no") int notice_no,
+							   @RequestParam("pageNum") int pageNum,
+							   @RequestParam("pageListNum") int pageListNum, Model model) {
+		
+		catDogService.noticeUpdateReadCnt(notice_no);
+		NoticeDTO noticeDTO = catDogService.noticeDetail(notice_no);
+		model.addAttribute("noticeDetail", noticeDTO);
+		model.addAttribute("pageNum", pageNum);
+	    model.addAttribute("pageListNum", pageListNum);
+		
+		return "noticeDetail";
+	}
 	
 	// 리뷰 상세조회
 	@RequestMapping(value="reviewDetail", method = RequestMethod.GET)
@@ -389,12 +392,16 @@ public class CatDogController {
 		return "redirect:qnaDetail?qna_no=" + qna_no;
 	}
 	
-	
+	// 상품 검색
+	@RequestMapping(value="productSearch", method = RequestMethod.GET)
+    public String productSearch(@RequestParam String keyword, Model model) {
+		
+        List<ProductDTO> productSearch = catDogService.productSearch(keyword);
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("productSearch", productSearch);
+        return "productSearch"; 
+	}
 
-	
-	
-	
-	
 	// FAQ 작성
 	@RequestMapping(value="faqRegister", method = RequestMethod.GET)
 	public String faqRegister() {

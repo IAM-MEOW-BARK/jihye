@@ -166,6 +166,13 @@
 		where qna_no = #{qna_no}
 	</update>
 	
+	<!-- 상품검색 -->
+	<select id="productSearch" resultType="ProductDTO">
+        select product_code, product_name, thumbnail_img
+        from product
+        where product_name LIKE CONCAT('%', #{keyword}, '%')
+    </select>
+    
 		<!-- FAQ 글 작성하는 SQL -->
 	<insert id="faqRegister" parameterType="FaqDTO">
 		insert into faq(faq_no, faq_division, faq_question, faq_reply, admin_pwd)

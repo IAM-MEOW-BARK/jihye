@@ -38,16 +38,17 @@
         table th:nth-child(2), table th:nth-child(3) {
             background-color: #feebe1; 
             color: transparent; 
-            width: 15%; 
         }
-		table th:nth-child(3), table td:nth-child(3),
-		table th:nth-child(6), table td:nth-child(6) { 
-		    width: 5px; 
+		.tab-image {
+		    max-width: 50px; /* 테이블에 맞는 최대 너비 설정 */
+		    max-height: 50px; /* 테이블에 맞는 최대 높이 설정 */
+		    object-fit: cover; /* 비율을 유지하며 이미지를 크기에 맞게 조정 */
+		    border: 1px solid #ccc; /* 테두리 추가 */
+		    border-radius: 5px; /* 모서리 둥글게 */
+		    display: block;
+		    margin: 0 auto; /* 이미지를 가운데 정렬 */
 		}
-		table th:nth-child(4), table td:nth-child(4) {
-		    width: 30%; 
-		    text-align:left;
-		}
+		
 		a {
 			text-decoration: none;
 	        color: inherit;
@@ -56,6 +57,7 @@
 			display: inline-block;
             font-size: 14px;
             color: #ffa500;
+            letter-spacing: -2px;
         } 
 		.pagination-container {
             display: flex;
@@ -87,13 +89,13 @@
         <table>
             <thead>
                 <tr>
-                    <th>NO</th>
-                    <th>별점</th>
-                    <th>사진</th>
-                    <th>제목/상품</th>
-                    <th>작성자</th>
-                    <th>등록일</th>
-                    <th>조회수</th>
+                    <th style="width:50px;">NO</th>
+                    <th style="width:60px;">별점</th>
+                    <th style="width:100px;">사진</th>
+                    <th style="width:300px; text-align: left;">제목/상품</th>
+                    <th style="width:50px;">작성자</th>
+                    <th style="width:100px;">등록일</th>
+                    <th style="width:50px;">조회수</th>
                 </tr>
             </thead>
             <tbody>
@@ -115,7 +117,7 @@
                                 </div>
 							</td>
 							<td><img src="${pageContext.request.contextPath}/resources/upload/${review.review_img}" alt="Review Image" class="tab-image" /></td>
-							<td><a href="reviewDetail?review_no=${review.review_no}"> ${review.product_name}</a></td>
+							<td style="text-align: left;"><a href="reviewDetail?review_no=${review.review_no}"> ${review.product_name}</a></td>
 							<td>${review.user_id}</td>
 							<td>${review.review_date}</td>
 							<td>${review.review_readcnt}</td>

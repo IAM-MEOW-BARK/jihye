@@ -25,7 +25,7 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
             	
-            	<input type="hidden" name="product_code" value="${productDetail.product_code}">
+            	
 	                <div class="row gx-4 gx-lg-5 align-items-center">
 	                	<!-- 상품 썸네일 -->
 	                    <div class="col-md-6">

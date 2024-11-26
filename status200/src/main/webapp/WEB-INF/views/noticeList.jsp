@@ -112,7 +112,8 @@
 				<c:forEach var="notice" items="${noticeList}">
 					<tr>
 						<td>${notice.notice_no}</td>
-						<td><a href="noticeDetail?notice_no=${notice.notice_no}"> ${notice.notice_title} </a></td>
+						<td><a href="noticeDetail?notice_no=${notice.notice_no}&pageNum=${currentPage}&pageListNum=${pageListNum}">${notice.notice_title}</a></td>
+
 						<td>${notice.notice_date}</td>
 						<td>${notice.notice_readcnt}</td>
 					</tr>
@@ -129,7 +130,8 @@
                 </c:if>
                 <c:forEach begin="${startPage}" end="${endPage}" var="page">
                     <a href="noticeList?pageNum=${page}&pageListNum=${pageListNum}" 
-                       class="${currentPage == page ? 'active' : ''}">${page}</a>
+  						 class="${currentPage == page ? 'active' : ''}">${page}</a>
+
                 </c:forEach>
                 <c:if test="${endPage  < totalPage}">
                     <a href="noticeList?pageNum=${endPage + 1}&pageListNum=${pageListNum+1}">&gt;</a>

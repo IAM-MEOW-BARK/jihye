@@ -74,6 +74,9 @@ public interface CatDogService {
     // Q&A 글 삭제
     public int qnaDelete(int qna_no);
     
+    // 상품 검색
+    public List<ProductDTO> productSearch(String keyword);
+    
     // FAQ 글 작성 
     public int faqRegister(FaqDTO faqDTO);
     

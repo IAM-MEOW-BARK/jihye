@@ -140,6 +140,11 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.qnaDelete(qna_no);
 	}
 	@Override
+	public List<ProductDTO> productSearch(String keyword) {
+		// TODO Auto-generated method stub
+		return catDogDAO.productSearch(keyword);
+	}
+	@Override
 	public int faqRegister(FaqDTO faqDTO) {
 		// TODO Auto-generated method stub
 		return catDogDAO.faqRegister(faqDTO);
