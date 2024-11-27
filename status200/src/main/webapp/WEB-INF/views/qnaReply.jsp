@@ -96,33 +96,33 @@
         	border: 1px solid #ff6600;
             background-color: #ff6600;
             color: #ffffff;
-        } 
+        }  
     </style>
 </head>
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <h2>문의하기</h2>
+        <h2>수정하기</h2>
         
-        <form action="qnaRegister" method="post">
+        <form action="qnaUpdate" method="post">
             <div class="line"></div>
-            
+             
             <!-- 상품코드 -->
             <div class="form-group">
                 <label for="code">상품명</label>
-                <input type="text" id="product_code" name="product_code_fk" placeholder="상품을 검색하세요.">
-                <button type="button" onclick="openSearchPopup()">상품검색</button>
+                <input type="text" id="product_code" name="product_code_fk" value="${qnaUpdate.product_code_fk}" readonly>
+                <button type="button">상품검색</button>
             </div>
 
             <!-- 내용 -->
             <div class="form-group">
                 <label for="content">내용</label>
-                <textarea id="qna_content" name="qna_content" placeholder="내용을 입력하세요."></textarea>
+                <textarea id="qna_content" name="qna_content">"${qnaUpdate.qna_content}"</textarea>
             </div>
             
             <!-- 공개/비공개 -->
             <div class="form-group">
-                <label>비밀글 여부</label>
+                <label>SECRET</label>
                 <div class="radio-group">
                     <label><input type="radio" name="qna_secret" value="public" checked> 공개글</label>
                     <label><input type="radio" name="qna_secret" value="private"> 비밀글</label>
@@ -147,10 +147,6 @@
 
     <!-- JavaScript -->
     <script>
-	    function openSearchPopup() {
-	        window.open('productSearch?keyword=', '상품 검색', 'width=800,height=600,scrollbars=yes');
-	    }
-	
         const publicRadio = document.querySelector('input[name="qna_secret"][value="public"]');
         const privateRadio = document.querySelector('input[name="qna_secret"][value="private"]');
         const passwordInput = document.getElementById('qna_pwd');
@@ -169,7 +165,15 @@
             }
         });
         
-        
+      // 상품검색 버튼 동작 추가
+        document.querySelector('.search-button').addEventListener('click', function () {
+            const productCode = document.getElementById('product_code_fk').value;
+            if (productCode.trim() === '') {
+                alert('상품코드를 입력하세요.');
+            } else {
+                alert(`검색된 상품코드: ${product_code_fk}`);
+            }
+        });
     </script>
 </body>
 

@@ -53,16 +53,27 @@ public class CatDogDAOImpl implements CatDogDAO{
 	}
 
 	@Override
-	public int addWish(String user_id, int product_id) throws Exception {
+	public List<String> getUserWish(String user_id) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectList(namespace + ".getUserWish", user_id);
 	}
 
 	@Override
-	public int removeWish(String user_id, int product_id) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int addWish(String user_id, int product_code) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("user_id", user_id);
+		param.put("product_code", product_code);
+		return sqlSession.insert(namespace + ".addWish", param);
 	}
+
+	@Override
+	public int deleteWish(WishDTO wishDTO) throws Exception {
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("user_id", wishDTO.getUser_id());
+		param.put("product_code", wishDTO.getProduct_code());
+		return sqlSession.delete(namespace + ".deleteWish", param);
+	}
+
 
 	@Override
 	public int addCart(CartDTO cartDTO) throws Exception {
@@ -95,19 +106,19 @@ public class CatDogDAOImpl implements CatDogDAO{
 	}
 
 	@Override
-	public List<OrderDTO> getRecentOrders(String user_id) throws Exception {
+	public List<OrdersDTO> getRecentOrders(String user_id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<OrderDTO> getAllOrders(String user_id, String order_code) throws Exception {
+	public List<OrdersDTO> getAllOrders(String user_id, String order_code) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public OrderDTO getOrderDetail(int order_code) throws Exception {
+	public OrdersDTO getOrderDetail(int order_code) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -271,10 +282,24 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.delete(namespace+".qnaDelete", qna_no);
 	}
+//	@Override
+//	public List<ProductDTO> productList(int start, int pageSize) {
+//		// TODO Auto-generated method stub
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("start", start);
+//	    map.put("pageSize", pageSize);
+//		// TODO Auto-generated method stub
+//		return sqlSession.selectList(namespace+".productSearch", map);
+//	}
 	@Override
 	public List<ProductDTO> productSearch(String keyword) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".productSearch", keyword);
+	}
+	@Override
+	public int productTotal() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".productTotal");
 	}
 	@Override
 	public int faqRegister(FaqDTO faqDTO) {

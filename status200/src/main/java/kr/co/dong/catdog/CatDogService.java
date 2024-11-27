@@ -14,7 +14,15 @@ public interface CatDogService {
 	// 상품 등록
     public int addProduct(ProductDTO productDTO) throws Exception;
 	
-	
+	// 메인페이지 찜한 상품
+	public List<String> getUserWish(String user_id) throws Exception;
+		
+	// 찜하기 추가
+    public int addWish(String user_id, int product_code) throws Exception;
+
+    // 찜하기 삭제
+    public int deleteWish(WishDTO wishDTO) throws Exception;
+    
 	
 	
 	
@@ -75,7 +83,9 @@ public interface CatDogService {
     public int qnaDelete(int qna_no);
     
     // 상품 검색
+    //public List<ProductDTO> productList(int start, int pageSize);
     public List<ProductDTO> productSearch(String keyword);
+    public int productTotal();
     
     // FAQ 글 작성 
     public int faqRegister(FaqDTO faqDTO);

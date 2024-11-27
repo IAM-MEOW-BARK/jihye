@@ -1,6 +1,6 @@
 package kr.co.dong.catdog;
 
-public class OrderDTO {
+public class OrdersDTO {
 	private String order_code;
 	private String user_id_fk;
 	private String ordered_at;

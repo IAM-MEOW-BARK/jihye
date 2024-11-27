@@ -31,6 +31,21 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.addProduct(productDTO);
 	}
+	@Override
+	public List<String> getUserWish(String user_id) throws Exception {
+		return catDogDAO.getUserWish(user_id);
+	}
+	@Override
+	public int addWish(String user_id, int product_code) throws Exception {
+		// TODO Auto-generated method stub
+		return catDogDAO.addWish(user_id, product_code);
+	}
+	@Override
+	public int deleteWish(WishDTO wishDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return catDogDAO.deleteWish(wishDTO);
+	}
+
 	
 	
 	
@@ -95,6 +110,17 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.faqTotalPost();
 	}
 	@Override
+	public List<FaqDTO> faqListDivision(int start, int pageSize, int faq_division) {
+		// TODO Auto-generated method stub
+		return catDogDAO.faqListDivision(start, pageSize, faq_division);
+	}
+	@Override
+	public int faqTotalPostDivision(int faq_division) {
+		// TODO Auto-generated method stub
+		return catDogDAO.faqTotalPostDivision(faq_division);
+	}
+	
+	@Override
 	public NoticeDTO noticeDetail(int notice_no) {
 		// TODO Auto-generated method stub
 		return catDogDAO.noticeDetail(notice_no);
@@ -139,10 +165,20 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.qnaDelete(qna_no);
 	}
+//	@Override
+//	public List<ProductDTO> productList(int start, int pageSize) {
+//		// TODO Auto-generated method stub
+//		return catDogDAO.productList(start, pageSize);
+//	}
 	@Override
 	public List<ProductDTO> productSearch(String keyword) {
 		// TODO Auto-generated method stub
 		return catDogDAO.productSearch(keyword);
+	}
+	@Override
+	public int productTotal() {
+		// TODO Auto-generated method stub
+		return catDogDAO.productTotal();
 	}
 	@Override
 	public int faqRegister(FaqDTO faqDTO) {
@@ -159,15 +195,6 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.reviewUpdateReadCnt(review_no);
 	}
-	@Override
-	public List<FaqDTO> faqListDivision(int start, int pageSize, int faq_division) {
-		// TODO Auto-generated method stub
-		return catDogDAO.faqListDivision(start, pageSize, faq_division);
-	}
-	@Override
-	public int faqTotalPostDivision(int faq_division) {
-		// TODO Auto-generated method stub
-		return catDogDAO.faqTotalPostDivision(faq_division);
-	}
+
 
 }

@@ -29,7 +29,8 @@
 	                <div class="row gx-4 gx-lg-5 align-items-center">
 	                	<!-- 상품 썸네일 -->
 	                    <div class="col-md-6">
-	                    	<img src="${pageContext.request.contextPath}/resources/upload/${productDetail.thumbnail_img}" alt="Product Thumbnail" class="card-img" /></div>
+	                    	<img src="${pageContext.request.contextPath}/resources/upload/${productDetail.thumbnail_img}" alt="Product Thumbnail" class="card-img"
+	                    	 style="max-width: 720px; max-height: 720px; object-fit: cover;"/></div>
 	                    <!-- 상품 정보 -->
 	                    <div class="col-md-6">
 	                        <!-- 상품명 -->
@@ -56,17 +57,12 @@
 								<div class="products-box-detail-realInfo-content">오늘 주문 시 11월 13일(수) 출발</div>
 							</div>
 							
-							<!-- 상품 옵션 -->
-							<div class="d-grid gap-2 col-8 mx-auto dropdown_option">
-							  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-							    상품 옵션
-							  </button>
-								  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-								    <li><a class="dropdown-item" href="#">Action</a></li>
-								    <li><a class="dropdown-item" href="#">Another action</a></li>
-								    <li><a class="dropdown-item" href="#">Something else here</a></li>
-								  </ul>							
-							</div>
+							
+	                        <div class="d-flex">
+	                        	<label>수량</label>
+	                            <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 4rem; margin-left:15px;" />
+	                        </div>
+							
 							
 							<!-- 상품 금액 -->
 							<div class="products-box-detail-allPrice">
@@ -78,9 +74,6 @@
 							<button type="button" class="buy-btn">장바구니</button>
 							
 	                     <br>
-	                        <div class="d-flex">
-	                            <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 3rem" />
-	                        </div>
 	                    </div>
 	                </div>
                

@@ -34,7 +34,8 @@
 	 
 	<!-- 공지사항 페이징 -->
 	<select id="noticeTotalPost" resultType="java.lang.Integer">
-		select count(*) from notice;
+		select count(*)
+		from notice;
 	</select>
 	
 	<!-- 리뷰 리스트 -->
@@ -48,7 +49,8 @@
 	
 	<!-- 리뷰 페이징 -->
 	<select id="reviewTotalPost" resultType="java.lang.Integer">
-		select count(*) from review;
+		select count(*)
+		from review;
 	</select>
 	
 	<!-- Q&A 리스트 -->
@@ -61,7 +63,8 @@
 	 
 	<!-- Q&A 페이징 -->
 	<select id="qnaTotalPost" resultType="java.lang.Integer">
-		select count(*) from qna;
+		select count(*)
+		from qna;
 	</select>
 	
 	<!-- FAQ 리스트 -->
@@ -74,7 +77,8 @@
 	
 	<!-- FAQ 페이징 -->
 	<select id="faqTotalPost" resultType="java.lang.Integer">
-		select count(*) from faq;
+		select count(*)
+		from faq;
 	</select>
 	
 	<!-- FAQ 구분 리스트 -->
@@ -149,14 +153,14 @@
 	
 	<!-- Q&A 글 작성하는 SQL -->
 	<insert id="qnaRegister" parameterType="QnaDTO">
-		insert into qna(qna_no, product_group_id_fk2, user_id, qna_content, qna_secret, qna_date, qna_reply)
-		values (#{qna_no}, #{product_group_id_fk2}, #{user_id}, #{qna_content}, false, curdate(), #{qna_reply})		
+		insert into qna(qna_no, product_group_id_fk2, user_id, qna_content, qna_secret, qna_date, qna_reply, qna_pwd)
+		values (#{qna_no}, #{product_group_id_fk2}, #{user_id}, #{qna_content}, #{qna_secret}, curdate(), #{qna_reply}, #{qna_pwd})		
 	</insert>
 	
 	<!-- Q&A 글 수정하는 SQL -->
 	<update id="qnaUpdate" parameterType="QnaDTO">
 		update qna
-		set qna_content=#{qna_content}, qna_date=curdate()
+		set qna_code_fk=#{qna_code_fk}, qna_content=#{qna_content}, qna_secret=#{qna_secret}, qna_date=curdate(), qna_pwd=#{qna_pwd}
 		where qna_no = #{qna_no}
 	</update>
 	
@@ -172,7 +176,12 @@
         from product
         where product_name LIKE CONCAT('%', #{keyword}, '%')
     </select>
-    
+    <!-- 
+    <select id="productTotal" resultType="java.lang.Integer">
+    	select count(*) 
+    	from product;
+    </select>
+     -->
 		<!-- FAQ 글 작성하는 SQL -->
 	<insert id="faqRegister" parameterType="FaqDTO">
 		insert into faq(faq_no, faq_division, faq_question, faq_reply, admin_pwd)

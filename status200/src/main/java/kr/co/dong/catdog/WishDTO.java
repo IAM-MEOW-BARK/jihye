@@ -2,9 +2,16 @@ package kr.co.dong.catdog;
 
 public class WishDTO {
 
+	private int wish_no;
 	private String user_id;
 	private int product_code;
 	
+	public int getWish_no() {
+		return wish_no;
+	}
+	public void setWish_no(int wish_no) {
+		this.wish_no = wish_no;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -19,8 +26,9 @@ public class WishDTO {
 	}
 	@Override
 	public String toString() {
-		return "WishDTO [user_id=" + user_id + ", product_code=" + product_code + "]";
+		return "WishDTO [wish_no=" + wish_no + ", user_id=" + user_id + ", product_code=" + product_code + "]";
 	}
+	
 	
 
 	

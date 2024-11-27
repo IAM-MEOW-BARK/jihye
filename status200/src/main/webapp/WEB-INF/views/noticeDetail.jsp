@@ -98,7 +98,8 @@
 
         <!-- 전체보기 버튼 -->
         <div class="button-container">
-            <a href="noticeList?pageNum=${currentPage}&pageListNum=${pageListNum}" class="noticeList">목록</a>
+        	<a href="backToList?notice_no=${noticeDetail.notice_no}"> backToList </a>
+            <a href="noticeList?pageNum=${pageNum}&pageListNum=${pageListNum}" class="noticeList">목록</a>
             <a href="noticeUpdate?notice_no=${noticeDetail.notice_no}" class="noticeUpdate">수정</a>
             <a href="noticeDelete?notice_no=${noticeDetail.notice_no }" class="noticeDelete">삭제</a>
         </div>

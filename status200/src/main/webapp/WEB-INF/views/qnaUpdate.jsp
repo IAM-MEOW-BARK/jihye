@@ -110,8 +110,8 @@
             <!-- 상품코드 -->
             <div class="form-group">
                 <label for="code">상품명</label>
-                <input type="text" id="product_code" name="product_code_fk" placeholder="상품을 검색하세요.">
-                <button type="button">상품검색</button>
+                <input type="text" id="product_code" name="product_code_fk" value="${qnaUpdate.product_code_fk}">
+                <button type="button" onclick="openSearchPopup()">상품검색</button>
             </div>
 
             <!-- 내용 -->
@@ -147,6 +147,10 @@
 
     <!-- JavaScript -->
     <script>
+	    function openSearchPopup() {
+	        window.open('productSearch?keyword=', '상품 검색', 'width=800,height=600,scrollbars=yes');
+	    }
+	
         const publicRadio = document.querySelector('input[name="qna_secret"][value="public"]');
         const privateRadio = document.querySelector('input[name="qna_secret"][value="private"]');
         const passwordInput = document.getElementById('qna_pwd');
@@ -165,15 +169,7 @@
             }
         });
         
-      // 상품검색 버튼 동작 추가
-        document.querySelector('.search-button').addEventListener('click', function () {
-            const productCode = document.getElementById('product_code_fk').value;
-            if (productCode.trim() === '') {
-                alert('상품코드를 입력하세요.');
-            } else {
-                alert(`검색된 상품코드: ${product_code_fk}`);
-            }
-        });
+        
     </script>
 </body>
 

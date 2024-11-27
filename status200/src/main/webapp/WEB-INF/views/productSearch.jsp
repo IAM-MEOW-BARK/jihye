@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-	 <!-- 검색 폼 -->
+<!-- 검색 폼 -->
     <div class="search-container">
         <form action="productSearch" method="get">
             <input type="text" name="keyword" value="${keyword}" placeholder="상품명을 입력하세요" style="padding: 10px; width: 70%;">
@@ -49,12 +49,12 @@
     <div class="product-list">
         <c:forEach var="product" items="${productSearch}">
             <div class="product-item" onclick="selectProduct('${product.product_name}')">
-                <img src="${product.thumbnail_img}" alt="${product.product_name}">
+                <img src="${pageContext.request.contextPath}/resources/upload/${product.thumbnail_img}" alt="${product.product_name}">
                 <p>${product.product_name}</p>
             </div>
         </c:forEach>
     </div>
-
+            
    <script>
         function selectProduct(productName) {
             // 부모 창의 input에 값을 설정

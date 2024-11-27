@@ -22,11 +22,14 @@ public interface CatDogDAO {
 	//제품 캐러셀 리스트 출력
 	public List <ProductDTO> list();
 	
+	// 메인페이지 찜한 상품
+	public List<String> getUserWish(String user_id) throws Exception;
+		
 	// 찜하기 추가
-    public int addWish(String user_id, int product_id) throws Exception;
+    public int addWish(String user_id, int product_code) throws Exception;
 
     // 찜하기 삭제
-    public int removeWish(String user_id, int product_id) throws Exception;
+    public int deleteWish(WishDTO wishDTO) throws Exception;
     
     /*장바구니 보류*/    
     // 장바구니 추가
@@ -45,13 +48,13 @@ public interface CatDogDAO {
     public int deleteUser(String user_id);
 
     // 최근 주문 내역 (최신 5개 등 제한)
-    public List<OrderDTO> getRecentOrders(String user_id) throws Exception;
+    public List<OrdersDTO> getRecentOrders(String user_id) throws Exception;
 
     // 전체 주문 내역
-    public List<OrderDTO> getAllOrders(String user_id, String order_code) throws Exception;
+    public List<OrdersDTO> getAllOrders(String user_id, String order_code) throws Exception;
 
     // 주문 내역 상세 표시
-    public OrderDTO getOrderDetail(int order_code) throws Exception;
+    public OrdersDTO getOrderDetail(int order_code) throws Exception;
     
     /*관리자*/
     // 전체 상품 관리 리스트
@@ -131,7 +134,9 @@ public interface CatDogDAO {
     public int qnaDelete(int qna_no);
     
     // 상품 검색
+    //public List<ProductDTO> productList(int start, int pageSize);
     public List<ProductDTO> productSearch(String keyword);
+    public int productTotal();
     
     // FAQ 글 작성 
     public int faqRegister(FaqDTO faqDTO);

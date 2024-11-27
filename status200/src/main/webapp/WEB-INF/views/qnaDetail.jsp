@@ -137,6 +137,7 @@
             <a href="qnaList" class="qnaList">목록</a>
             <a href="qnaUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">수정</a>
             <a href="qnaDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete">삭제</a>
+            <a href="qnaReply?qna_no=${qnaDetail.qna_no}" class="qnaReply">답</a>
         </div>
     </div>
 </body>
