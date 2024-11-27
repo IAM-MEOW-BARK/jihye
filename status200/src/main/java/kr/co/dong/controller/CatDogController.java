@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -38,44 +39,71 @@ public class CatDogController {
 	@Inject
 	CatDogService catDogService;
 	
-   // 로그인
-   @RequestMapping(value = "/catdog-login", method = RequestMethod.POST)
-   public String login(@RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse response,
-         HttpSession session) throws Exception {
-      request.setCharacterEncoding("UTF-8");
+	
+	@GetMapping(value = "/catdog-login")
+	public String catdogLogin() {
+		return "catdog-login";
+	}
+	
+	// 로그인
+		@RequestMapping(value = "/catdog-login", method = RequestMethod.POST)
+		public String login(@RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse response,
+				HttpSession session) throws Exception {
+			request.setCharacterEncoding("UTF-8");
 
-      Map user = catDogService.login(map);
+			Map user = catDogService.login(map);
+			
+			Integer userStatus = (Integer) user.get("user_status");
+			
+			if (user == null || userStatus == 1) {
+				logger.info("실패");
+				return "redirect:catdog-login"; // prefix suffix 이용해서 이동
+			} else {
+				logger.info("성공");
+				session.setAttribute("user", user);
+				// QNA 작성: 지혜 추가
+				session.setAttribute("user_id", user.get("user_id"));
+				
 
-      if (user == null) {
-         logger.info("실패");
-         return "redirect:catdog-login"; // prefix suffix 이용해서 이동
-      } else {
-         logger.info("성공");
-         session.setAttribute("user", user);
+				Integer userAuth = (Integer) user.get("user_auth");
 
-         Integer userAuth = (Integer) user.get("user_auth");
+				if (userAuth == 1) {
+					logger.info("관리자 계정으로 로그인");
+					return "redirect:/catdog-user-list-admin";
+				} else if (userAuth == 0) {
+					logger.info("일반 사용자 계정으로 로그인");
+					return "redirect:/catdog-main";
+				} else {
+					logger.warn("알 수 없는 USER_AUTH 값: " + userAuth);
+					return "redirect:/catdog-login";
+				}
+			}
+		}
+		
+		// 로그아웃
+		@GetMapping(value = "/catdog-logout")
+		public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session, RedirectAttributes rttr) {
+		    // 1. 세션 무효화
+		    if (session != null) {
+		        session.invalidate(); // 서버 세션 삭제
+		    }
 
-         if (userAuth == 1) {
-            logger.info("관리자 계정으로 로그인");
-            return "redirect:/catdog-user-list-admin";
-         } else if (userAuth == 0) {
-            logger.info("일반 사용자 계정으로 로그인");
-            return "redirect:/catdog-main";
-         } else {
-            logger.warn("알 수 없는 USER_AUTH 값: " + userAuth);
-            return "redirect:/catdog-login";
-         }
-      }
-   }
+		    // 2. 클라이언트 JSESSIONID 쿠키 삭제
+		    // 직접 Set-Cookie 헤더를 통해 HttpOnly 포함
+		    Cookie cookie = new Cookie("JSESSIONID", null); // 쿠키 값 null
+		    cookie.setPath("/"); // 경로 설정
+		    cookie.setMaxAge(0); // 즉시 만료
+		    response.addCookie(cookie); // 기본 쿠키 설정 추가
+		    
+		    // HttpOnly 속성을 명시적으로 추가
+		    response.addHeader("Set-Cookie", "JSESSIONID=; Path=/; HttpOnly; Max-Age=0");
 
-   // 로그아웃
-   @GetMapping(value="/catdog-logout")
-   public String logout(HttpSession session, RedirectAttributes rttr) {
-      session.invalidate(); // 세션에 저장되어 있는 정보 삭제
-      rttr.addFlashAttribute("msg", "로그아웃 성공"); // 1회성 저장
-      return "redirect:/";
-   }
-   
+		    // 3. 로그아웃 메시지 추가
+		    rttr.addFlashAttribute("msg", "로그아웃 성공"); // 사용자 알림 메시지 추가
+
+		    // 4. 홈으로 리다이렉트
+		    return "redirect:/";
+		}
    
 	
     @PostMapping("/addWish")
@@ -131,12 +159,23 @@ public class CatDogController {
    
    
 	// 상품 상세페이지
-	@RequestMapping(value="productDetail", method = RequestMethod.GET)
+	@RequestMapping(value="/productDetail", method = RequestMethod.GET)
 	public String productDetail(@RequestParam("product_code") int product_code, Model model) {
-		ProductDTO productDTO = catDogService.productDetail(product_code);
-		model.addAttribute("productDetail", productDTO);
-		
-		return "productDetail";
+		 // 1. 상품 상세 정보 가져오기
+	    ProductDTO productDTO = catDogService.productDetail(product_code);
+
+	    // 2. 리뷰 리스트 가져오기 (최신 5개)
+	    List<ReviewDTO> getReview = catDogService.getReview(product_code);
+
+	    // 3. Q&A 리스트 가져오기 (최신 5개)
+	    List<QnaDTO> getQna = catDogService.getQna(product_code);
+
+	    // 4. 모델에 데이터 추가
+	    model.addAttribute("productDetail", productDTO);
+	    model.addAttribute("recentReviews", getReview);
+	    model.addAttribute("recentQnAs", getQna);
+
+		return "/productDetail";
 	}
 	
    // 카테고리 리스트
@@ -362,12 +401,12 @@ public class CatDogController {
 	}
 	
 	// 공지사항 작성
-	@RequestMapping(value="noticeRegister", method = RequestMethod.GET)
+	@RequestMapping(value="/noticeRegister", method = RequestMethod.GET)
 	public String noticeRegister() {
-		return "noticeRegister";
+		return "/noticeRegister";
 	}
 	
-	@RequestMapping(value="noticeRegister", method = RequestMethod.POST)
+	@RequestMapping(value="/noticeRegister", method = RequestMethod.POST)
 	public String noticeRegister(NoticeDTO noticeDTO, HttpServletRequest request,RedirectAttributes rttr) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -376,19 +415,19 @@ public class CatDogController {
 		if(r>0) {
 			rttr.addFlashAttribute("msg","추가에 성공하였습니다.");	//세션저장
 		}
-		return "redirect:noticeList";
+		return "redirect:/noticeList";
 	}	
 	
 	// 공지사항 수정
-	@RequestMapping(value="noticeUpdate", method = RequestMethod.GET)
+	@RequestMapping(value="/noticeUpdate", method = RequestMethod.GET)
 	public String noticeUpdate(@RequestParam("notice_no") int notice_no, Model model) {
 		NoticeDTO noticeDTO = catDogService.noticeDetail(notice_no);
 		model.addAttribute("noticeUpdate", noticeDTO);
 		
-		return "noticeUpdate";
+		return "/noticeUpdate";
 	}
 	
-	@RequestMapping(value="noticeUpdate", method = RequestMethod.POST)
+	@RequestMapping(value="/noticeUpdate", method = RequestMethod.POST)
 	public String noticeUpdate(NoticeDTO noticeDTO, RedirectAttributes attr,HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -398,11 +437,11 @@ public class CatDogController {
 			attr.addFlashAttribute("msg", "수정에 성공 하였습니다.");
 			return "redirect:noticeList";
 		}
-		return "redirect:noticeUpdate?notice_no=" + noticeDTO.getNotice_no();
+		return "redirect:/noticeUpdate?notice_no=" + noticeDTO.getNotice_no();
 	}
 	
 	// 공지사항 삭제
-	@RequestMapping(value="noticeDelete", method = RequestMethod.GET)
+	@RequestMapping(value="/noticeDelete", method = RequestMethod.GET)
 	public String noticeDelete(@RequestParam("notice_no") int notice_no, RedirectAttributes rttr){
 		int r = catDogService.noticeDelete(notice_no);
 		
@@ -410,7 +449,7 @@ public class CatDogController {
 			rttr.addFlashAttribute("msg","글삭제에 성공하였습니다.");
 			return "redirect:noticeList";
 		}
-		return "redirect:noticeDetail?notice_no=" + notice_no;
+		return "redirect:/noticeDetail?notice_no=" + notice_no;
 	}
 	
 	// Q&A 작성
@@ -420,8 +459,11 @@ public class CatDogController {
 	}
 	
 	@RequestMapping(value="qnaRegister", method = RequestMethod.POST)
-	public String qnaRegister(QnaDTO qnaDTO, HttpServletRequest request,RedirectAttributes rttr) throws Exception {
+	public String qnaRegister(QnaDTO qnaDTO, HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception {
 		request.setCharacterEncoding("UTF-8");
+		
+		String userId = (String) session.getAttribute("user_id"); // 세션에서 user_id 가져오기
+		qnaDTO.setUser_id(userId); // QnaDTO에 user_id 설정
 		
 		int r = catDogService.qnaRegister(qnaDTO);
 		
@@ -435,6 +477,8 @@ public class CatDogController {
 	@RequestMapping(value="qnaUpdate", method = RequestMethod.GET)
 	public String qnaUpdate(@RequestParam("qna_no") int qna_no, Model model) {
 		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+		
+		
 		model.addAttribute("qnaUpdate", qnaDTO);
 		return "qnaUpdate";
 	}

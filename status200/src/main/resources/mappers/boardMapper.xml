@@ -3,13 +3,37 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.dong.boardMapper">
-
+	<!-- 로그인 -->
+ 	<select id="login" parameterType="java.util.Map" resultType="java.util.Map">
+ 		select user_id,name,user_auth, user_status from member
+ 		where user_id=#{user_id} and password=#{password}
+ 	</select>
+ 	
+ 	
 	<!-- 상품 상세 정보 -->
 	<select id="productDetail" parameterType="java.lang.Integer" resultType="productDTO">
 		select *
 		from product 
 		where product_code = #{product_code}
 	</select>
+	<!-- 최근 리뷰 5개 리스트 -->
+<select id="getReview" parameterType="java.lang.Integer" resultType="ReviewDTO">
+    select r.*, p.product_name
+    from review r
+    left join product p on r.product_code = p.product_code
+    where r.product_code = #{product_code}
+    order by r.review_no desc
+    limit 5
+</select>
+	<!-- 최근 Q&A 5개 리스트 -->
+<select id="getQna" parameterType="java.lang.Integer" resultType="QnaDTO">
+    select q.*, p.product_name
+    from qna q
+    left join product p on q.product_code_fk = p.product_code
+    where q.product_code_fk = #{product_code}
+    order by q.qna_no desc
+    limit 5
+</select>
 	
 	<!-- 카테고리 리스트 -->
 	<select id="categoryList" parameterType="map" resultType="ProductDTO">
@@ -134,14 +158,14 @@
 	
 	<!-- 공지사항 글 작성하는 SQL -->
 	<insert id="noticeRegister" parameterType="NoticeDTO">
-		insert into notice(notice_no, notice_title, notice_content, notice_date, notice_readcnt, admin_pwd)
-		values (#{notice_no}, #{notice_title}, #{notice_content}, curdate(), #{notice_readcnt}, #{admin_pwd})		
+		insert into notice(notice_no, notice_title, notice_content, notice_date, notice_readcnt)
+		values (#{notice_no}, #{notice_title}, #{notice_content}, now(), #{notice_readcnt})		
 	</insert>
 	
 	<!-- 공지사항 글 수정하는 SQL -->
 	<update id="noticeUpdate" parameterType="NoticeDTO">
 		update notice
-		set notice_title = #{notice_title}, notice_content = #{notice_content}, admin_pwd = #{admin_pwd}
+		set notice_title = #{notice_title}, notice_content = #{notice_content}
 		where notice_no = #{notice_no}
 	</update>
 	
@@ -153,8 +177,8 @@
 	
 	<!-- Q&A 글 작성하는 SQL -->
 	<insert id="qnaRegister" parameterType="QnaDTO">
-		insert into qna(qna_no, product_group_id_fk2, user_id, qna_content, qna_secret, qna_date, qna_reply, qna_pwd)
-		values (#{qna_no}, #{product_group_id_fk2}, #{user_id}, #{qna_content}, #{qna_secret}, curdate(), #{qna_reply}, #{qna_pwd})		
+		insert into qna(qna_no, product_group_id_fk, user_id, qna_content, qna_secret, qna_date, qna_reply, qna_pwd)
+		values (#{qna_no}, #{product_group_id_fk}, #{user_id}, #{qna_content}, #{qna_secret}, curdate(), #{qna_reply}, #{qna_pwd})		
 	</insert>
 	
 	<!-- Q&A 글 수정하는 SQL -->

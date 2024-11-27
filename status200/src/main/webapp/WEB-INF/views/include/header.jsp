@@ -42,14 +42,22 @@
                     <li class="nav-item active"><a href="noticeList" class="nav-link">공지사항</a></li>
                 </ul>
             </div>
-            <!-- 로그인/장바구니/마이페이지 -->
+             <!-- 로그인/장바구니/마이페이지 -->
             <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center justify-content-sm-end">
                 <ul class="d-flex justify-content-end list-unstyled m-0">
                     <li>
-                        <a href="login" class="p-2 mx-1 d-flex flex-column align-items-center text-center">
+                    <c:if test="${user==null}">
+                        <a href="catdog-login" class="p-2 mx-1 d-flex flex-column align-items-center text-center">
                             <i class="bi bi-box-arrow-in-right"></i>
                             <span>로그인</span>
                         </a>
+                        </c:if>
+                        <c:if test="${user!=null}">
+                          <a href="catdog-logout" class="p-2 mx-1 d-flex flex-column align-items-center text-center">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span>로그아웃</span>
+                            </a>
+                        </c:if>
                     </li>
                     <li>
                         <a href="cart?page=cart" class="p-2 mx-1 d-flex flex-column align-items-center text-center">

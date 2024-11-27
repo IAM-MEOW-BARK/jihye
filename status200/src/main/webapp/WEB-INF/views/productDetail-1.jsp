@@ -1,95 +1,214 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        
-        <title>상픔 상세페이지</title>
-        <link href="${pageContext.request.contextPath}/resources/css/productStyle.css" rel="stylesheet">
-    </head>
-    
-    <body>
-       <!-- %@ include file="include/header.jsp"%> -->
-        
-        <!-- 상품 상세페이지 상단 -->
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-            	
-            	
-	                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <!-- 상품 썸네일 -->
-                    <div class="col-md-6">
-                        <div class="product-image-container">
-                            <img src="${pageContext.request.contextPath}/resources/upload/${productDetail.thumbnail_img}" 
-                                 alt="Product Thumbnail" class="product-thumbnail" />
-                        </div>
-                    </div>
-	                    <!-- 상품 정보 -->
-	                    <div class="col-md-6">
-	                        <!-- 상품명 -->
-	                        <h1 class="display-7 fw-bolder">${productDetail.product_name}</h1>
-	
-							<!--  찜하기 버튼 -->
-	                    	
-	                    	
-	                    	
-	                    	
-	                    	
-	                		
-	                     	<!-- 상품 가격 -->
-	                     	<div class="products-box-detail-price border-btm-e1e1e1">
-								<span class="products-box-detail-postInfo-title">가격</span>
-								<span class="products-box-detail-price-figure">${productDetail.product_price}</span> <span>원</span>
-							</div>
-							
-							<!-- 배송 정보 -->
-							<div class="products-box-detail-postInfo">
-								<span class="products-box-detail-postInfo-title">배송정보</span>
-								<span class="products-box-detail-postInfo-content">무료배송</span>
-								<div class="products-box-detail-realInfo-title">제주 3,000원 추가/도서산간 5,000원 추가</div>	
-								<div class="products-box-detail-realInfo-content">오늘 주문 시 11월 13일(수) 출발</div>
-							</div>
-							
-							
-	                        <div class="d-flex">
-	                        	<label>수량</label>
-	                            <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 4rem; margin-left:15px;" />
-	                        </div>
-							
-							
-							<!-- 상품 금액 -->
-							<div class="products-box-detail-allPrice">
-								<span class="products-box-detail-allPrice-title">주문금액</span>
-								<span class="products-box-detail-allPrice-figure">${productDetail.product_price}</span> <span>원</span>
-							</div>
-							
-							<!-- 장바구니 버튼 -->
-							<button type="button" class="buy-btn">장바구니</button>
-							
-	                     <br>
-	                    </div>
-	                </div>
-               
+<head>
+<meta charset="UTF-8">
+<title>상픔 상세페이지</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
 
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-detail {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .product-images img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product-info .price {
+            font-size: 20px;
+            color: #ff6600;
+            margin-bottom: 10px;
+        }
+
+        .cart-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .cart-button:hover {
+            background-color: #cc5200;
+        }
+
+
+		.tab-detail-info {
+	position: sticky;
+	margin: auto;
+	max-width: 1230px;
+	
+
+    top: 0; /* Adjust this value if you have a header or other fixed elements */
+    z-index: 1000; /* Make sure it's above other content */
+    background-color: white; /* Add a background color to cover content beneath */
+    padding: 10px 0; /* Optional: Adjust padding for better appearance */
+}
+
+.tab {
+	text-decoration: none;
+	list-style: none;
+	display: flex;
+	margin: 0px;
+	padding: 0px;
+	background-color: white;
+}
+
+.tab > li {
+	width: 25%;
+	text-align: center;
+	padding: 15px 4px 15px;
+	font-size: 15px;
+	border-bottom: 2px solid #f2f2f2;
+	
+}
+.tab > li > a {
+	font-weight: 500;
+	color: #9a9a9e;
+	text-decoration: none;
+}
+        .section {
+            margin-top: 40px;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .section p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .reviews img {
+            max-width: 80px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .reviews {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .faq, .review-list {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .faq h3, .review-list h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .faq p, .review-list p {
+            margin-bottom: 10px;
+        }
+        .accordion-button:not(.collapsed) {
+    background-color: transparent !important; /* No background color */
+    color: inherit; /* Keep the original text color */
+    box-shadow: none !important; /* Remove any shadow effect */
+    color: #ff6600 !important;
+    border-color: #ff6600 !important;
+    
+}
+
+.accordion-button:focus {
+    box-shadow: none !important; /* Remove blue focus shadow */
+    outline: none; /* Remove focus outline */
+    border-color: #ff6600 !important; /* Change border color */
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Product Detail -->
+        <div class="product-detail">
+        	<!-- 상품 썸네일 -->
+            <div class="product-images">
+                <img src="${pageContext.request.contextPath}/resources/upload/${productDetail.thumbnail_img}" alt="Product Thumbnail">
             </div>
-        </section>
-        
-        <!-- 상품 상세 페이지 하단 -->
-        <section class="py-5">
-			<div class="wrap-detail-info" style="padding-top: 0px;">
-				<!-- 상세정보 이동 탭 -->
-				<div class="tab-detail-info">
-					<ul class="tab">
-						<li class="active" id="tab-img-text"> <a href="#detail-img-text-box" id="tab-img-text-a">상품정보</a></li>
-						<li class="active" id="tab-review"> <a href="#detail-review-box" id="tab-review-a">리뷰</a></li>
-						<li class="active" id="tab-qna"> <a href="#detail-qna-box" id="tab-qna-a">Q&A</a></li>
-						<li class="active" id="tab-purchaseInfo"><a href="#detail-guideInfo-box" id="tab-purchaseInfo-a">취소/교환/반품 안내</a></li>
-					</ul>
+            <!-- 상품 정보 -->
+            <div class="product-info">
+            	<!-- 상품명 -->
+                <h1>${productDetail.product_name}</h1>
+                <!--  찜하기 버튼 -->
+                
+                
+                
+                
+               	<!-- 상품 가격 -->
+                <div class="price">
+                	<span>가격</span>
+                    <span>${productDetail.product_price}</span><span>원</span>
+                   
+                </div>
+                
+                <!-- 배송 정보 -->
+                <div>
+					<span>배송정보</span>
+					<span >무료배송</span>
+					<div>제주 3,000원 추가/도서산간 5,000원 추가</div>	
+					<div>오늘 주문 시 11월 13일(수) 출발</div>
+				</div>
+							
+				<!-- 상품 금액 -->
+				<div>
+					<span>주문금액</span>
+					<span>${productDetail.product_price}</span> <span>원</span>
 				</div>
 				
-				<!-- 상품 상세정보 시작 -->
+				
+				<!-- 장바구니 버튼 -->		
+                <button type="button" class="cart-button">장바구니</button>
+            </div>
+        </div>
+
+
+		<!-- 상세정보 이동 탭 -->
+		<div class="tab-detail-info">
+			<ul class="tab">
+				<li class="active" id="tab-img-text"> <a href="#detail-img-text-box" id="tab-img-text-a">상품정보</a></li>
+				<li class="active" id="tab-review"> <a href="#detail-review-box" id="tab-review-a">리뷰</a></li>
+				<li class="active" id="tab-qna"> <a href="#detail-qna-box" id="tab-qna-a">Q&A</a></li>
+				<li class="active" id="tab-purchaseInfo"><a href="#detail-guideInfo-box" id="tab-purchaseInfo-a">취소/교환/반품 안내</a></li>
+			</ul>
+		</div>
+
+
+  				<!-- 상품 상세정보 시작 -->
 	            <div class="container px-4 px-lg-5 mt-5 ">
 	                <div class="detail-header">상품정보</div>
 	                	<div id="detail-img-text-box">
@@ -101,35 +220,9 @@
 					</div>
 					<div id="detail-review-box">
 						<div class="detail-review-header">리뷰 (0)</div>
-						<div id="recent-reviews">
-    <h2>리뷰</h2>
-    <c:forEach var="review" items="${getReview}">
-        <div class="review-item">
-            <p>${review.review_img}</p>
-            <p>${review.review_content}</p>
-            <p>작성자: ${review.user_id}</p>
-        </div>
-    </c:forEach>
-    <c:if test="${empty getReview}">
-    <p>리뷰가 없습니다.</p>
-</c:if>
-</div>
 					</div>
 					<div id="detail-qna-box">
 						<div class="detail-qna-header">Q&A (0)</div>
-					<div id="recent-qnas">
-    <h2>Q&A</h2>
-    <c:forEach var="qna" items="${getQna}">
-        <div class="qna-item">
-            <p>${qna.qna_content}</p>
-            <p>${qna.qna_reply}</p>
-            <p>작성자: ${qna.user_id}</p>
-        </div>
-    </c:forEach>
-    <c:if test="${empty getQna}">
-    <p>Q&A가 없습니다.</p>
-</c:if>
-</div>
 					</div>
 					<div id="detail-guideInfo-box">
 					
@@ -208,13 +301,6 @@
 					
 										
 				</div>
-		</div>
-        
-        </section>
-        
-    
-        <!-- 아코디언 -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        
-    </body>
+    </div>
+</body>
 </html>

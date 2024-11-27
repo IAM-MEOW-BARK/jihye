@@ -10919,10 +10919,6 @@ nav.topmenu li:not(:last-child)::after {
 
 
 
-.product_table {
-	 padding: 10px 0;
-}
-
 
 
 
@@ -11037,23 +11033,6 @@ products-box-detail-price {
 
 
 
-.hidden {
-    display: none;
-}
-.visible {
-    display: block;
-}
-
-
-.dropdown_option {
-	padding-top: 30px;
-	padding-bottom: 12px;
-	padding-right: 50px;
-	
-	
-}
-
-
 
 .btn-outline-secondary:hover, .btn-outline-secondary:focus, .btn-outline-secondary:active {
     background-color: white !important; /* Keep the original background color */
@@ -11062,11 +11041,7 @@ products-box-detail-price {
     box-shadow: none !important; /* Remove any shadow effect */
 }
 
-.dropdown-menu:focus .dropdown-item:focus, .dropdown-menu:active .dropdown-item:active {
-        background-color: transparent !important; /* No background color */
-        color: inherit !important; /* Inherit text color */
-        border: none !important; /* Remove border */
-    }
+
 
 
 .wrap-detail-info {
@@ -11194,3 +11169,17 @@ products-box-detail-price {
     outline: none; /* Remove focus outline */
     border-color: #ff6600 !important; /* Change border color */
 }
+
+.product-image-container {
+                width: 600px;
+                height: 600px;
+                overflow: hidden;
+                position: relative;
+                margin: 0 auto;
+            }
+            .product-thumbnail {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+            }

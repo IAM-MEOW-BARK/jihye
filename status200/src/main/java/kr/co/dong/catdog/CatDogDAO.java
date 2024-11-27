@@ -79,6 +79,8 @@ public interface CatDogDAO {
     
     // 상품 상세정보
     public ProductDTO productDetail(int product_code);
+    public List<ReviewDTO> getReview(int product_code);
+    public List<QnaDTO> getQna(int product_code);
     
     // 카테고리별 리스트
   	public List <ProductDTO> categoryList(int start, int pageSize);

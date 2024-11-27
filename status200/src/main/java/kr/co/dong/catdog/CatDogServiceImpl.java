@@ -60,6 +60,17 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.productDetail(product_code);
 	}
 	@Override
+	public List<ReviewDTO> getReview(int product_code) {
+		// TODO Auto-generated method stub
+		return catDogDAO.getReview(product_code);
+	}
+
+	@Override
+	public List<QnaDTO> getQna(int product_code) {
+		// TODO Auto-generated method stub
+		return catDogDAO.getQna(product_code);
+	}
+	@Override
 	public List<ProductDTO> categoryList(int start, int pageSize) {
 		// TODO Auto-generated method stub
 		return catDogDAO.categoryList(start, pageSize);
@@ -195,6 +206,8 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.reviewUpdateReadCnt(review_no);
 	}
+
+
 
 
 }

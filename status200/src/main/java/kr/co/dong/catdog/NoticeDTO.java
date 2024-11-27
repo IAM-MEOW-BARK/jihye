@@ -6,7 +6,7 @@ public class NoticeDTO {
 	private String notice_content;
 	private String notice_date;
 	private int notice_readcnt;
-	private int admin_pwd;
+	
 	
 	public int getNotice_no() {
 		return notice_no;
@@ -38,18 +38,13 @@ public class NoticeDTO {
 	public void setNotice_readcnt(int notice_readcnt) {
 		this.notice_readcnt = notice_readcnt;
 	}
-	public int getAdmin_pwd() {
-		return admin_pwd;
-	}
-	public void setAdmin_pwd(int admin_pwd) {
-		this.admin_pwd = admin_pwd;
-	}
+	
 	
 	@Override
 	public String toString() {
 		return "NoticeDTO [notice_no=" + notice_no + ", notice_title=" + notice_title + ", notice_content="
 				+ notice_content + ", notice_date=" + notice_date + ", notice_readcnt=" + notice_readcnt
-				+ ", admin_pwd=" + admin_pwd + "]";
+				+ "]";
 	}
 	
 	
