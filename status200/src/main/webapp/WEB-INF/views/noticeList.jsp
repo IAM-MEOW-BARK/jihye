@@ -113,38 +113,38 @@
             border-radius: 5px;
             text-align: center;
         }
-         .modal-content h2 {
-        margin-bottom: 10px; /* 제목과 입력창 간격 조절 */
-    }
+        .modal-content h2 {
+       		margin-bottom: 10px; /* 제목과 입력창 간격 조절 */
+   		}
 
-    #passwordInput {
-        margin-top: 10px; /* 입력창 위치 조정 */
-        margin-bottom: 20px; /* 입력창과 버튼 간격 조정 */
-        padding: 10px;
-        width: 80%;
-        border-radius: 5px;
-         border: 1px solid #ccc;
-    }
+   		#passwordInput {
+	        margin-top: 10px; /* 입력창 위치 조정 */
+	        margin-bottom: 20px; /* 입력창과 버튼 간격 조정 */
+	        padding: 10px;
+	        width: 80%;
+	        border-radius: 5px;
+	        border: 1px solid #ccc;
+    	}
         #passwordInput:focus {
-        outline: none;
-        border-radius: 5px; /* 기본 브라우저 포커스 제거 */
-        border: 1px solid #ff6600; /* 포커스 시 테두리 색상 */
-    }
-    #passwordForm button {
-        padding: 10px 20px; /* 버튼 내부 여백 */
-        font-size: 11px; /* 글씨 크기 */
-        border: 1px solid #ff6600;
-        border-radius: 5px; /* 버튼 모서리 둥글게 */
-        background-color: #ffffff; /* 배경색 */
-        color:  #ff6600; /* 글씨 색 */
-        cursor: pointer; /* 커서 포인터 */
+	        outline: none;
+	        border-radius: 5px; /* 기본 브라우저 포커스 제거 */
+	        border: 1px solid #ff6600; /* 포커스 시 테두리 색상 */	
+    	}
+   		 #passwordForm button {
+	        padding: 10px 20px; /* 버튼 내부 여백 */
+	        font-size: 11px; /* 글씨 크기 */
+	        border: 1px solid #ff6600;
+	        border-radius: 5px; /* 버튼 모서리 둥글게 */
+	        background-color: #ffffff; /* 배경색 */
+	        color:  #ff6600; /* 글씨 색 */
+	        cursor: pointer; /* 커서 포인터 */
     }
 
-    #passwordForm button:hover {
-      
-            background-color: #ff6600;
-            color: #ffffff;
-    }
+	    #passwordForm button:hover {
+	      
+	            background-color: #ff6600;
+	            color: #ffffff;
+	    }
         .close {
             color: #aaa;
             float: right;
@@ -206,6 +206,7 @@
             
             <!-- 글쓰기 버튼 -->
             <a class="write_button" onclick="openModal()">글쓰기</a>
+            
         </div>
     </div>
     	
@@ -219,7 +220,7 @@
             <button type="submit">확인</button>
         </form>
     </div>
-</div>
+	</div>
 
 
     <!-- JavaScript -->

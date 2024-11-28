@@ -110,7 +110,7 @@
             <!-- 상품코드 -->
             <div class="form-group">
                 <label for="code">상품명</label>
-                <input type="text" id="product_code" name="product_code_fk" value="${qnaUpdate.product_code_fk}">
+                <input type="text" id="product_code" name="product_name" defaultValue="${qnaUpdate.product_name}">
                 <button type="button" onclick="openSearchPopup()">상품검색</button>
             </div>
 

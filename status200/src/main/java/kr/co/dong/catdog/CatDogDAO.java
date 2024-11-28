@@ -81,6 +81,8 @@ public interface CatDogDAO {
     public ProductDTO productDetail(int product_code);
     public List<ReviewDTO> getReview(int product_code);
     public List<QnaDTO> getQna(int product_code);
+    public int product_reviewTotal(int product_code);
+    public int product_qnaTotal(int product_code);
     
     // 카테고리별 리스트
   	public List <ProductDTO> categoryList(int start, int pageSize);
@@ -144,9 +146,10 @@ public interface CatDogDAO {
     public int faqRegister(FaqDTO faqDTO);
     
     // FAQ 글 수정
-    
+    public int faqUpdate(FaqDTO faqDTO);
     
     // FAQ 글 삭제
+    public int faqDelete(int faq_no);
 
     
 }

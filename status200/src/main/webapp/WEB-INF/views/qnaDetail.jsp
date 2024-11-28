@@ -111,16 +111,16 @@
                 </tr>
                 <tr class="content-cell">
                     <th>내용</th>
-                    <td>${qnaDetail.qna_content}
-                    	 <!-- 답변 표시 (조건부) -->
-                        <c:if test="${qnaDetail.qna_reply != null && !qnaDetail.qna_reply.isEmpty()}">
+                    <td>${qnaDetail.qna_content} 
+                    	 <!-- 답변 표시 -->
+                       <!--  <c:if test="${qnaDetail.qna_reply != null && !qnaDetail.qna_reply.isEmpty()}">  -->
                             <div class="reply-container">
                                 <span class="reply-arrow">↳</span>
                                 <span class="reply-label">답변</span>
                                 <span class="reply-content">${qnaDetail.qna_reply}</span>
                             </div>
-                        </c:if>
-                    
+                      <!--  </c:if>  -->
+                    	
                     </td>
                 </tr>
               <!--  

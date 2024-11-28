@@ -105,7 +105,9 @@
         <h2>문의하기</h2>
         
         <form action="qnaRegister" method="post">
+        	<input type="hidden" name="user_id" value="${qnaRegister.user_id}">
             <div class="line"></div>
+            
             
             <!-- 상품코드 -->
             <div class="form-group">

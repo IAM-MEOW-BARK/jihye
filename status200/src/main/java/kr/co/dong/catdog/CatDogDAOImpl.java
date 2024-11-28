@@ -170,6 +170,16 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.selectList(namespace+".getQna", product_code);
 	}
 	@Override
+	public int product_reviewTotal(int product_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".product_reviewTotal", product_code);
+	}
+	@Override
+	public int product_qnaTotal(int product_code) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".product_qnaTotal", product_code);
+	}
+	@Override
 	public List<ProductDTO> categoryList(int start, int pageSize) {
 		// TODO Auto-generated method stub
 		Map<String, Integer> map = new HashMap<>();
@@ -318,6 +328,17 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.insert(namespace+".faqRegister", faqDTO);
 	}
 	@Override
+	public int faqUpdate(FaqDTO faqDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".faqUpdate", faqDTO);
+	}
+	
+	@Override
+	public int faqDelete(int faq_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace+".faqDelete", faq_no);
+	}
+	@Override
 	public int noticeUpdateReadCnt(int notice_no) {
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".noticeUpdateReadCnt", notice_no);
@@ -327,7 +348,6 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
-
 
 
 }

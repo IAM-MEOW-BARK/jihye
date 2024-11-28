@@ -118,12 +118,6 @@
                 <textarea id="faq_reply" name="faq_reply" placeholder="답변을 입력하세요."></textarea>
             </div>
 
-            <!-- 비밀번호 -->
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="faq_pwd" name="admin_pwd" placeholder="비밀번호를 입력하세요.">
-            </div>
-            
             <div class="line"></div>
 
             <!-- 버튼 -->

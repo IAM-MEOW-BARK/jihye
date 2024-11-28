@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        
-        <title>상픔 상세페이지</title>
+        <title>상품 상세페이지</title>
         <link href="${pageContext.request.contextPath}/resources/css/productStyle.css" rel="stylesheet">
     </head>
     
@@ -93,46 +93,75 @@
 	            <div class="container px-4 px-lg-5 mt-5 ">
 	                <div class="detail-header">상품정보</div>
 	                	<div id="detail-img-text-box">
-	                		 <img class="card-img-top" src="http://dogpose.diskn.com/z7N3uVaQwv" alt="..." />
+	                		 <img src="${pageContext.request.contextPath}/resources/upload/${productDetail.product_img}" alt="product-img" class="card-img-top" />
                			</div>
   					<div id="detail-info-box">
 						<div class="detail-info-header">상품설명</div>
-						
+						<div>${productDetail.product_info}</div>
 					</div>
+					<!-- 리뷰 시작 -->
 					<div id="detail-review-box">
-						<div class="detail-review-header">리뷰 (0)</div>
+						<div class="detail-review-header">리뷰 (${product_reviewTotal})</div>
+							<div>
+							 	<a class="more_button" href="reviewList">더보기</a>
+						 	</div>
 						<div id="recent-reviews">
-    <h2>리뷰</h2>
-    <c:forEach var="review" items="${getReview}">
-        <div class="review-item">
-            <p>${review.review_img}</p>
-            <p>${review.review_content}</p>
-            <p>작성자: ${review.user_id}</p>
-        </div>
-    </c:forEach>
-    <c:if test="${empty getReview}">
-    <p>리뷰가 없습니다.</p>
-</c:if>
-</div>
-					</div>
-					<div id="detail-qna-box">
-						<div class="detail-qna-header">Q&A (0)</div>
-					<div id="recent-qnas">
-    <h2>Q&A</h2>
-    <c:forEach var="qna" items="${getQna}">
-        <div class="qna-item">
-            <p>${qna.qna_content}</p>
-            <p>${qna.qna_reply}</p>
-            <p>작성자: ${qna.user_id}</p>
-        </div>
-    </c:forEach>
-    <c:if test="${empty getQna}">
-    <p>Q&A가 없습니다.</p>
-</c:if>
-</div>
-					</div>
-					<div id="detail-guideInfo-box">
+						    <c:forEach var="review" items="${getReview}">
+						        <div class="review-item">
+						        	<!-- 리뷰 별점 -->
+						        	<div class="stars">
+                                    <c:forEach begin="1" end="5" var="i">
+                                        <c:choose>
+                                            <c:when test="${i <= review.review_score}">
+                                                ★
+                                            </c:when>
+                                            <c:otherwise>
+                                                ☆
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach> 
+                               		</div> <!-- 리뷰 별점 끝 -->
+                               		<a href="reviewDetail?review_no=${review.review_no}">
+						            <span>
+						            	<img src="${pageContext.request.contextPath}/resources/upload/${review.review_img}" alt="Review Image" class="review-image">
+						            </span>
+						            <span>${review.review_content}</span>
+						            <span>${review.user_id}</span>
+						            <span>${review.review_date}</span>
+						            </a>
+						        </div>
+						    </c:forEach>
+						    <c:if test="${empty getReview}">
+						    <p>리뷰가 없습니다.</p>
+							</c:if>
+						</div> 
+					</div> <!-- 리뷰 끝 -->
 					
+					<!-- QNA 시작 -->
+					<div id="detail-qna-box">
+						<div class="detail-qna-header">Q&A (${product_qnaTotal})</div>
+						<div>
+						 	<a class="more_button" href="qnaList">더보기</a>
+					 	</div>
+					<div id="recent-qnas">
+					    <c:forEach var="qna" items="${getQna}">
+					        <div class="qna-item">
+					        	<a href="qnaDetail?qna_no=${qna.qna_no}">
+						            <p>${qna.qna_content}</p>
+						            <p>${qna.user_id}</p>
+						            <p>${qna.qna_date}</p>
+						            <p>${qna.qna_reply}</p>
+					            </a>
+					        </div>
+					    </c:forEach>
+					    <c:if test="${empty getQna}">
+					    <p>Q&A가 없습니다.</p>
+						</c:if>
+					</div>
+					</div> <!-- QNA 끝 -->
+					
+					<!-- 취소/교환/반품 안내 -->
+					<div id="detail-guideInfo-box">
 						<div class="detail-guideInfo-header">취소/교환/반품 안내</div>
 							<div class="accordion accordion-flush" id="accordionFlushExample">
 							  <div class="accordion-item">
@@ -204,15 +233,11 @@
 							    </div>
 							  </div>					  
 							</div>
-					</div> 
-					
-										
+					</div> <!-- 취소/교환/반품 끝 -->					
 				</div>
-		</div>
-        
+			</div>
         </section>
         
-    
         <!-- 아코디언 -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         

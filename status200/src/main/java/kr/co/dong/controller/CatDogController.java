@@ -45,7 +45,7 @@ public class CatDogController {
 		return "catdog-login";
 	}
 	
-	// 로그인
+		// 로그인
 		@RequestMapping(value = "/catdog-login", method = RequestMethod.POST)
 		public String login(@RequestParam Map<String, Object> map, HttpServletRequest request, HttpServletResponse response,
 				HttpSession session) throws Exception {
@@ -166,14 +166,17 @@ public class CatDogController {
 
 	    // 2. 리뷰 리스트 가져오기 (최신 5개)
 	    List<ReviewDTO> getReview = catDogService.getReview(product_code);
-
 	    // 3. Q&A 리스트 가져오기 (최신 5개)
 	    List<QnaDTO> getQna = catDogService.getQna(product_code);
-
-	    // 4. 모델에 데이터 추가
+	    // 4. 상품 코드에 해당하는 게시글 개수 가져오기
+	    int product_reviewTotal = catDogService.product_reviewTotal(product_code);
+	    int product_qnaTotal = catDogService.product_qnaTotal(product_code);
+	   
 	    model.addAttribute("productDetail", productDTO);
-	    model.addAttribute("recentReviews", getReview);
-	    model.addAttribute("recentQnAs", getQna);
+	    model.addAttribute("getReview", getReview);
+	    model.addAttribute("getQna", getQna);
+	    model.addAttribute("product_reviewTotal", product_reviewTotal);
+	    model.addAttribute("product_qnaTotal", product_qnaTotal);
 
 		return "/productDetail";
 	}
@@ -462,8 +465,11 @@ public class CatDogController {
 	public String qnaRegister(QnaDTO qnaDTO, HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		
-		String userId = (String) session.getAttribute("user_id"); // 세션에서 user_id 가져오기
-		qnaDTO.setUser_id(userId); // QnaDTO에 user_id 설정
+		Map<String, Object> user = (Map) session.getAttribute("user");
+	     String user_id = (String) user.get("user_id");
+	      
+		//String user_id = (String) session.getAttribute("user_id"); // 세션에서 user_id 가져오기
+		qnaDTO.setUser_id(user_id); // QnaDTO에 user_id 설정
 		
 		int r = catDogService.qnaRegister(qnaDTO);
 		
@@ -603,6 +609,7 @@ public class CatDogController {
 		}
 		return "redirect:faqList";
 	}	
+	
 
 	// FAQ 수정
 	

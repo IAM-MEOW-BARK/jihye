@@ -16,24 +16,38 @@
 		from product 
 		where product_code = #{product_code}
 	</select>
+	
 	<!-- 최근 리뷰 5개 리스트 -->
-<select id="getReview" parameterType="java.lang.Integer" resultType="ReviewDTO">
-    select r.*, p.product_name
-    from review r
-    left join product p on r.product_code = p.product_code
-    where r.product_code = #{product_code}
-    order by r.review_no desc
-    limit 5
-</select>
+	<select id="getReview" parameterType="java.lang.Integer" resultType="ReviewDTO">
+	    select *
+	    from review 
+	    where product_code = #{product_code}
+	    order by review_no desc
+	    limit 5
+	</select>
+	
+	<!-- 상품 상세 리뷰 개수 -->
+	<select id="product_reviewTotal" resultType="java.lang.Integer">
+		select count(*) 
+		from review
+		where product_code = #{product_code}
+	</select>
+	
 	<!-- 최근 Q&A 5개 리스트 -->
-<select id="getQna" parameterType="java.lang.Integer" resultType="QnaDTO">
-    select q.*, p.product_name
-    from qna q
-    left join product p on q.product_code_fk = p.product_code
-    where q.product_code_fk = #{product_code}
-    order by q.qna_no desc
-    limit 5
-</select>
+	<select id="getQna" parameterType="java.lang.Integer" resultType="QnaDTO">
+		select *
+		from qna
+		where product_code_fk = #{product_code}
+		order by qna_no desc
+		limit 5
+	</select>
+	
+	<!-- 상품 상세 Q&A 개수 -->
+	<select id="product_qnaTotal" resultType="java.lang.Integer">
+		select count(*)
+		from qna
+		where product_code_fk = #{product_code}
+	</select>
 	
 	<!-- 카테고리 리스트 -->
 	<select id="categoryList" parameterType="map" resultType="ProductDTO">
@@ -177,8 +191,8 @@
 	
 	<!-- Q&A 글 작성하는 SQL -->
 	<insert id="qnaRegister" parameterType="QnaDTO">
-		insert into qna(qna_no, product_group_id_fk, user_id, qna_content, qna_secret, qna_date, qna_reply, qna_pwd)
-		values (#{qna_no}, #{product_group_id_fk}, #{user_id}, #{qna_content}, #{qna_secret}, curdate(), #{qna_reply}, #{qna_pwd})		
+		insert into qna(qna_no, product_code_fk, user_id, qna_content, qna_secret, qna_date, qna_pwd)
+		values (#{qna_no}, #{product_code_fk}, #{user_id}, #{qna_content}, #{qna_secret}, curdate(), #{qna_pwd})		
 	</insert>
 	
 	<!-- Q&A 글 수정하는 SQL -->
@@ -208,8 +222,8 @@
      -->
 		<!-- FAQ 글 작성하는 SQL -->
 	<insert id="faqRegister" parameterType="FaqDTO">
-		insert into faq(faq_no, faq_division, faq_question, faq_reply, admin_pwd)
-		values (#{faq_no}, #{faq_division}, #{faq_question}, #{faq_reply}, #{admin_pwd})		
+		insert into faq(faq_no, faq_division, faq_question, faq_reply)
+		values (#{faq_no}, #{faq_division}, #{faq_question}, #{faq_reply})		
 	</insert>
 	
 	<!-- FAQ 글 수정하는 SQL -->
