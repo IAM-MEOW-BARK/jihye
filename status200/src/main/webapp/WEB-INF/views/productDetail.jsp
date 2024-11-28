@@ -54,16 +54,16 @@
 							
 							
 	                        <div class="d-flex">
-	                        	<label>수량</label>
-	                            <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 4rem; margin-left:15px;" />
-	                        </div>
+    <label>수량</label>
+    <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" min="1" style="max-width: 4rem; margin-left:15px;" onchange="updateTotalPrice()"/>
+</div>
 							
 							
 							<!-- 상품 금액 -->
-							<div class="products-box-detail-allPrice">
-								<span class="products-box-detail-allPrice-title">주문금액</span>
-								<span class="products-box-detail-allPrice-figure">${productDetail.product_price}</span> <span>원</span>
-							</div>
+<div class="products-box-detail-allPrice">
+    <span class="products-box-detail-allPrice-title">주문금액</span>
+    <span id="totalPrice" class="products-box-detail-allPrice-figure">${productDetail.product_price}</span> <span>원</span>
+</div>
 							
 							<!-- 장바구니 버튼 -->
 							<button type="button" class="buy-btn">장바구니</button>
@@ -99,66 +99,95 @@
 						<div class="detail-info-header">상품설명</div>
 						<div>${productDetail.product_info}</div>
 					</div>
-					<!-- 리뷰 시작 -->
-					<div id="detail-review-box">
-						<div class="detail-review-header">리뷰 (${product_reviewTotal})</div>
-							<div>
-							 	<a class="more_button" href="reviewList">더보기</a>
-						 	</div>
-						<div id="recent-reviews">
-						    <c:forEach var="review" items="${getReview}">
-						        <div class="review-item">
-						        	<!-- 리뷰 별점 -->
-						        	<div class="stars">
-                                    <c:forEach begin="1" end="5" var="i">
-                                        <c:choose>
-                                            <c:when test="${i <= review.review_score}">
-                                                ★
-                                            </c:when>
-                                            <c:otherwise>
-                                                ☆
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach> 
-                               		</div> <!-- 리뷰 별점 끝 -->
-                               		<a href="reviewDetail?review_no=${review.review_no}">
-						            <span>
-						            	<img src="${pageContext.request.contextPath}/resources/upload/${review.review_img}" alt="Review Image" class="review-image">
-						            </span>
-						            <span>${review.review_content}</span>
-						            <span>${review.user_id}</span>
-						            <span>${review.review_date}</span>
+						<!-- 리뷰 시작 -->
+						<div id="detail-review-box">
+						    <div class="detail-review-header">
+						        리뷰 (${product_reviewTotal})
+						        <a class="more-button" href="reviewList">더보기</a>
+						    </div>
+						    <div id="recent-reviews">
+						        <c:forEach var="review" items="${getReview}">
+						        	<a href="reviewDetail?review_no=${review.review_no}" class="review-item-link">
+							            <div class="review-item">
+							                <!-- 리뷰 이미지 -->
+							                <div class="review-image">
+							                    <img src="${pageContext.request.contextPath}/resources/upload/${review.review_img}" alt="Review Image">
+							                </div>
+							                <!-- 리뷰 텍스트 -->
+							                <div class="review-text">
+							                    <!-- 별점, 아이디, 등록일 -->
+							                    <div class="review-info">
+							                        <!-- 별점 -->
+							                        <div class="stars">
+							                            <c:forEach begin="1" end="5" var="i">
+							                                <c:choose>
+							                                    <c:when test="${i <= review.review_score}">
+							                                        <span class="star-filled">★</span>
+							                                    </c:when>
+							                                    <c:otherwise>
+							                                        <span class="star-empty">☆</span>
+							                                    </c:otherwise>
+							                                </c:choose>
+							                            </c:forEach>
+							                        </div>
+							                        <!-- 아이디와 등록일 -->
+							                        <span class="review-user">${review.user_id}</span>
+							                        <span class="review-date">${review.review_date}</span>
+							                    </div>
+							                    <!-- 리뷰 내용 -->
+							                    <p class="review-content">${review.review_content}</p>
+							                </div>
+							            </div>
 						            </a>
-						        </div>
-						    </c:forEach>
-						    <c:if test="${empty getReview}">
-						    <p>리뷰가 없습니다.</p>
-							</c:if>
-						</div> 
-					</div> <!-- 리뷰 끝 -->
+						        </c:forEach>
+						        <c:if test="${empty getReview}">
+						            <p>리뷰가 없습니다.</p>
+						        </c:if>
+						    </div>
+						</div> <!-- 리뷰 끝 -->
 					
-					<!-- QNA 시작 -->
-					<div id="detail-qna-box">
-						<div class="detail-qna-header">Q&A (${product_qnaTotal})</div>
-						<div>
-						 	<a class="more_button" href="qnaList">더보기</a>
-					 	</div>
-					<div id="recent-qnas">
-					    <c:forEach var="qna" items="${getQna}">
-					        <div class="qna-item">
-					        	<a href="qnaDetail?qna_no=${qna.qna_no}">
-						            <p>${qna.qna_content}</p>
-						            <p>${qna.user_id}</p>
-						            <p>${qna.qna_date}</p>
-						            <p>${qna.qna_reply}</p>
-					            </a>
-					        </div>
-					    </c:forEach>
-					    <c:if test="${empty getQna}">
-					    <p>Q&A가 없습니다.</p>
-						</c:if>
-					</div>
-					</div> <!-- QNA 끝 -->
+						<!-- QNA 시작 -->
+<div id="detail-qna-box">
+    <div class="detail-qna-header">
+        Q&A (${product_qnaTotal})
+        <a class="more-button" href="qnaList">더 보기</a>
+    </div>
+    <div id="recent-qnas">
+        <c:forEach var="qna" items="${getQna}">
+            <!-- Q&A 아이템을 링크로 감쌈 -->
+            <a href="qnaDetail?qna_no=${qna.qna_no}" class="qna-item-link">
+                <div class="qna-item">
+                    <!-- Q&A 텍스트 -->
+                    <div class="qna-text">
+                        <!-- Q&A 내용 -->
+                        <p class="qna-content">${qna.qna_content}</p>
+                        <!-- 사용자와 날짜 -->
+                        <div class="qna-info">
+                            <span class="qna-user">${qna.user_id}</span>
+                            <span class="qna-date">${qna.qna_date}</span>
+                        </div>
+                        <!-- 답변 상태 -->
+                        <div class="qna-reply">
+                            <c:choose>
+                                <c:when test="${not empty qna.qna_reply}">
+                                    <span class="reply-status replied">답변 완료</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="reply-status pending">답변 대기</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </c:forEach>
+        <c:if test="${empty getQna}">
+            <p>Q&A가 없습니다.</p>
+        </c:if>
+    </div>
+</div>
+<!-- QNA 끝 -->
+
 					
 					<!-- 취소/교환/반품 안내 -->
 					<div id="detail-guideInfo-box">
@@ -240,6 +269,24 @@
         
         <!-- 아코디언 -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+    // 상품 가격 변수
+    const productPrice = ${productDetail.product_price}; // JSP에서 가격 가져오기
+
+    // 총 금액 업데이트 함수
+    function updateTotalPrice() {
+        // 수량 값 가져오기
+        const quantity = document.getElementById("inputQuantity").value;
         
+        // 계산된 총 금액
+        const total = productPrice * quantity;
+
+        // 총 금액 표시 영역 업데이트
+        document.getElementById("totalPrice").innerText = total.toLocaleString(); // 천 단위 구분
+    }
+
+    // 초기화: 페이지 로드 시 총 금액 계산
+    window.onload = updateTotalPrice;
+</script>
     </body>
 </html>

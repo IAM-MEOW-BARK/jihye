@@ -191,8 +191,8 @@
 	
 	<!-- Q&A 글 작성하는 SQL -->
 	<insert id="qnaRegister" parameterType="QnaDTO">
-		insert into qna(qna_no, product_code_fk, user_id, qna_content, qna_secret, qna_date, qna_pwd)
-		values (#{qna_no}, #{product_code_fk}, #{user_id}, #{qna_content}, #{qna_secret}, curdate(), #{qna_pwd})		
+		insert into qna( product_code_fk, user_id, qna_content, qna_secret, qna_date, qna_pwd)
+		values ( #{product_code_fk}, #{user_id}, #{qna_content}, #{qna_secret}, curdate(), #{qna_pwd})		
 	</insert>
 	
 	<!-- Q&A 글 수정하는 SQL -->

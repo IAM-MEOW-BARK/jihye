@@ -166,8 +166,12 @@
         <div class="button-container">
         	<a href="backToList?notice_no=${noticeDetail.notice_no}">backToList</a>
             <a href="noticeList?pageNum=${pageNum}&pageListNum=${pageListNum}" class="noticeList">목록</a>
-            <a href="javascript:void(0)" class="noticeUpdate" onclick="openModal()">수정</a>
-            <a href="noticeDelete?notice_no=${noticeDetail.notice_no}" class="noticeDelete">삭제</a>
+            
+             <!-- userAuth가 1일 때만 수정/삭제 버튼 표시 -->
+            <c:if test="${userAuth == 1}">
+	            <a href="javascript:void(0)" class="noticeUpdate" onclick="openModal()">수정</a>
+	            <a href="noticeDelete?notice_no=${noticeDetail.notice_no}" class="noticeDelete">삭제</a>
+            </c:if>
         </div>
     </div>
 

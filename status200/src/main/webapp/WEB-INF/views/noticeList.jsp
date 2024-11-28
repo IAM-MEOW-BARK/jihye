@@ -205,7 +205,9 @@
             </div>
             
             <!-- 글쓰기 버튼 -->
-            <a class="write_button" onclick="openModal()">글쓰기</a>
+            <c:if test="${user_auth == 1}">
+            	<a class="write_button" onclick="openModal()">글쓰기</a>
+           	</c:if>
             
         </div>
     </div>

@@ -211,12 +211,19 @@ public class CatDogController {
    }
    
 	// 공지사항 리스트
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "noticeList", method = RequestMethod.GET)
 	public ModelAndView noticeList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-	                               @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum) {
-	    int pageSize = 10; // 한 페이지당 게시글 수
+	                               @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum, HttpSession session) {
+		
+		
+		int pageSize = 10; // 한 페이지당 게시글 수
 	    int pageListSize = 10; // 한 번에 표시할 페이지 수
 	    
+	    // 세션에서 사용자 정보 가져오기
+        Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+        int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+
 	    // 전체 게시글 수
 	    int totalPost = catDogService.noticeTotalPost();
 	    int totalPage = (int) Math.ceil((double) totalPost / pageSize);
@@ -235,6 +242,7 @@ public class CatDogController {
 	    mav.addObject("pageListNum", pageListNum); // 1~10, 11~20 ...
 	    mav.addObject("startPage", startPage); // 페이지 네비게이션 시작
 	    mav.addObject("endPage", endPage); // 페이지 네비게이션 끝
+	    mav.addObject("user_auth", user_auth); // 사용자 권한
 	    mav.setViewName("noticeList");
 	    return mav;
 	}
@@ -343,10 +351,17 @@ public class CatDogController {
 	
 	// 공지사항 상세조회
 	@RequestMapping(value="noticeDetail", method = RequestMethod.GET)
-	public String noticeDetail(@RequestParam("notice_no") int notice_no, Model model) {
+	public String noticeDetail(@RequestParam("notice_no") int notice_no, Model model, HttpSession session) {
 		NoticeDTO noticeDTO = catDogService.noticeDetail(notice_no);
 		catDogService.noticeUpdateReadCnt(notice_no);
 		model.addAttribute("noticeDetail", noticeDTO);
+		
+		// 세션에서 사용자 권한 가져오기
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+
+	    model.addAttribute("noticeDetail", noticeDTO);
+	    model.addAttribute("userAuth", user_auth);
 		
 		return "noticeDetail";
 	}
@@ -456,7 +471,7 @@ public class CatDogController {
 	}
 	
 	// Q&A 작성
-	@RequestMapping(value="qnaRegister", method = RequestMethod.GET)
+	@RequestMapping(value="/qnaRegister", method = RequestMethod.GET)
 	public String qnaRegister() {
 		return "qnaRegister";
 	}
@@ -465,10 +480,10 @@ public class CatDogController {
 	public String qnaRegister(QnaDTO qnaDTO, HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		
-		Map<String, Object> user = (Map) session.getAttribute("user");
-	     String user_id = (String) user.get("user_id");
+		//Map<String, Object> user = (Map<String,Object>) session.getAttribute("user");
+	    // String user_id = (String) user.get("user_id");
 	      
-		//String user_id = (String) session.getAttribute("user_id"); // 세션에서 user_id 가져오기
+		String user_id = (String) session.getAttribute("user_id"); // 세션에서 user_id 가져오기
 		qnaDTO.setUser_id(user_id); // QnaDTO에 user_id 설정
 		
 		int r = catDogService.qnaRegister(qnaDTO);
@@ -476,7 +491,7 @@ public class CatDogController {
 		if(r>0) {
 			rttr.addFlashAttribute("msg","추가에 성공하였습니다.");	//세션저장
 		}
-		return "redirect:qnaList";
+		return "redirect:/qnaList";
 	}	
 
 	// Q&A 수정
