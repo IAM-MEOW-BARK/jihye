@@ -57,6 +57,14 @@
 			text-decoration: none; /* 공통적으로 필요한 경우 */
 	        color: inherit;
 		}
+		.qna-replyWrite {
+		
+            color: #727272;
+            cursor: pointer;
+		}
+		.qna-reply {
+			color: #ff6600
+		}
 		.pagination-container {
             display: flex;
             justify-content: space-between; /* 양쪽 정렬 */
@@ -79,7 +87,7 @@
 	    }
         .write_button {
          	padding: 8px 17px;
-         	margin-right: 10px;
+         	margin-right: 20px;
             cursor: pointer;
             font-size: 11px;
             border: 1px solid #ff6600;
@@ -115,7 +123,12 @@
 						<td><a href="qnaDetail?qna_no=${qna.qna_no}"> ${qna.qna_content} </a></td>
 						<td>${qna.user_id}</td>
 						<td>${qna.qna_date}</td>
-						<td class=qna-reply>${qna.qna_reply}</td>
+						<c:if test="${user_auth == 1}">
+							<c:if test="${empty qna.qna_reply}">
+								<td class=qna-replyWrite><a href="qnaReply?qna_no=${qna.qna_no}"> 답변하기 </a>
+							</c:if>	
+						</c:if>
+							<td class=qna-reply>${qna.qna_reply}</td>
 					</tr>
 				</c:forEach>
             </tbody>

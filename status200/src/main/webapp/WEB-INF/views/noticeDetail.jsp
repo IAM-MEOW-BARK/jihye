@@ -65,8 +65,15 @@
             text-decoration: none;
             font-size: 11px;
         }
-
+        
+        .noticeUpdate, .noticeDelete {
+        	border: 1px solid #727272;
+            background-color: #ffffff;
+            color: #727272;
+        }
+	
         .noticeList:hover, .noticeUpdate:hover, .noticeDelete:hover {
+         	border: 1px solid #ff6600;
             background-color: #ff6600;
             color: #ffffff;
             text-decoration: none;
@@ -140,6 +147,7 @@
             text-decoration: none;
             cursor: pointer;
         }
+        
     </style>
 </head>
 <body>
@@ -168,7 +176,7 @@
             <a href="noticeList?pageNum=${pageNum}&pageListNum=${pageListNum}" class="noticeList">목록</a>
             
              <!-- userAuth가 1일 때만 수정/삭제 버튼 표시 -->
-            <c:if test="${userAuth == 1}">
+            <c:if test="${user_auth == 1}">
 	            <a href="javascript:void(0)" class="noticeUpdate" onclick="openModal()">수정</a>
 	            <a href="noticeDelete?notice_no=${noticeDetail.notice_no}" class="noticeDelete">삭제</a>
             </c:if>

@@ -186,6 +186,11 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.qnaDelete(qna_no);
 	}
+	@Override
+	public int qnaReply(QnaDTO qnaDTO) {
+		// TODO Auto-generated method stub
+		return catDogDAO.qnaReply(qnaDTO);
+	}
 //	@Override
 //	public List<ProductDTO> productList(int start, int pageSize) {
 //		// TODO Auto-generated method stub

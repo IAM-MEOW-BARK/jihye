@@ -280,10 +280,14 @@ public class CatDogController {
 	// Q&A 리스트
 	@RequestMapping(value="qnaList", method = RequestMethod.GET)
 	public ModelAndView qnaList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-							    @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum) {
+							    @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum, HttpSession session) {
 				
 		int pageSize = 10; // 한 페이지당 게시글 수
 		int pageListSize = 10; // 한 번에 표시할 페이지 수
+		
+		// 세션에서 사용자 정보 가져오기
+        Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+        int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
 		
 		// 전체 게시글 수
 		int totalPost = catDogService.qnaTotalPost();
@@ -303,6 +307,7 @@ public class CatDogController {
 		mav.addObject("pageListNum", pageListNum);
 		mav.addObject("startPage", startPage); // 페이지 네비게이션 시작
 		mav.addObject("endPage", endPage); // 페이지 네비게이션 끝
+		mav.addObject("user_auth", user_auth);
 		mav.setViewName("qnaList");
 		return mav;
 	}
@@ -312,11 +317,14 @@ public class CatDogController {
 	public ModelAndView faqList(
 	    @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 	    @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum,
-	    @RequestParam(value = "faq_division", required = false) Integer faq_division // 구분값 추가
-	) {
+	    @RequestParam(value = "faq_division", required = false) Integer faq_division, HttpSession session) {
 	    int pageSize = 10; // 한 페이지당 게시글 수
 	    int pageListSize = 10; // 한 번에 표시할 페이지 수
 	    
+	    // 세션에서 사용자 정보 가져오기
+        Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+        int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+        
 	    int totalPost;
 	    List<FaqDTO> faqList;
 
@@ -344,7 +352,8 @@ public class CatDogController {
 	    mav.addObject("pageListNum", pageListNum); // 현재 페이지 리스트 번호
 	    mav.addObject("startPage", startPage); // 페이지 네비게이션 시작
 	    mav.addObject("endPage", endPage); // 페이지 네비게이션 끝
-	    mav.addObject("selectedDivision", faq_division); // 선택된 구분값
+	    mav.addObject("selectedDivision", faq_division);
+	    mav.addObject("user_auth", user_auth);
 	    mav.setViewName("faqList");
 	    return mav;
 	}
@@ -361,7 +370,7 @@ public class CatDogController {
 	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
 
 	    model.addAttribute("noticeDetail", noticeDTO);
-	    model.addAttribute("userAuth", user_auth);
+	    model.addAttribute("user_auth", user_auth);
 		
 		return "noticeDetail";
 	}
@@ -473,10 +482,10 @@ public class CatDogController {
 	// Q&A 작성
 	@RequestMapping(value="/qnaRegister", method = RequestMethod.GET)
 	public String qnaRegister() {
-		return "qnaRegister";
+		return "/qnaRegister";
 	}
 	
-	@RequestMapping(value="qnaRegister", method = RequestMethod.POST)
+	@RequestMapping(value="/qnaRegister", method = RequestMethod.POST)
 	public String qnaRegister(QnaDTO qnaDTO, HttpServletRequest request, HttpSession session, RedirectAttributes rttr) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -495,16 +504,16 @@ public class CatDogController {
 	}	
 
 	// Q&A 수정
-	@RequestMapping(value="qnaUpdate", method = RequestMethod.GET)
+	@RequestMapping(value="/qnaUpdate", method = RequestMethod.GET)
 	public String qnaUpdate(@RequestParam("qna_no") int qna_no, Model model) {
 		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
 		
 		
 		model.addAttribute("qnaUpdate", qnaDTO);
-		return "qnaUpdate";
+		return "/qnaUpdate";
 	}
 	
-	@RequestMapping(value="qnaUpdate", method = RequestMethod.POST)
+	@RequestMapping(value="/qnaUpdate", method = RequestMethod.POST)
 	public String qnaUpdate(QnaDTO qnaDTO, RedirectAttributes attr,HttpServletRequest request) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		
@@ -512,9 +521,9 @@ public class CatDogController {
 		
 		if(r>0) {
 			attr.addFlashAttribute("msg", "수정에 성공 하였습니다.");
-			return "redirect:qnaList";
+			return "redirect:/qnaList";
 		}
-		return "redirect:qnaUpdate?qna_no=" + qnaDTO.getQna_no();
+		return "redirect:/qnaUpdate?qna_no=" + qnaDTO.getQna_no();
 	}
 	
 	// Q&A 삭제
@@ -528,6 +537,29 @@ public class CatDogController {
 		}
 		return "redirect:qnaDetail?qna_no=" + qna_no;
 	}
+	
+	// 
+	@RequestMapping(value="/qnaReply", method = RequestMethod.GET)
+	public String qnaReply(@RequestParam("qna_no") int qna_no, Model model) {
+		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+		
+		model.addAttribute("qnaReply", qnaDTO);
+		return "/qnaReply";
+	}
+	
+	@RequestMapping(value="/qnaReply", method = RequestMethod.POST)
+	public String qnaReply(QnaDTO qnaDTO, RedirectAttributes attr, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		
+		int r = catDogService.qnaReply(qnaDTO);
+		
+		if(r>0) {
+			attr.addFlashAttribute("msg", "답변이 작성되었습니다.");
+			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
+		}
+		return "redirect:/qnaReply?qna_no=" + qnaDTO.getQna_no();
+	}
+	
 	
 	// 상품 검색
 	@RequestMapping(value="productSearch", method = RequestMethod.GET)

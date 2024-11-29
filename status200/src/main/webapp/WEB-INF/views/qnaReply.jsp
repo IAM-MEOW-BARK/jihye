@@ -37,14 +37,7 @@
             border-radius: 4px;
             font-size: 14px;
         }
-		#product_code {
-			width: 70%;
-			padding: 10px;
-			margin-right: 7px;
-			border: 1px solid #ccc;
-            border-radius: 4px;
-			font-size: 14px;
-		}
+		
         .form-group input[type="password"] {
         	width: 15%;
         }
@@ -55,6 +48,9 @@
 		}
         textarea {
             height: 300px;
+        }
+        #qna_reply {
+        	height: 100px;
         }
         .radio-group {
             display: flex;
@@ -102,37 +98,27 @@
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <h2>수정하기</h2>
+        <h2>답변하기</h2>
         
-        <form action="qnaUpdate" method="post">
+        <form action="qnaReply" method="post">
             <div class="line"></div>
              
             <!-- 상품코드 -->
             <div class="form-group">
                 <label for="code">상품명</label>
-                <input type="text" id="product_code" name="product_code_fk" value="${qnaUpdate.product_code_fk}" readonly>
-                <button type="button">상품검색</button>
+                <input type="text" id="product_code" name="product_code_fk" value="${qnaReply.product_name}" disabled>
             </div>
 
             <!-- 내용 -->
             <div class="form-group">
                 <label for="content">내용</label>
-                <textarea id="qna_content" name="qna_content">"${qnaUpdate.qna_content}"</textarea>
+                <textarea id="qna_content" name="qna_content" disabled>"${qnaReply.qna_content}"</textarea>
             </div>
             
-            <!-- 공개/비공개 -->
+            <!-- 답변 -->
             <div class="form-group">
-                <label>SECRET</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="qna_secret" value="public" checked> 공개글</label>
-                    <label><input type="radio" name="qna_secret" value="private"> 비밀글</label>
-                </div>
-            </div>
-            
-            <!-- 비밀번호 -->
-            <div class="form-group">
-                <label for="password">비밀번호</label>
-                <input type="password" id="qna_pwd" name="qna_pwd" placeholder="비밀번호를 입력하세요." disabled>
+                <label for="content">답변</label>
+                <textarea id="qna_reply" name="qna_reply" placeholder="내용을 입력하세요."></textarea>
             </div>
             
             <div class="line"></div>
@@ -145,36 +131,8 @@
         </form>
     </div>
 
-    <!-- JavaScript -->
-    <script>
-        const publicRadio = document.querySelector('input[name="qna_secret"][value="public"]');
-        const privateRadio = document.querySelector('input[name="qna_secret"][value="private"]');
-        const passwordInput = document.getElementById('qna_pwd');
-
-        // 라디오 버튼 클릭 시 이벤트 처리
-        publicRadio.addEventListener('change', () => {
-            if (publicRadio.checked) {
-                passwordInput.disabled = true; // 비활성화
-                passwordInput.value = ""; // 입력값 초기화
-            }
-        });
-
-        privateRadio.addEventListener('change', () => {
-            if (privateRadio.checked) {
-                passwordInput.disabled = false; // 활성화
-            }
-        });
-        
-      // 상품검색 버튼 동작 추가
-        document.querySelector('.search-button').addEventListener('click', function () {
-            const productCode = document.getElementById('product_code_fk').value;
-            if (productCode.trim() === '') {
-                alert('상품코드를 입력하세요.');
-            } else {
-                alert(`검색된 상품코드: ${product_code_fk}`);
-            }
-        });
-    </script>
+   
+   
 </body>
 
 </html>

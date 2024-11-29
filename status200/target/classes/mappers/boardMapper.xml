@@ -184,10 +184,10 @@
 	</update>
 	
 	<!-- 공지사항 글 삭제하는 SQL -->
-	<update id="noticeDelete" parameterType="java.lang.Integer">
+	<delete id="noticeDelete" parameterType="java.lang.Integer">
 		delete from notice
 		where notice_no = #{notice_no}
-	</update>
+	</delete>
 	
 	<!-- Q&A 글 작성하는 SQL -->
 	<insert id="qnaRegister" parameterType="QnaDTO">
@@ -198,13 +198,20 @@
 	<!-- Q&A 글 수정하는 SQL -->
 	<update id="qnaUpdate" parameterType="QnaDTO">
 		update qna
-		set qna_code_fk=#{qna_code_fk}, qna_content=#{qna_content}, qna_secret=#{qna_secret}, qna_date=curdate(), qna_pwd=#{qna_pwd}
+		set product_code_fk=#{product_code_fk}, qna_content=#{qna_content}, qna_secret=#{qna_secret}, qna_date=curdate(), qna_pwd=#{qna_pwd}
 		where qna_no = #{qna_no}
 	</update>
 	
 	<!-- Q&A 글 삭제하는 SQL -->
-	<update id="qnaDelete" parameterType="java.lang.Integer">
+	<delete id="qnaDelete" parameterType="java.lang.Integer">
 		delete from qna
+		where qna_no = #{qna_no}
+	</delete>
+	
+	<!-- Q&A 글 답변 작성하는 SQL -->
+	<update id="qnaReply" parameterType="QnaDTO">
+		update qna
+		set qna_reply = #{qna_reply}
 		where qna_no = #{qna_no}
 	</update>
 	
@@ -234,10 +241,10 @@
 	</update>
 	
 	<!-- FAQ 글 삭제하는 SQL -->
-	<update id="faqDelete" parameterType="java.lang.Integer">
+	<delete id="faqDelete" parameterType="java.lang.Integer">
 		delete from faq
 		where faq_no = #{faq_no}
-	</update>
+	</delete>
 </mapper>
   
   

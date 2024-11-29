@@ -110,7 +110,7 @@
             <!-- 상품코드 -->
             <div class="form-group">
                 <label for="code">상품명</label>
-                <input type="text" id="product_code" name="product_name" defaultValue="${qnaUpdate.product_name}">
+                <input type="text" id="product_code" name="product_name" value="${qnaUpdate.product_name}">
                 <button type="button" onclick="openSearchPopup()">상품검색</button>
             </div>
 
@@ -124,8 +124,8 @@
             <div class="form-group">
                 <label>SECRET</label>
                 <div class="radio-group">
-                    <label><input type="radio" name="qna_secret" value="public" checked> 공개글</label>
-                    <label><input type="radio" name="qna_secret" value="private"> 비밀글</label>
+                    <label><input type="radio" name="qna_secret" value="0" checked> 공개글</label>
+                    <label><input type="radio" name="qna_secret" value="1"> 비밀글</label>
                 </div>
             </div>
             
@@ -151,8 +151,8 @@
 	        window.open('productSearch?keyword=', '상품 검색', 'width=800,height=600,scrollbars=yes');
 	    }
 	
-        const publicRadio = document.querySelector('input[name="qna_secret"][value="public"]');
-        const privateRadio = document.querySelector('input[name="qna_secret"][value="private"]');
+        const publicRadio = document.querySelector('input[name="qna_secret"][value="0"]');
+        const privateRadio = document.querySelector('input[name="qna_secret"][value="1"]');
         const passwordInput = document.getElementById('qna_pwd');
 
         // 라디오 버튼 클릭 시 이벤트 처리

@@ -11179,13 +11179,13 @@ products-box-detail-price {
     object-fit: cover;
     object-position: center;
 }
-/* 리뷰 시작 */
-#detail-review-box {
-	margin-top: 20px;
+/* 리뷰, Q&A 시작 */
+#detail-review-box, #detail-qna-box {
+	
     padding: 10px;
 }     
-/* 리뷰 제목 */
-.detail-review-header {
+/* 제목 */
+.detail-review-header, .detail-qna-header {
 	/*
 	margin-top: 140px;
 	height: 54px;
@@ -11200,27 +11200,8 @@ products-box-detail-price {
     border-bottom: 1px solid #1e1e1e;
     padding-bottom: 10px;
 } 
-/* Q&A 시작 */
-#detail-qna-box {
-	margin-top: 20px;
-    padding: 10px;
-}     
-/* 리뷰 제목 */
-.detail-qna-header {
-	/*
-	margin-top: 140px;
-	height: 54px;
-	*/
-	
-	display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 10px; /* 20px */
-    border-bottom: 1px solid #1e1e1e;
-    padding-bottom: 10px;
-} 
+    
+
 /* 더보기 버튼 */
 .more-button {
 	color: #ff6600;
@@ -11242,6 +11223,14 @@ products-box-detail-price {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    padding: 0 15px;
+}
+
+#recent-qnas {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 0 15px;
 }
 .review-item {
     display: flex;
@@ -11257,7 +11246,7 @@ products-box-detail-price {
     margin-right: 15px;
     
 }
-.review-text {
+.review-text, .qna-text {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -11293,10 +11282,18 @@ products-box-detail-price {
 /* 리뷰 내용 */
 .review-content {
     font-size: 13px;
-    
     line-height: 1.6;
 }
-/* 리뷰 링크 스타일 */
+
+
+
+
+
+
+
+
+
+/* 링크 */
 .review-item-link {
     text-decoration: none;
     color: inherit;
@@ -11305,28 +11302,54 @@ products-box-detail-price {
     padding-bottom: 15px;
 }
 
-.review-item-link:hover {
-    color: #ff6600;
-}
-
-/* Q&A 링크 스타일 */
 .qna-item-link {
     text-decoration: none;
     color: inherit;
     display: block;
     border-bottom: 1px solid #eaeaea;
-    padding: 15px 0;
+    padding: 10px 0;
 }
 
-.qna-item-link:hover {
-    background-color: #f9f9f9;
+.review-item-link:hover, .qna-item-link:hover {
+    color: #ff6600;
 }
 
-/* Q&A 아이템 스타일 */
+
+/* Q&A 아이템 */
 .qna-item {
-    border-bottom: 1px solid #eaeaea;
-    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
+.qna-info {
+    font-size: 12px;
+    color: #777;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; 
+}
+.qna-content {
+    font-size: 14px;
+    color: #333;
+    margin: 5px;
+    width: 70%;
+}
+.reply-status {
+    font-size: 12px;
+    padding: 3px 6px;
+    color: #ff6600;
+    display: inline-block;
+}
+
+.reply-ready {
+	padding: 3px 6px;
+	display: inline-block;
+}
+
+
+
+
 
 .qna-lock {
     font-size: 14px;
@@ -11341,62 +11364,7 @@ products-box-detail-price {
     font-size: 16px;
 }
 
-/* Q&A 링크 스타일 */
-.qna-item-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    border-bottom: 1px solid #eaeaea;
-    padding: 15px 0;
-}
 
-.qna-item-link:hover {
-    background-color: #f9f9f9;
-}
 
-/* Q&A 아이템 스타일 */
-.qna-item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
 
-.qna-text {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
 
-.qna-content {
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.qna-info {
-    font-size: 12px;
-    color: #777;
-    display: flex;
-    justify-content: space-between;
-}
-
-.qna-reply {
-    margin-top: 5px;
-}
-
-.reply-status {
-    font-size: 12px;
-    padding: 3px 6px;
-    border-radius: 4px;
-    color: white;
-    display: inline-block;
-}
-
-.reply-status.replied {
-    background-color: #28a745; /* 녹색 */
-}
-
-.reply-status.pending {
-    background-color: #ff6600; /* 주황색 */
-}

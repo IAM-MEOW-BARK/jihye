@@ -80,8 +80,15 @@
             text-decoration: none;
             font-size: 11px;
         }
+        
+        .qnaUpdate, .qnaDelete {
+        	border: 1px solid #727272;
+            background-color: #ffffff;
+            color: #727272;
+        }
 
         .qnaList:hover, .qnaUpdate:hover, .qnaDelete:hover {
+            border: 1px solid #ff6600;
             background-color: #ff6600;
             color: #ffffff;
             
@@ -137,7 +144,6 @@
             <a href="qnaList" class="qnaList">목록</a>
             <a href="qnaUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">수정</a>
             <a href="qnaDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete">삭제</a>
-            <a href="qnaReply?qna_no=${qnaDetail.qna_no}" class="qnaReply">답</a>
         </div>
     </div>
 </body>

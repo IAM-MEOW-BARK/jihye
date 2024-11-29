@@ -251,7 +251,9 @@
                     <a href="faqList?pageNum=${endPage + 1}&pageListNum=${pageListNum + 1}">&gt;</a>
                 </c:if>
             </div>
-            <a class="write_button" onclick="openModal()">글쓰기</a>
+            <c:if test="${user_auth == 1}">
+            	<a class="write_button" onclick="openModal()">글쓰기</a>
+           	</c:if>
         </div>
     </div>
     

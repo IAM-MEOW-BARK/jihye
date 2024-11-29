@@ -303,6 +303,11 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.delete(namespace+".qnaDelete", qna_no);
 	}
+	@Override
+	public int qnaReply(QnaDTO qnaDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".qnaReply", qnaDTO);
+	}
 //	@Override
 //	public List<ProductDTO> productList(int start, int pageSize) {
 //		// TODO Auto-generated method stub
@@ -348,6 +353,4 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
-
-
 }

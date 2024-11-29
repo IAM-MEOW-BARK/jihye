@@ -12,16 +12,16 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean id="dataSourceSpied" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-	<!--
+	
 	 	<property name="url" value="jdbc:mysql://192.168.0.63:3306/cat_dog?serverTimezone=UTC"></property>
 		<property name="username" value="jihye"></property>
 		<property name="password" value="chlwlgP1234"></property>
-	 -->
-	
+	 
+	<!--
 		<property name="url" value="jdbc:mysql://localhost:3306/cat_dog?serverTimezone=UTC"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="jhgg218618!"></property>
-	
+	-->
 	
 	</bean>	
 	

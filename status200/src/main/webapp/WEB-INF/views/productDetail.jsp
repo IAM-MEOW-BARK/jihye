@@ -147,46 +147,56 @@
 						</div> <!-- 리뷰 끝 -->
 					
 						<!-- QNA 시작 -->
-<div id="detail-qna-box">
-    <div class="detail-qna-header">
-        Q&A (${product_qnaTotal})
-        <a class="more-button" href="qnaList">더 보기</a>
-    </div>
-    <div id="recent-qnas">
-        <c:forEach var="qna" items="${getQna}">
-            <!-- Q&A 아이템을 링크로 감쌈 -->
-            <a href="qnaDetail?qna_no=${qna.qna_no}" class="qna-item-link">
-                <div class="qna-item">
-                    <!-- Q&A 텍스트 -->
-                    <div class="qna-text">
-                        <!-- Q&A 내용 -->
-                        <p class="qna-content">${qna.qna_content}</p>
-                        <!-- 사용자와 날짜 -->
-                        <div class="qna-info">
-                            <span class="qna-user">${qna.user_id}</span>
-                            <span class="qna-date">${qna.qna_date}</span>
-                        </div>
-                        <!-- 답변 상태 -->
-                        <div class="qna-reply">
-                            <c:choose>
-                                <c:when test="${not empty qna.qna_reply}">
-                                    <span class="reply-status replied">답변 완료</span>
-                                </c:when>
-                                <c:otherwise>
-                                    <span class="reply-status pending">답변 대기</span>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </c:forEach>
-        <c:if test="${empty getQna}">
-            <p>Q&A가 없습니다.</p>
-        </c:if>
-    </div>
-</div>
-<!-- QNA 끝 -->
+						<div id="detail-qna-box">
+						    <div class="detail-qna-header">
+						        Q&A (${product_qnaTotal})
+						        <a class="more-button" href="qnaList">더보기</a>
+						    </div>
+						    <div id="recent-qnas">
+						        <c:forEach var="qna" items="${getQna}">
+						            <a href="qnaDetail?qna_no=${qna.qna_no}" class="qna-item-link">
+						                <div class="qna-item">
+						                    <!-- Q&A 텍스트 -->
+						                    <div class="qna-text">
+						                        <div class="qna-info">
+						                        	
+						                        
+						                        	<c:choose>
+						                        		<c:when test="${qna.qna_secret} == 1">
+						                        			<span>비밀글</span>
+						                        		</c:when>
+						                        		<c:otherwise>
+						                        			<span>공개글</span>
+						                        		</c:otherwise>
+						                        	</c:choose>
+						                        	
+							                        <!-- Q&A 내용 -->
+							                        <span class="qna-content">${qna.qna_content}</span>
+							                        <!-- 사용자와 날짜 -->
+						                            <span class="qna-user">${qna.user_id}</span>
+						                            <span class="qna-date">${qna.qna_date}</span>
+						                        
+						                        <!-- 답변 상태 -->
+						                        <div class="qna-reply">
+						                            <c:choose>
+						                                <c:when test="${not empty qna.qna_reply}">
+						                                    <span class="reply-status">답변 완료</span>
+						                                </c:when>
+						                                <c:otherwise>
+						                                	<span class="reply-ready">답변 대기</span>
+						                                </c:otherwise>
+						                            </c:choose>
+						                        </div>
+						                        </div>
+						                    </div>
+						                </div>
+						            </a>
+						        </c:forEach>
+						        <c:if test="${empty getQna}">
+						            <p>Q&A가 없습니다.</p>
+						        </c:if>
+						    </div>
+						</div> <!-- QNA 끝 -->
 
 					
 					<!-- 취소/교환/반품 안내 -->
@@ -269,24 +279,25 @@
         
         <!-- 아코디언 -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- 주문 금액 -->
         <script>
-    // 상품 가격 변수
-    const productPrice = ${productDetail.product_price}; // JSP에서 가격 가져오기
-
-    // 총 금액 업데이트 함수
-    function updateTotalPrice() {
-        // 수량 값 가져오기
-        const quantity = document.getElementById("inputQuantity").value;
-        
-        // 계산된 총 금액
-        const total = productPrice * quantity;
-
-        // 총 금액 표시 영역 업데이트
-        document.getElementById("totalPrice").innerText = total.toLocaleString(); // 천 단위 구분
-    }
-
-    // 초기화: 페이지 로드 시 총 금액 계산
-    window.onload = updateTotalPrice;
-</script>
+		    // 상품 가격
+		    const productPrice = ${productDetail.product_price};
+		
+		    // 주문 금액
+		    function updateTotalPrice() {
+		        // 수량 값 가져오기
+		        const quantity = document.getElementById("inputQuantity").value;
+		        
+		        // 총 금액
+		        const total = productPrice * quantity;
+		
+		        // 총 금액 표시 영역 업데이트
+		        document.getElementById("totalPrice").innerText = total.toLocaleString();
+		    }
+		
+		    // 초기화: 페이지 로드 시 금액
+		    window.onload = updateTotalPrice;
+		</script>
     </body>
 </html>
