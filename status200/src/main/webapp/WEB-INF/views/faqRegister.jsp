@@ -42,9 +42,7 @@
             border-radius: 4px;
             font-size: 14px;
         }
-        .form-group input[type="password"] {
-        	width: 15%;
-        }
+
         .form-group input:focus,
 		.form-group textarea:focus {
 		    border: 1.5px solid #ff6600;

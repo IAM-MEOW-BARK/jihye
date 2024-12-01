@@ -75,15 +75,47 @@
         .faq-click {
             cursor: pointer;
         }
+        .accordion-question{
+        	text-align:left;
+        }
         .accordion-content {
             display: none;
-            background-color: #f9f9f9;
+		    background-color: #f9f9f9;
+		    
+		    padding: 20px 20px; /* 위아래, 좌우 간격 */
+		    line-height: 1.6; /* 줄 간격 */
             
         }
         .active-content {
-            display: table-row;
-            
+            display: table-row;  
         }
+        
+		.faq-reply-content {
+		    text-align: justify; /* 양쪽 정렬 */
+		    white-space: pre-wrap; /* 줄바꿈 허용 */
+		    
+		}
+.action-button {
+    color: #adadad;
+    text-decoration: none;
+    font-size: 12px;
+    border: none; /* 테두리 제거 */
+    background: none; /* 배경색 제거 */
+    margin: 5px 7px; /* 버튼 간 간격 */
+    
+    cursor: pointer; /* 커서 포인터 */
+    padding: 0; /* 기본 버튼 패딩 제거 */
+}
+
+.action-button:hover {
+    color: #ff3300; /* 호버 시 색상 변경 */
+}
+
+.action-buttons {
+    display: flex; /* 가로로 나열 */
+    
+    justify-content: flex-end; /* 오른쪽 정렬 */
+}
 
         /* 페이징 및 버튼 스타일 */
         .pagination-container {
@@ -120,6 +152,9 @@
             background-color: #ff6600;
             color: #ffffff;
         }
+
+
+        
         /* 모달 스타일 */
         .modal {
             display: none;
@@ -227,12 +262,32 @@
 			                    <c:otherwise>기타</c:otherwise>
 			                </c:choose>
 			            </td>
-                        <td>${faq.faq_question}</td>
+                        <td class="accordion-question">${faq.faq_question}</td>
                     </tr>
-                    <!-- 답변 -->
                     <tr class="accordion-content">
-                        <td colspan="3" style="text-align: left;">${faq.faq_reply}</td>
-                    </tr>
+    <td colspan="3">
+        <!-- 수정 및 삭제 버튼 -->
+        <div class="action-buttons">
+            <c:if test="${user_auth == 1}">
+            	<form action="/faqUpdate" method="post">
+            	<input type="hidden" name="faq_no" value="${faqUpdate.faq_no}">
+            	
+            	
+            	<button type="submit"  class="action-button">수정</button>
+            	</form>
+               
+                 <form action="/faqDelete" method="post" >
+                            <input type="hidden" name="faq_no" value="${faq.faq_no}">
+                            <button type="submit"class="action-button" onclick="return confirm('삭제하시겠습니까?');">삭제</button>
+                        </form>
+            </c:if>
+        </div>
+        <!-- FAQ 답변 -->
+        <div class="faq-reply-content">${faq.faq_reply}</div>
+    </td>
+</tr>
+
+					     
                 </c:forEach>
             </tbody>
         </table>

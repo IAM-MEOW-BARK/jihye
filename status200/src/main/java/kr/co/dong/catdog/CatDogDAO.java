@@ -46,6 +46,12 @@ public interface CatDogDAO {
     
     // 회원 탈퇴
     public int deleteUser(String user_id);
+    
+    // 장바구니 정보
+    public List<CartDTO> getCartInfo(String user_id) throws Exception;
+    
+    // 장바구니 상품 정보
+    public List<CartDTO> getCartItem(String user_id) throws Exception;
 
     // 최근 주문 내역 (최신 5개 등 제한)
     public List<OrdersDTO> getRecentOrders(String user_id) throws Exception;
@@ -116,8 +122,12 @@ public interface CatDogDAO {
     public ReviewDTO reviewDetail(int review_no);
     public int reviewUpdateReadCnt(int review_no);
     
-    // Q&A 상세보기
+    // Q&A 상세 조회
     public QnaDTO qnaDetail(int qna_no);
+    
+    // FAQ 상세 조회
+    public FaqDTO faqDetail(int faq_no);
+    
     
     //공지사항 글 작성
     public int noticeRegister(NoticeDTO noticeDTO);
@@ -148,6 +158,7 @@ public interface CatDogDAO {
     // FAQ 글 작성 
     public int faqRegister(FaqDTO faqDTO);
     
+ 
     // FAQ 글 수정
     public int faqUpdate(FaqDTO faqDTO);
     

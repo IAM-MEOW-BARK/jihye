@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>상품 문의</title>
+    <title>FAQ</title>
     <style type="text/css">
         /* 전체 레이아웃 */
         body {
@@ -17,7 +17,12 @@
         }
 		.line {
 		    border-top: 1px solid #ccc; 
-		    margin: 20px 0;           
+		    margin: 20px 0;            
+		}
+		#faq_division {
+			height: 40px;
+			border: 1px solid #ccc;
+            border-radius: 4px;
 		}
         .form-group {
             display: flex;
@@ -25,7 +30,7 @@
             margin-bottom: 20px;
         }
         .form-group label {
-            width: 10%; /* 레이블 넓이 */
+            width: 10%; 
             font-weight: 500;
             color: #333;
         }
@@ -37,7 +42,6 @@
             border-radius: 4px;
             font-size: 14px;
         }
-		
         .form-group input[type="password"] {
         	width: 15%;
         }
@@ -49,21 +53,8 @@
         textarea {
             height: 300px;
         }
-        #qna_reply {
-        	height: 100px;
-        }
-        .radio-group {
-            display: flex;
-            gap: 65px;
-            align-items: center;
-        }
-		.radio-group label {
-		    display: inline-flex; 
-		    align-items: center;
-		    gap: 5px; 
-		    white-space: nowrap;
-		}
-        .form-buttons {
+        /* 버튼 */
+        .form-button {
             display: flex;
             justify-content: center;
             gap: 10px;
@@ -72,7 +63,6 @@
         }
         button {
             padding: 8px 17px;
-            border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 11px;
@@ -98,44 +88,48 @@
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <h2>답변하기</h2>
+        <h2>FAQ 작성</h2>
         
-        <form action="qnaReply" method="post">
-        <!-- 숨겨진 필드 (qna_no 전달) -->
- 		<input type="hidden" name="qna_no" value="${qnaReply.qna_no}">
-            <div class="line"></div>
-             
-            <!-- 상품코드 -->
+        <form action="/faqUpdate" method="post">
+        	<div class="line"></div>
+        	 
+        	  <!-- FAQ 번호 (hidden) -->
+            <input type="hidden" name="faq_no" value="${faqUpdate.faq_no}">
+            
+            
+        	 <!-- 구분 -->
+			<div class="form-group">
+			    <label for="faq_division">구분</label>
+			    <select id="faq_division" name="faq_division">
+			        <option value="" selected disabled>구분을 선택하세요</option>
+			        <option value="1">회원서비스</option>
+			        <option value="2">배송</option>
+			        <option value="3">주문/결제</option>
+			        <option value="4">반품/교환/취소</option>
+			        <option value="5">기타</option>
+			    </select>
+			</div>
+            
+            <!-- 질문 -->
             <div class="form-group">
-                <label for="name">상품명</label>
-                <input type="text" id="product_name" name="product_name" value="${qnaReply.product_name}" disabled>
+                <label for="faq_question">질문</label>
+                <input type="text" id="faq_question" name="faq_question" value="${faqUpdate.faq_question}">
             </div>
 
-            <!-- 내용 -->
-            <div class="form-group">
-                <label for="content">내용</label>
-                <textarea id="qna_content" name="qna_content" disabled>${qnaReply.qna_content}</textarea>
-            </div>
-            
             <!-- 답변 -->
             <div class="form-group">
                 <label for="content">답변</label>
-                <textarea id="qna_reply" name="qna_reply" placeholder="내용을 입력하세요."></textarea>
+                <textarea id="faq_reply" name="faq_reply" rows="%" required>${faqUpdate.faq_reply }</textarea>
             </div>
-            
-           
+
             <div class="line"></div>
 
             <!-- 버튼 -->
-            <div class="form-buttons">
+            <div class="form-button">
                 <button type="submit">등록</button>
                 <button type="reset">취소</button>
             </div>
         </form>
     </div>
-
-   
-   
 </body>
-
 </html>

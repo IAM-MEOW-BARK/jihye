@@ -59,6 +59,11 @@
             color: #ffa500;
             letter-spacing: -2px;
         } 
+        
+        .star-empty {
+		    color: #ccc;
+		}
+		
 		.pagination-container {
             display: flex;
             justify-content: center; 
@@ -107,10 +112,10 @@
                                     <c:forEach begin="1" end="5" var="i">
                                         <c:choose>
                                             <c:when test="${i <= review.review_score}">
-                                                ★
+                                                <span class="star-filled">⚝</span>
                                             </c:when>
                                             <c:otherwise>
-                                                ☆
+                                                <span class="star-empty">⚝</span>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>

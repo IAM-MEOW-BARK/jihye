@@ -37,7 +37,7 @@
             border-radius: 4px;
             font-size: 14px;
         }
-		#product_code {
+		#product_name {
 			width: 70%;
 			padding: 10px;
 			margin-right: 7px;
@@ -105,19 +105,25 @@
         <h2>수정하기</h2>
         
         <form action="qnaUpdate" method="post">
+        <input type="hidden" name="qna_no" value="${qnaUpdate.qna_no}">
             <div class="line"></div>
              
             <!-- 상품코드 -->
             <div class="form-group">
                 <label for="code">상품명</label>
-                <input type="text" id="product_code" name="product_name" value="${qnaUpdate.product_name}">
+                <input type="text" id="product_name" name="product_name" value="${qnaUpdate.product_name}" readonly>
+
+                <!-- 실제로 서버로 전송할 상품코드 -->
+				<input type="hidden" id="product_code_fk" name="product_code_fk" value="${qnaUpdate.product_code_fk}">
+                
                 <button type="button" onclick="openSearchPopup()">상품검색</button>
             </div>
 
+			
             <!-- 내용 -->
             <div class="form-group">
                 <label for="content">내용</label>
-                <textarea id="qna_content" name="qna_content">"${qnaUpdate.qna_content}"</textarea>
+                <textarea id="qna_content" name="qna_content">${qnaUpdate.qna_content}</textarea>
             </div>
             
             <!-- 공개/비공개 -->
@@ -140,7 +146,7 @@
             <!-- 버튼 -->
             <div class="form-buttons">
                 <button type="submit">등록</button>
-                <button type="reset">취소</button>
+                <button type="reset" onclick="history.back()">취소</button>
             </div>
         </form>
     </div>
@@ -149,7 +155,10 @@
     <script>
 	    function openSearchPopup() {
 	        window.open('productSearch?keyword=', '상품 검색', 'width=800,height=600,scrollbars=yes');
+	    	
 	    }
+	    
+	    
 	
         const publicRadio = document.querySelector('input[name="qna_secret"][value="0"]');
         const privateRadio = document.querySelector('input[name="qna_secret"][value="1"]');

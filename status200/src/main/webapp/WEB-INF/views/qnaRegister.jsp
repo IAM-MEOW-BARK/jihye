@@ -37,7 +37,7 @@
             border-radius: 4px;
             font-size: 14px;
         }
-		#product_code {
+		#product_name {
 			width: 70%;
 			padding: 10px;
 			margin-right: 7px;
@@ -114,7 +114,10 @@
             <!-- 상품코드 -->
             <div class="form-group">
                 <label for="code">상품명</label>
-                <input type="text" id="product_code" name="product_code_fk" placeholder="상품을 검색하세요.">
+               <!-- 상품명 (사용자에게 보이는 필드) -->
+				<input type="text" id="product_name" placeholder="상품을 검색하세요." readonly>
+				<!-- 실제로 서버로 전송될 상품 코드 -->
+				<input type="hidden" id="product_code_fk" name="product_code_fk">
                 <button type="button" onclick="openSearchPopup()">상품검색</button>
             </div>
 

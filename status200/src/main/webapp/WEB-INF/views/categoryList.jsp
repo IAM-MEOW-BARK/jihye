@@ -8,18 +8,43 @@
 <%@ include file="include/head.jsp"%>
 
 <style>
-		.tab-image {
-		   display: block;
-		   overflow: hidden;
-		   height: 200px;
-		   width: 200px;	
+		.section-title {
+		margin-top:20px;
+		margin-left: 20px;
+		font-weight: 540; 
 		}
-		.tab-image img {
-		  
-		   width: 100%;
-		   height: 100%;
-		   object-fit:cover;
-		}
+		
+		.product-item .tab-image {
+    display: block;
+    margin: 0 auto; /* 이미지 가운데 정렬 */
+    height: 200px;
+    width: 200px;
+    object-fit: cover; /* 이미지 크기 조정 */
+}
+.product-item .product_name {
+    margin-top: 10px; /* 이미지와 텍스트 간 간격 */
+}
+
+.product-item .button-area {
+    width: 100%; /* 버튼이 적절히 정렬되도록 설정 */
+}
+
+.product_name {
+	font-size: 11px;
+	font-weight: 500;
+	 margin-bottom: 0px; /* 간격을 줄임 */
+}
+.product_price {
+	color: #727272;
+	font-size: 11px;
+	font-weight: 600; 
+	margin-top: 0;
+}
+.border-line {
+	padding: 10px 0px;
+	border-bottom: 1px solid #E1E1E1;
+}
+
 		.pagination-container {
            display: flex;
            justify-content: center; 
@@ -40,90 +65,107 @@
 	        color: #ff6600; 
 	        font-weight: bold; 
 	    }
-	    a {
-			text-decoration: none;
-	        color: inherit;
-		}
-	    .cart_button {
-         	padding: 8px 17px;
-         	margin-right: 10px;
-            cursor: pointer;
-            font-size: 11px;
-            border: 1px solid #ff6600;
-            border-radius: 4px;
-            background-color: #ffffff;
-            color: #ff6600;    
-        }
-         .cart_button:hover {
-            background-color: #ff6600;
-            color: #ffffff;
+	   a {
+    text-decoration: none; /* 언더라인 제거 */
+    }
+	    /* 공통 컨트롤 박스 스타일 (수량, 가격 등) */
+.control-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* 요소 간 간격 */
+    margin: 10px 0; /* 아래 요소와 간격 */
+}
+
+/* 수량 조절 버튼 */
+.quantity-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* 버튼 간격 */
+    margin-top: 10px;
+    margin-bottom: 10px; /* 장바구니와 하트와 간격 */
+}
+
+/* 장바구니와 하트 버튼 */
+.button-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* 버튼 간 간격 */
+    margin-bottom: 20px;
+}
+
+/* 버튼 스타일 */
+.quantity-btn {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.quantity-btn:hover {
+    background-color: #ffffff;
+    border-color: #ff6600;
+    color: #ff6600;
+}
+
+/* 장바구니 버튼 */
+.cart-button {
+    padding: 6px 15px;
+    font-size: 12px;
+    border: 1px solid #ff6600;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #ff6600;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    
+}
+
+.cart-button:hover {
+    background-color: #ff6600;
+    color: #ffffff;
+}
+
+.cart-button svg {
+    fill: #ff6600;
+}
+
+.cart-button:hover svg {
+    fill: #ffffff;
+}
+
+/* 하트 버튼 */
+.heart-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 15px;
+    color: #d1d1d1;
+    cursor: pointer;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    
+}
+
+.heart-button:active  {
+	fill: #dd3333;
+}
+
+
 </style>
 </head>
 <body>
-	<div class="preloader-wrapper">
-		<div class="preloader"></div>
-	</div>
-
-	<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart">
-		<div class="offcanvas-header justify-content-center">
-			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		</div>
-
-		<!-- 우측 장바구니 슬라이더  -->
-
-		<div class="offcanvas-body">
-			<div class="order-md-last">
-				<h4 class="d-flex justify-content-between align-items-center mb-3">
-					<span class="text-primary">Your cart</span> <span class="badge bg-primary rounded-pill">3</span>
-				</h4>
-				<ul class="list-group mb-3">
-					<li class="list-group-item d-flex justify-content-between lh-sm">
-						<div>
-							<h6 class="my-0">Growers cider</h6>
-							<small class="text-body-secondary">Brief description</small>
-						</div> <span class="text-body-secondary">$12</span>
-					</li>
-					<li class="list-group-item d-flex justify-content-between lh-sm">
-						<div>
-							<h6 class="my-0">Fresh grapes</h6>
-							<small class="text-body-secondary">Brief description</small>
-						</div> <span class="text-body-secondary">$8</span>
-					</li>
-					<li class="list-group-item d-flex justify-content-between lh-sm">
-						<div>
-							<h6 class="my-0">Heinz tomato ketchup</h6>
-							<small class="text-body-secondary">Brief description</small>
-						</div> <span class="text-body-secondary">$5</span>
-					</li>
-					<li class="list-group-item d-flex justify-content-between"><span>Total (USD)</span> <strong>$20</strong></li>
-				</ul>
-
-				<button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-			</div>
-		</div>
-	</div>
-
-	<!-- / 우측 장바구니 슬라이더. 끝.  -->
-
-	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar">
-		<div class="offcanvas-header justify-content-between">
-			<h4 class="fw-normal text-uppercase fs-6">Menu</h4>
-			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		</div>
-
-		<div class="offcanvas-body">
-			<ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
-				<li class="nav-item border-dashed active"><a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2"> <svg width="24" height="24" viewBox="0 0 24 24">
-                <use xlink:href="#fruits"></use>
-              </svg> <span>Fruits and vegetables</span>
-				</a></li>
-				<li class="nav-item border-dashed"><a href="index.html" class="nav-link d-flex align-items-center gap-3 text-dark p-2"> <svg width="24" height="24" viewBox="0 0 24 24">
-                <use xlink:href="#dairy"></use>
-              </svg> <span>Dairy and Eggs</span>
-				</a></li>
-			</ul>
-		</div>
-	</div>
+	
 
 	<%@ include file="include/header.jsp"%>
 
@@ -134,7 +176,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-header d-flex flex-wrap justify-content-between my-4">
-						<h2 class="section-title">의류/잡화</h2>
+						<h3 class="section-title">💜 의류/잡화</h3>
 
 				
 					</div>
@@ -149,36 +191,40 @@
 						<c:forEach var="product" items="${categoryList}">
 							<div class="col">
 								<div class="product-item">
-									<figure>
-										<a href="productDetail?product_code=${product.product_code}" title="Product Title"> <img src="${pageContext.request.contextPath}/resources/upload/${product.thumbnail_img}" alt="Product Thumbnail" class="tab-image" />
-										</a>
-									</figure>
-									<div class="d-flex flex-column text-center">
-										<h3 class="fs-6 fw-normal">${product.product_name}</h3>
-										<div class="d-flex justify-content-center align-items-center gap-2">
-											<span class="text-dark fw-semibold">${product.product_price}원</span>
-										</div>
-										<div class="button-area p-3 pt-0">
-											<div class="row g-1 mt-2">
-												<div class="col-3">
-													<input type="number" name="quantity" class="form-control border-dark-subtle input-number quantity" value="1" />
-												</div>
-												<div class="col-7">
-													<a href="#" class="cart_button"> <svg width="18" height="18">
-								                          <use xlink:href="#cart"></use>
-								                          </svg> 장바구니
-													</a>
-												</div>
-												<div class="col-2">
-													<a href="#" class="btn btn-outline-dark rounded-1 p-2 fs-6"> <svg width="18" height="18">
-								                          <use xlink:href="#heart"></use>
-								                          </svg>
-													</a>
-												</div>
-											</div>
-										</div>
-									</div>
+								    <figure>
+								        <a href="productDetail?product_code=${product.product_code}" title="Product Title">
+								            <img src="${pageContext.request.contextPath}/resources/upload/${product.thumbnail_img}" alt="Product Thumbnail" class="tab-image" />
+								        </a>
+								    </figure>
+								     <!-- 상품 정보 -->
+        <div class="d-flex flex-column text-center">
+            <h3 class="product_name">${product.product_name}</h3>
+            <div class="product_price border-line">${product.product_price}원</div>
+            <!-- 수량 조절 영역 -->
+            <div class="quantity-control d-flex justify-content-center align-items-center">
+                <button class="quantity-btn" type="button" onclick="del()">−</button>
+                <span class="quantity-display" id="quantityDisplay">1</span>
+                <button class="quantity-btn" type="button" onclick="add()">+</button>
+            </div>
+            <!-- 장바구니와 하트 버튼 -->
+            <div class="button-area d-flex justify-content-center align-items-center gap-3">
+               <!-- 장바구니 버튼 -->
+    <a href="#" class="cart-button">
+        <svg width="18" height="18">
+            <use xlink:href="#cart"></use>
+        </svg> 장바구니
+    </a>
+    <!-- 하트 버튼 -->
+    <!-- <span class="heart-button">♡</span> -->
+    <a href="#" class="heart-button p-2 fs-6">
+    	<svg width="18" height="18">
+              <use xlink:href="#heart"></use>
+              </svg>
+              </a>
+</div>
+        </div>
 								</div>
+
 							</div>
 						</c:forEach>
 						<!-- / 리스트에서 아이템 하나 -->
@@ -208,7 +254,26 @@
             </c:if>
         </div>
     </div>
+	<script>
+	function add() {
+	    let quantityDisplay = document.getElementById("quantityDisplay");
+	    let quantity = parseInt(quantityDisplay.textContent);
+	    quantityDisplay.textContent = quantity + 1;
+	}
 
+	function del() {
+	    let quantityDisplay = document.getElementById("quantityDisplay");
+	    let quantity = parseInt(quantityDisplay.textContent);
+	    if (quantity > 1) {
+	        quantityDisplay.textContent = quantity - 1;
+	    }
+	}
+	
+	
+	
+	</script>
+
+	
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery-1.11.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>

@@ -48,21 +48,26 @@
     <!-- 검색 결과 -->
     <div class="product-list">
         <c:forEach var="product" items="${productSearch}">
-            <div class="product-item" onclick="selectProduct('${product.product_name}')">
-                <img src="${pageContext.request.contextPath}/resources/upload/${product.thumbnail_img}" alt="${product.product_name}">
-                <p>${product.product_name}</p>
-            </div>
+            <div class="product-item" onclick="selectProduct('${product.product_name}', '${product.product_code}')">
+    <img src="${pageContext.request.contextPath}/resources/upload/${product.thumbnail_img}" alt="${product.product_name}">
+    <p>${product.product_name}</p>
+</div>
+
         </c:forEach>
     </div>
             
    <script>
-        function selectProduct(productName) {
-            // 부모 창의 input에 값을 설정
-            opener.document.getElementById('product_code').value = productName;
+   function selectProduct(productName, productCode) {
+	    // 부모 창의 product_name 필드에 값을 설정
+	    opener.document.getElementById('product_name').value = productName;
 
-            // 팝업 닫기
-            window.close();
-        }
+	    // 부모 창의 hidden 필드 product_code_fk에도 값을 설정
+	    opener.document.getElementById('product_code_fk').value = productCode;
+
+	    // 팝업 닫기
+	    window.close();
+	}
+
     </script>
 </body>
 </html>

@@ -64,6 +64,9 @@
             font-size: 14px;
             color: #ffa500;
         } 
+        .star-empty {
+		    color: #ccc;
+		}
         /* 버튼 스타일 */
         .button-container {
             text-align: center;
@@ -116,10 +119,10 @@
                             <c:forEach begin="1" end="5" var="i">
                                 <c:choose>
                                     <c:when test="${i <= reviewDetail.review_score}">
-                                        ★
+                                        <span class="star-filled">★</span>
                                     </c:when>
                                     <c:otherwise>
-                                        ☆
+                                        <span class="star-empty">☆</span>
                                     </c:otherwise>
                                 </c:choose>
                             </c:forEach>

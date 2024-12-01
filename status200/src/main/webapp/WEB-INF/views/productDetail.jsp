@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -28,9 +29,10 @@
                     </div>
 	                    <!-- 상품 정보 -->
 	                    <div class="col-md-6">
-	                        <!-- 상품명 -->
+	                        <!-- 상품명 
 	                        <h1 class="display-7 fw-bolder">${productDetail.product_name}</h1>
-	
+							-->
+							 <h3 class="productName">${productDetail.product_name}</h3>
 							<!--  찜하기 버튼 -->
 	                    	
 	                    	
@@ -39,7 +41,7 @@
 	                    	
 	                		
 	                     	<!-- 상품 가격 -->
-	                     	<div class="products-box-detail-price border-btm-e1e1e1">
+	                     	<div class="products-box-detail-price border-line">
 								<span class="products-box-detail-postInfo-title">가격</span>
 								<span class="products-box-detail-price-figure">${productDetail.product_price}</span> <span>원</span>
 							</div>
@@ -52,23 +54,31 @@
 								<div class="products-box-detail-realInfo-content">오늘 주문 시 11월 13일(수) 출발</div>
 							</div>
 							
-							
-	                        <div class="d-flex">
-    <label>수량</label>
-    <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" min="1" style="max-width: 4rem; margin-left:15px;" onchange="updateTotalPrice()"/>
+							<!-- 수량 선택 -->
+<div class="border-line control-wrapper">
+    <span class="products-box-detail-postInfo-title">수량</span>
+    <div class="quantity-control">
+        <button class="quantity-btn" type="button" onclick="del()">−</button>
+        <!-- 수량 표시 -->
+         <span class="quantity-display" id="quantityDisplay">1</span> 
+        <!--<input type="text" name="amounts" id="quantityDisplay" value="1" readonly> -->
+        
+        <button class="quantity-btn" type="button" onclick="add()">+</button>
+        <span  id="totalPrice" class="total-price">
+        	<fmt:formatNumber value="${productDetail.product_price}" pattern = "#,###"/>원</span>
+    </div>
 </div>
-							
-							
-							<!-- 상품 금액 -->
+
+<!-- 주문 금액 -->
 <div class="products-box-detail-allPrice">
     <span class="products-box-detail-allPrice-title">주문금액</span>
-    <span id="totalPrice" class="products-box-detail-allPrice-figure">${productDetail.product_price}</span> <span>원</span>
+    <span id="allTotalPrice" class="products-box-detail-allPrice-figure">
+    <fmt:formatNumber value="${productDetail.product_price}" pattern = "#,###"/>원</span>
 </div>
 							
 							<!-- 장바구니 버튼 -->
-							<button type="button" class="buy-btn">장바구니</button>
-							
-	                     <br>
+							<button type="button" class="cart-button">장바구니</button>
+						
 	                    </div>
 	                </div>
                
@@ -82,10 +92,10 @@
 				<!-- 상세정보 이동 탭 -->
 				<div class="tab-detail-info">
 					<ul class="tab">
-						<li class="active" id="tab-img-text"> <a href="#detail-img-text-box" id="tab-img-text-a">상품정보</a></li>
-						<li class="active" id="tab-review"> <a href="#detail-review-box" id="tab-review-a">리뷰</a></li>
-						<li class="active" id="tab-qna"> <a href="#detail-qna-box" id="tab-qna-a">Q&A</a></li>
-						<li class="active" id="tab-purchaseInfo"><a href="#detail-guideInfo-box" id="tab-purchaseInfo-a">취소/교환/반품 안내</a></li>
+					    <li id="tab-img-text"><a href="#detail-img-text-box" class="tab-link" onclick="setActiveTab(event)">상품정보</a></li>
+					    <li id="tab-review"><a href="#detail-review-box" class="tab-link" onclick="setActiveTab(event)">리뷰</a></li>
+					    <li id="tab-qna"><a href="#detail-qna-box" class="tab-link" onclick="setActiveTab(event)">Q&A</a></li>
+					    <li id="tab-purchaseInfo"><a href="#detail-guideInfo-box" class="tab-link" onclick="setActiveTab(event)">취소/교환/반품 안내</a></li>
 					</ul>
 				</div>
 				
@@ -162,16 +172,20 @@
 						                        	
 						                        
 						                        	<c:choose>
-						                        		<c:when test="${qna.qna_secret} == 1">
-						                        			<span>비밀글</span>
+						                        		<c:when test="${qna.qna_secret eq 1}">
+						                        			
+						                        			<span class="qna-lock">🔒</span>
+						                        			<span class="qna-content">상품 문의합니다.</span>
 						                        		</c:when>
 						                        		<c:otherwise>
-						                        			<span>공개글</span>
+						                        			<span class="qna-lock"></span>
+						                        			<span class="qna-content">${qna.qna_content}</span>
 						                        		</c:otherwise>
 						                        	</c:choose>
 						                        	
-							                        <!-- Q&A 내용 -->
+							                        <!-- Q&A 내용 
 							                        <span class="qna-content">${qna.qna_content}</span>
+							                        -->
 							                        <!-- 사용자와 날짜 -->
 						                            <span class="qna-user">${qna.user_id}</span>
 						                            <span class="qna-date">${qna.qna_date}</span>
@@ -279,25 +293,52 @@
         
         <!-- 아코디언 -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- 주문 금액 -->
-        <script>
-		    // 상품 가격
-		    const productPrice = ${productDetail.product_price};
-		
-		    // 주문 금액
-		    function updateTotalPrice() {
-		        // 수량 값 가져오기
-		        const quantity = document.getElementById("inputQuantity").value;
-		        
-		        // 총 금액
-		        const total = productPrice * quantity;
-		
-		        // 총 금액 표시 영역 업데이트
-		        document.getElementById("totalPrice").innerText = total.toLocaleString();
+
+		<script>
+		// 수량 증가
+		function add() {
+		    // 가져오기
+		    let quantityDisplay = document.getElementById("quantityDisplay"); // 수량 표시
+		    let sellPrice = ${productDetail.product_price}; // 상품 가격
+		    let totalPrice = document.getElementById("totalPrice"); // 총 금액 표시
+		    let allTotalPrice = document.getElementById("allTotalPrice"); // 주문 금액 표시
+
+		    // 수량 증가
+		    let quantity = parseInt(quantityDisplay.textContent); // 현재 수량
+		    quantity += 1;
+		    quantityDisplay.textContent = quantity; // 업데이트된 수량 표시
+
+		    // 총 금액 계산
+		    let totalAmount = quantity * sellPrice;
+
+		    // 총 금액 표시
+		    totalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원";
+		    allTotalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원"; // 주문 금액도 업데이트
+		}
+
+		// 수량 감소
+		function del() {
+		    // 가져오기
+		    let quantityDisplay = document.getElementById("quantityDisplay"); // 수량 표시
+		    let sellPrice = ${productDetail.product_price}; // 상품 가격
+		    let totalPrice = document.getElementById("totalPrice"); // 총 금액 표시
+		    let allTotalPrice = document.getElementById("allTotalPrice"); // 주문 금액 표시
+
+		    // 수량 감소
+		    let quantity = parseInt(quantityDisplay.textContent); // 현재 수량
+		    if (quantity > 1) {
+		        quantity -= 1;
+		        quantityDisplay.textContent = quantity; // 업데이트된 수량 표시
+
+		        // 총 금액 계산
+		        let totalAmount = quantity * sellPrice;
+
+		        // 총 금액 표시
+		        totalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원";
+		        allTotalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원"; // 주문 금액도 업데이트
 		    }
-		
-		    // 초기화: 페이지 로드 시 금액
-		    window.onload = updateTotalPrice;
-		</script>
+		}
+
+</script>
     </body>
 </html>

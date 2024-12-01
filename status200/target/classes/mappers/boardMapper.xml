@@ -9,6 +9,21 @@
  		where user_id=#{user_id} and password=#{password}
  	</select>
  	
+ 	<!-- 장바구니 통합쓰 ㅋㅋㅋ
+	<select id="getCartInfo" parameterType="java.lang.String" resultType="CartDTO">
+		SELECT
+			c.user_id,
+			c.product_code,
+			p.thumbnail_img,
+			p.product_name,
+			c.cart_quantity,
+			p.product_price,
+			(c.cart_quantity * p.product_price) AS totalPrice
+		FROM cart c LEFT JOIN product p ON c.product_code = p.product_code
+		WHERE
+			c.user_id = #{user_id}
+	</select>
+	 -->
  	
 	<!-- 상품 상세 정보 -->
 	<select id="productDetail" parameterType="java.lang.Integer" resultType="productDTO">
@@ -170,6 +185,13 @@
 		where q.qna_no = #{qna_no}
 	</select>
 	
+	<!-- FAQ 상세 조회 -->
+	<select id="faqDetail" parameterType="java.lang.Integer" resultType="FaqDTO">
+		select *
+		from faq
+		where faq_no = #{faq_no}
+	</select>
+	
 	<!-- 공지사항 글 작성하는 SQL -->
 	<insert id="noticeRegister" parameterType="NoticeDTO">
 		insert into notice(notice_no, notice_title, notice_content, notice_date, notice_readcnt)
@@ -233,10 +255,12 @@
 		values (#{faq_no}, #{faq_division}, #{faq_question}, #{faq_reply})		
 	</insert>
 	
+	
+	
 	<!-- FAQ 글 수정하는 SQL -->
 	<update id="faqUpdate" parameterType="FaqDTO">
 		update faq
-		set faq_content=#{faq_content}
+		set faq_question = #{faq_question}, faq_reply = #{faq_reply}
 		where faq_no = #{faq_no}
 	</update>
 	

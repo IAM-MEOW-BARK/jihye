@@ -74,7 +74,15 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.delete(namespace + ".deleteWish", param);
 	}
 
-
+	  // 장바구니 정보
+    public List<CartDTO> getCartInfo(String user_id) throws Exception {
+    	return sqlSession.selectList(namespace + ".getCartInfo", user_id);
+    }
+    
+    // 장바구니 상품 정보
+    public List<CartDTO> getCartItem(String user_id) throws Exception {
+    	return sqlSession.selectList(namespace + ".getCartItem", user_id);
+    }
 	@Override
 	public int addCart(CartDTO cartDTO) throws Exception {
 		// TODO Auto-generated method stub
@@ -183,6 +191,7 @@ public class CatDogDAOImpl implements CatDogDAO{
 	public List<ProductDTO> categoryList(int start, int pageSize) {
 		// TODO Auto-generated method stub
 		Map<String, Integer> map = new HashMap<>();
+		
 		map.put("start", start);
 		map.put("pageSize", pageSize);
 		return sqlSession.selectList(namespace+".categoryList", map);
@@ -274,6 +283,11 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.selectOne(namespace+".qnaDetail", qna_no);
 	}
 	@Override
+	public FaqDTO faqDetail(int faq_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".faqDetail", faq_no);
+	}
+	@Override
 	public int noticeRegister(NoticeDTO noticeDTO) {
 		// TODO Auto-generated method stub
 		return sqlSession.insert(namespace + ".noticeRegister", noticeDTO);
@@ -353,4 +367,7 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
+
+
+
 }

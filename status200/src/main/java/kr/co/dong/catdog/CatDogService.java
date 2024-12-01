@@ -16,7 +16,11 @@ public interface CatDogService {
 	
 	// 메인페이지 찜한 상품
 	public List<String> getUserWish(String user_id) throws Exception;
-		
+	
+public List<CartDTO> getCartInfo(String user_id) throws Exception; 
+	
+	public List<CartDTO> getCartItem(String user_id) throws Exception;
+	
 	// 찜하기 추가
     public int addWish(String user_id, int product_code) throws Exception;
 
@@ -68,6 +72,9 @@ public interface CatDogService {
     // Q&A 상세보기
     public QnaDTO qnaDetail(int qna_no);
     
+    // FAQ 상세 조회
+    public FaqDTO faqDetail(int faq_no);
+    
     // 공지사항 글 작성 
     public int noticeRegister(NoticeDTO noticeDTO);
     
@@ -96,6 +103,8 @@ public interface CatDogService {
     
     // FAQ 글 작성 
     public int faqRegister(FaqDTO faqDTO);
+    
+
     
     // FAQ 글 수정
     public int faqUpdate(FaqDTO faqDTO);

@@ -46,7 +46,15 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.deleteWish(wishDTO);
 	}
 
+	@Override
+	public List<CartDTO> getCartInfo(String user_id) throws Exception {
+		return catDogDAO.getCartInfo(user_id);
+	}
 	
+	@Override
+	public List<CartDTO> getCartItem(String user_id) throws Exception {
+		return catDogDAO.getCartItem(user_id);
+	}
 	
 	
 	
@@ -157,6 +165,11 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.qnaDetail(qna_no);
 	}
 	@Override
+	public FaqDTO faqDetail(int faq_no) {
+		// TODO Auto-generated method stub
+		return catDogDAO.faqDetail(faq_no);
+	}
+	@Override
 	public int noticeRegister(NoticeDTO noticeDTO) {
 		// TODO Auto-generated method stub
 		return catDogDAO.noticeRegister(noticeDTO);
@@ -222,6 +235,7 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.reviewUpdateReadCnt(review_no);
 	}
 
+
 	@Override
 	public int faqUpdate(FaqDTO faqDTO) {
 		// TODO Auto-generated method stub
@@ -233,4 +247,6 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.faqDelete(faq_no);
 	}
+
+	
 }
