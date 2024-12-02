@@ -152,23 +152,39 @@ public class CatDogController {
 	    return response;
 	}
    
-//	@GetMapping("/cart")
-//	public String cart(@RequestParam("user_id") String user_id, HttpSession session, Model model) throws Exception {
-//		Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
-//		if (user == null) {
-//			return "redirect:/catdog-login";
+	@GetMapping("/cart")
+	public String cart(@RequestParam("user_id") String user_id, HttpSession session, Model model) throws Exception {
+		Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+		if (user == null) {
+			return "redirect:/catdog-login";
+		}
+		model.addAttribute("user_name", user.get("name"));
+		model.addAttribute("user_id", user.get("user_id"));
+
+		List<CartDTO> cartInfo = catDogService.getCartInfo(user_id);
+		model.addAttribute("cartInfo", cartInfo);
+		System.out.println("cartInfo = " + cartInfo);
+
+		return "cart";
+	}
+	
+//	@PostMapping("/cart")
+//	@ResponseBody
+//	public Map<String, String> addCart(CartDTO cartDTO, HttpServletRequest request, HttpSession session) {
+//		 	Map<String, String> response = new HashMap<String, String>();
+//		    Map<String, Object> userMap = (Map<String, Object>) session.getAttribute("user");
+//		    String userId = userMap != null ? (String) userMap.get("user_id") : null;
+//		    
+//		    if (userId == null) {
+//		        return "redirect:/catdog-login";
+//		    }
+//
+//		   
 //		}
-//		model.addAttribute("user_name", user.get("name"));
-//		model.addAttribute("user_id", user.get("user_id"));
-//
-//		List<CartDTO> cartInfo = catDogService.getCartInfo(user_id);
-//		model.addAttribute("cartInfo", cartInfo);
-//		System.out.println("cartInfo = " + cartInfo);
-//
-//		return "cart";
 //	}
+
 	
-	
+//   
 //	@PostMapping("/cart")
 //	public String addToCart(@RequestParam("product_id") int productId,
 //	                        @RequestParam("quantity") int quantity,
@@ -236,6 +252,8 @@ public class CatDogController {
 	   @RequestMapping(value = "categoryList", method = RequestMethod.GET)
 	   public ModelAndView categoryList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 			   							@RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum) {
+		   
+		   
 		   	int pageSize = 10; // 한 페이지당 게시글 수
 		    int pageListSize = 10; // 한 번에 표시할 페이지 수
 		    
@@ -257,6 +275,7 @@ public class CatDogController {
 		    mav.addObject("pageListNum", pageListNum); // 1~10, 11~20 ...
 		    mav.addObject("startPage", startPage); // 페이지 네비게이션 시작
 		    mav.addObject("endPage", endPage); // 페이지 네비게이션 끝
+		    
 		    mav.setViewName("categoryList");
 		    return mav;
 	   }

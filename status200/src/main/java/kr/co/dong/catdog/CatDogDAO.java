@@ -83,6 +83,7 @@ public interface CatDogDAO {
     // 결제 skip 2차
     
     
+//    public CartDTO checkCart(CartDTO cartDTO);
     // 상품 상세정보
     public ProductDTO productDetail(int product_code);
     public List<ReviewDTO> getReview(int product_code);

@@ -248,5 +248,11 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.faqDelete(faq_no);
 	}
 
+	@Override
+	public int addCart(CartDTO cartDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return catDogDAO.addCart(cartDTO);
+	}
+
 	
 }

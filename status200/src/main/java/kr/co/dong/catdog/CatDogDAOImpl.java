@@ -83,11 +83,8 @@ public class CatDogDAOImpl implements CatDogDAO{
     public List<CartDTO> getCartItem(String user_id) throws Exception {
     	return sqlSession.selectList(namespace + ".getCartItem", user_id);
     }
-	@Override
-	public int addCart(CartDTO cartDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    
+
 
 	@Override
 	public int deleteCart(int product_id) throws Exception {
@@ -161,6 +158,22 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return null;
 	}	
+
+		
+    // 장바구니 추가
+	@Override
+	public int addCart(CartDTO cartDTO) throws Exception {
+		// TODO Auto-generated method stub
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", cartDTO.getUser_id());
+		map.put("product_code", cartDTO.getProduct_code());
+		return sqlSession.insert(namespace+".addCart", map);
+	}
+//	@Override
+//	public int addCart(CartDTO cartDTO) throws Exception {
+//		// TODO Auto-generated method stub
+//		
+//	}
 	@Override
 	public ProductDTO productDetail(int product_code) {
 		// TODO Auto-generated method stub

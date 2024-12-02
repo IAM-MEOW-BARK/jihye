@@ -9,7 +9,7 @@
  		where user_id=#{user_id} and password=#{password}
  	</select>
  	
- 	<!-- 장바구니 통합쓰 ㅋㅋㅋ
+ 	<!-- 장바구니 통합쓰 ㅋㅋㅋ -->
 	<select id="getCartInfo" parameterType="java.lang.String" resultType="CartDTO">
 		SELECT
 			c.user_id,
@@ -23,7 +23,13 @@
 		WHERE
 			c.user_id = #{user_id}
 	</select>
-	 -->
+	 
+	
+	<!-- 장바구니 추가 -->
+	<insert id="addCart" parameterType="cartDTO">
+		insert into cart(user_id, product_code, cart_quantity)
+		values (#{usr_id}, #{product_code}, #{cart_quantity})
+	</insert>
  	
 	<!-- 상품 상세 정보 -->
 	<select id="productDetail" parameterType="java.lang.Integer" resultType="productDTO">
@@ -260,7 +266,7 @@
 	<!-- FAQ 글 수정하는 SQL -->
 	<update id="faqUpdate" parameterType="FaqDTO">
 		update faq
-		set faq_question = #{faq_question}, faq_reply = #{faq_reply}
+		set faq_division = #{faq_division}, faq_question = #{faq_question}, faq_reply = #{faq_reply}
 		where faq_no = #{faq_no}
 	</update>
 	

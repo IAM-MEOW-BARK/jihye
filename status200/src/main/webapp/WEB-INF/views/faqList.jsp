@@ -269,8 +269,8 @@
         <!-- 수정 및 삭제 버튼 -->
         <div class="action-buttons">
             <c:if test="${user_auth == 1}">
-            	<form action="/faqUpdate" method="post">
-            	<input type="hidden" name="faq_no" value="${faqUpdate.faq_no}">
+            	<form action="/faqUpdate">
+            	<input type="hidden" name="faq_no" value="${faq.faq_no}">
             	
             	
             	<button type="submit"  class="action-button">수정</button>

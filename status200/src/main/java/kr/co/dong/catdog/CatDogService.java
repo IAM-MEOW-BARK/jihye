@@ -17,7 +17,7 @@ public interface CatDogService {
 	// 메인페이지 찜한 상품
 	public List<String> getUserWish(String user_id) throws Exception;
 	
-public List<CartDTO> getCartInfo(String user_id) throws Exception; 
+	public List<CartDTO> getCartInfo(String user_id) throws Exception; 
 	
 	public List<CartDTO> getCartItem(String user_id) throws Exception;
 	
@@ -29,7 +29,9 @@ public List<CartDTO> getCartInfo(String user_id) throws Exception;
     
 	
 	
-	
+    // 장바구니 추가
+    public int addCart(CartDTO cartDTO) throws Exception;
+    
 	// 상품 상세정보
     public ProductDTO productDetail(int product_code);
     public List<ReviewDTO> getReview(int product_code);

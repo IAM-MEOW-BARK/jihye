@@ -111,11 +111,13 @@
 					</div>
 						<!-- 리뷰 시작 -->
 						<div id="detail-review-box">
+						 <!--   <c:if test = "${productDetail.product_code}" >  -->
 						    <div class="detail-review-header">
 						        리뷰 (${product_reviewTotal})
 						        <a class="more-button" href="reviewList">더보기</a>
 						    </div>
 						    <div id="recent-reviews">
+						    
 						        <c:forEach var="review" items="${getReview}">
 						        	<a href="reviewDetail?review_no=${review.review_no}" class="review-item-link">
 							            <div class="review-item">
@@ -154,6 +156,7 @@
 						            <p>리뷰가 없습니다.</p>
 						        </c:if>
 						    </div>
+					    <!--   </c:if>  -->
 						</div> <!-- 리뷰 끝 -->
 					
 						<!-- QNA 시작 -->
