@@ -51,34 +51,43 @@
 								<span class="products-box-detail-postInfo-title">배송정보</span>
 								<span class="products-box-detail-postInfo-content">무료배송</span>
 								<div class="products-box-detail-realInfo-title">제주 3,000원 추가/도서산간 5,000원 추가</div>	
-								<div class="products-box-detail-realInfo-content">오늘 주문 시 11월 13일(수) 출발</div>
+								<div class="products-box-detail-realInfo-content" >지금 주문 시, ${deliveryDate} 도착 예정</div>
+								
 							</div>
 							
-							<!-- 수량 선택 -->
-<div class="border-line control-wrapper">
-    <span class="products-box-detail-postInfo-title">수량</span>
-    <div class="quantity-control">
-        <button class="quantity-btn" type="button" onclick="del()">−</button>
-        <!-- 수량 표시 -->
-         <span class="quantity-display" id="quantityDisplay">1</span> 
-        <!--<input type="text" name="amounts" id="quantityDisplay" value="1" readonly> -->
-        
-        <button class="quantity-btn" type="button" onclick="add()">+</button>
-        <span  id="totalPrice" class="total-price">
-        	<fmt:formatNumber value="${productDetail.product_price}" pattern = "#,###"/>원</span>
-    </div>
-</div>
-
-<!-- 주문 금액 -->
-<div class="products-box-detail-allPrice">
-    <span class="products-box-detail-allPrice-title">주문금액</span>
-    <span id="allTotalPrice" class="products-box-detail-allPrice-figure">
-    <fmt:formatNumber value="${productDetail.product_price}" pattern = "#,###"/>원</span>
-</div>
 							
-							<!-- 장바구니 버튼 -->
+							<form action="/addCart" method="POST">
+    <input type="hidden" name="user_id" value="${sessionScope.user_id}" />
+    <input type="hidden" name="product_code" value="${productDetail.product_code}" />
+    <input type="hidden" name="cart_quantity" id="cartQuantity" value="1" />
+							
+							<!-- 수량 선택 -->
+							<div class="border-line control-wrapper">
+							    <span class="products-box-detail-postInfo-title">수량</span>
+							    <div class="quantity-control">
+							        <button class="quantity-btn" type="button" onclick="del()">−</button>
+							        <!-- 수량 표시 -->
+							         <span class="quantity-display" id="quantityDisplay">1</span> 
+							        <!--<input type="text" name="amounts" id="quantityDisplay" value="1" readonly> -->
+							        
+							        <button class="quantity-btn" type="button" onclick="add()">+</button>
+							        <span  id="totalPrice" class="total-price">
+							        	<fmt:formatNumber value="${productDetail.product_price}" pattern = "#,###"/>원</span>
+							    </div>
+							</div>
+
+							<!-- 주문 금액 -->
+							<div class="products-box-detail-allPrice">
+							    <span class="products-box-detail-allPrice-title">주문금액</span>
+							    <span id="allTotalPrice" class="products-box-detail-allPrice-figure">
+							    <fmt:formatNumber value="${productDetail.product_price}" pattern = "#,###"/>원</span>
+							</div>
+							
+							<!-- 장바구니 버튼
 							<button type="button" class="cart-button">장바구니</button>
-						
+						 	-->
+						 	<button type="submit" class="cart-button" >장바구니</button>
+						 	</form>
 	                    </div>
 	                </div>
                
@@ -111,7 +120,7 @@
 					</div>
 						<!-- 리뷰 시작 -->
 						<div id="detail-review-box">
-						 <!--   <c:if test = "${productDetail.product_code}" >  -->
+						   
 						    <div class="detail-review-header">
 						        리뷰 (${product_reviewTotal})
 						        <a class="more-button" href="reviewList">더보기</a>
@@ -156,7 +165,6 @@
 						            <p>리뷰가 없습니다.</p>
 						        </c:if>
 						    </div>
-					    <!--   </c:if>  -->
 						</div> <!-- 리뷰 끝 -->
 					
 						<!-- QNA 시작 -->
@@ -294,8 +302,7 @@
 			</div>
         </section>
         
-        <!-- 아코디언 -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+       
 
 		<script>
 		// 수량 증가
@@ -343,5 +350,30 @@
 		}
 
 </script>
+<script>
+function increaseQuantity() {
+    const quantityInput = document.getElementById("cartQuantity");
+    const quantityDisplay = document.getElementById("quantityDisplay");
+    let quantity = parseInt(quantityInput.value);
+    quantity++;
+    quantityInput.value = quantity;
+    quantityDisplay.textContent = quantity;
+}
+
+function decreaseQuantity() {
+    const quantityInput = document.getElementById("cartQuantity");
+    const quantityDisplay = document.getElementById("quantityDisplay");
+    let quantity = parseInt(quantityInput.value);
+    if (quantity > 1) {
+        quantity--;
+        quantityInput.value = quantity;
+        quantityDisplay.textContent = quantity;
+    }
+}
+</script>
+
+ <!-- 아코디언 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
     </body>
 </html>

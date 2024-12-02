@@ -164,10 +164,10 @@ public class CatDogDAOImpl implements CatDogDAO{
 	@Override
 	public int addCart(CartDTO cartDTO) throws Exception {
 		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("user_id", cartDTO.getUser_id());
-		map.put("product_code", cartDTO.getProduct_code());
-		return sqlSession.insert(namespace+".addCart", map);
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("user_id", cartDTO.getUser_id());
+//		map.put("product_code", cartDTO.getProduct_code());
+		return sqlSession.insert(namespace+".addCart", cartDTO);
 	}
 //	@Override
 //	public int addCart(CartDTO cartDTO) throws Exception {
@@ -201,18 +201,21 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.selectOne(namespace+".product_qnaTotal", product_code);
 	}
 	@Override
-	public List<ProductDTO> categoryList(int start, int pageSize) {
+	public List<ProductDTO> categoryList(int start, int pageSize, int product_category) {
 		// TODO Auto-generated method stub
 		Map<String, Integer> map = new HashMap<>();
 		
+		
 		map.put("start", start);
 		map.put("pageSize", pageSize);
+		map.put("product_category", product_category);
+		
 		return sqlSession.selectList(namespace+".categoryList", map);
 	}
 	@Override
-	public int categoryTotalPost() {
+	public int categoryTotalPost(int product_category) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".categoryTotalPost");
+		return sqlSession.selectOne(namespace+".categoryTotalPost", product_category);
 	}
 	@Override
 	public List<NoticeDTO> noticeList(int start, int pageSize) {

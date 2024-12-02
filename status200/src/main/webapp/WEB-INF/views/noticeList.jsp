@@ -206,50 +206,13 @@
             
             <!-- 글쓰기 버튼 -->
             <c:if test="${user_auth == 1}">
-            	<a class="write_button" onclick="openModal()">글쓰기</a>
+            	<a class="write_button" href="noticeRegister">글쓰기</a>
            	</c:if>
             
         </div>
     </div>
     	
-     <!-- 모달 -->
-    <div id="passwordModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>비밀번호 확인</h2>
-        <form id="passwordForm" onsubmit="return validatePassword()">
-            <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요">
-            <button type="submit">확인</button>
-        </form>
-    </div>
-	</div>
-
-
-    <!-- JavaScript -->
-    <script>
-        const modal = document.getElementById("passwordModal");
-        const password = "1234"; // 고정된 비밀번호
-
-        function openModal() {
-            modal.style.display = "block";
-        }
-
-        function closeModal() {
-            modal.style.display = "none";
-        }
-
-        function validatePassword() {
-            const input = document.getElementById("passwordInput").value;
-            if (input === password) {
-                closeModal();
-                window.location.href = "noticeRegister"; // 글쓰기 페이지로 이동
-                return false; // 폼 제출 방지
-            } else {
-                alert("비밀번호가 일치하지 않습니다.");
-                return false;
-            }
-        }
-    </script>
+   
   
 </body>
 </html>

@@ -89,14 +89,14 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.product_qnaTotal(product_code);
 	}
 	@Override
-	public List<ProductDTO> categoryList(int start, int pageSize) {
+	public List<ProductDTO> categoryList(int start, int pageSize, int product_category) {
 		// TODO Auto-generated method stub
-		return catDogDAO.categoryList(start, pageSize);
+		return catDogDAO.categoryList(start, pageSize, product_category);
 	}
 	@Override
-	public int categoryTotalPost() {
+	public int categoryTotalPost(int product_category) {
 		// TODO Auto-generated method stub
-		return catDogDAO.categoryTotalPost();
+		return catDogDAO.categoryTotalPost(product_category);
 	}
 	@Override
 	public List<NoticeDTO> noticeList(int start, int pageSize) {

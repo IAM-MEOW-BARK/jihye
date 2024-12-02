@@ -4,7 +4,15 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>💜의류/잡화</title>
+ <title>
+        <c:choose>
+            <c:when test="${productCategory == 1}">🧡 사료/간식</c:when>
+            <c:when test="${productCategory == 2}">💛 장난감/토이</c:when>
+            <c:when test="${productCategory == 3}">💚 목욕/케어</c:when>
+            <c:when test="${productCategory == 4}">💙 산책/훈련</c:when>
+            <c:when test="${productCategory == 5}">💜 의류/잡화</c:when>
+        </c:choose>
+    </title>
 <%@ include file="include/head.jsp"%>
 
 <style>
@@ -161,7 +169,6 @@
 </style>
 </head>
 <body>
-	
 
 	<%@ include file="include/header.jsp"%>
 
@@ -172,8 +179,15 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-header d-flex flex-wrap justify-content-between my-4">
-						<h3 class="section-title">💜 의류/잡화</h3>
-
+						<h3 class="section-title">
+        <c:choose>
+            <c:when test="${productCategory == 1}">🧡 사료/간식</c:when>
+            <c:when test="${productCategory == 2}">💛 장난감/토이</c:when>
+            <c:when test="${productCategory == 3}">💚 목욕/케어</c:when>
+            <c:when test="${productCategory == 4}">💙 산책/훈련</c:when>
+            <c:when test="${productCategory == 5}">💜 의류/잡화</c:when>
+        </c:choose>
+    </h3>
 				
 					</div>
 				</div>
@@ -184,7 +198,9 @@
 					<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
 
 						<!-- 리스트에서 아이템 하나 -->
+						
 						<c:forEach var="product" items="${categoryList}">
+							 
 							<div class="col">
 								<div class="product-item">
 								    <figure>

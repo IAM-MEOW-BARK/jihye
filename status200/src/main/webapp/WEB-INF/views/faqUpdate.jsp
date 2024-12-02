@@ -88,7 +88,7 @@
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <h2>FAQ 작성</h2>
+        <h2>FAQ 수정하기</h2>
         
         <form action="/faqUpdate" method="post">
         	<div class="line"></div>
@@ -101,12 +101,12 @@
 			<div class="form-group">
 			    <label for="faq_division">구분</label>
 			    <select id="faq_division" name="faq_division">
-			        <option value="" selected disabled>구분을 선택하세요</option>
-			        <option value="1">회원서비스</option>
-			        <option value="2">배송</option>
-			        <option value="3">주문/결제</option>
-			        <option value="4">반품/교환/취소</option>
-			        <option value="5">기타</option>
+			        <option value="" disabled>구분을 선택하세요</option>
+			        <option value="1" ${faqUpdate.faq_division == 1 ? 'selected' : ''}>회원서비스</option> <!-- 삼항연산자 -->
+			        <option value="2" ${faqUpdate.faq_division == 2 ? 'selected' : ''}>배송</option>
+			        <option value="3" ${faqUpdate.faq_division == 3 ? 'selected' : ''}>주문/결제</option>
+			        <option value="4" ${faqUpdate.faq_division == 4 ? 'selected' : ''}>반품/교환/취소</option>
+			        <option value="5" ${faqUpdate.faq_division == 5 ? 'selected' : ''}>기타</option>
 			    </select>
 			</div>
             

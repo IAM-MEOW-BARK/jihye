@@ -143,7 +143,7 @@
         <div class="button-container">
             <a href="qnaList" class="qnaList">목록</a>
             <a href="qnaUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">수정</a>
-            <a href="qnaDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete">삭제</a>
+            <a href="qnaDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
         </div>
     </div>
 </body>

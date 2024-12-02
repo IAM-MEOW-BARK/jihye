@@ -177,48 +177,74 @@
             
              <!-- userAuth가 1일 때만 수정/삭제 버튼 표시 -->
             <c:if test="${user_auth == 1}">
-	            <a href="javascript:void(0)" class="noticeUpdate" onclick="openModal()">수정</a>
-	            <a href="noticeDelete?notice_no=${noticeDetail.notice_no}" class="noticeDelete">삭제</a>
+	            <a href="noticeUpdate?notice_no=${noticeDetail.notice_no}" class="noticeUpdate">수정</a>
+	            <a href="noticeDelete?notice_no=${noticeDetail.notice_no}" class="noticeDelete" onclick="return confirm('삭제하시겠습니까?');"> 삭제</a>
+	            
             </c:if>
         </div>
     </div>
 
     <!-- 비밀번호 확인 모달 -->
     <div id="passwordModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2>비밀번호 확인</h2>
-            <form id="passwordForm" onsubmit="return validatePassword()">
-                <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요">
-                <button type="submit">확인</button>
-            </form>
-        </div>
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>비밀번호 확인</h2>
+        <form id="passwordForm" onsubmit="return validatePassword()">
+            <input type="password" id="passwordInput" placeholder="비밀번호를 입력하세요" />
+            <button type="submit">확인</button>
+        </form>
     </div>
+</div>
 
-    <!-- JavaScript -->
-    <script>
-        const modal = document.getElementById("passwordModal");
-        const password = "1234"; // 고정된 비밀번호
+<script>
+    const modal = document.getElementById("passwordModal");
+    const password = "1234"; // 고정된 비밀번호
 
-        function openModal() {
-            modal.style.display = "block";
+    // 모달 열기
+    function openModal() {
+        modal.style.display = "block";
+    }
+
+    // 모달 닫기
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    // 비밀번호 검증 및 삭제 처리
+    function validatePassword() {
+        const inputPassword = document.getElementById("passwordInput").value;
+        if (inputPassword === password) {
+            closeModal();
+
+            // 서버에 삭제 요청
+            const noticeNo = "${noticeDetail.notice_no}";
+            fetch(`noticeDelete?notice_no=${noticeNo}`, {
+                method: "POST",
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        alert("삭제되었습니다.");
+                        window.location.href = "noticeList"; // 목록으로 이동
+                    } else {
+                        alert("삭제에 실패했습니다.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                    alert("오류가 발생했습니다.");
+                });
+        } else {
+            alert("비밀번호가 일치하지 않습니다.");
         }
+        return false; // 폼 제출 방지
+    }
 
-        function closeModal() {
-            modal.style.display = "none";
+    // 모달 외부 클릭 시 닫기
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
         }
-
-        function validatePassword() {
-            const input = document.getElementById("passwordInput").value;
-            if (input === password) {
-                closeModal();
-                window.location.href = "noticeUpdate?notice_no=${noticeDetail.notice_no}";
-                return false; // 폼 제출 방지
-            } else {
-                alert("비밀번호가 일치하지 않습니다.");
-                return false;
-            }
-        }
-    </script>
+    };
+</script>
 </body>
 </html>

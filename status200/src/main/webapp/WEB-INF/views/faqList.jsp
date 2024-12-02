@@ -279,7 +279,7 @@
                  <form action="/faqDelete" method="post" >
                             <input type="hidden" name="faq_no" value="${faq.faq_no}">
                             <button type="submit"class="action-button" onclick="return confirm('삭제하시겠습니까?');">삭제</button>
-                        </form>
+                 </form>
             </c:if>
         </div>
         <!-- FAQ 답변 -->
@@ -307,7 +307,7 @@
                 </c:if>
             </div>
             <c:if test="${user_auth == 1}">
-            	<a class="write_button" onclick="openModal()">글쓰기</a>
+            	<a href="faqRegister" class="write_button">글쓰기</a> <!--  onclick="openModal()" -->
            	</c:if>
         </div>
     </div>

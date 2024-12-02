@@ -10,5 +10,6 @@
  		<typeAlias alias="FaqDTO" type="kr.co.dong.catdog.FaqDTO"/>
  		<typeAlias alias="ProductDTO" type="kr.co.dong.catdog.ProductDTO"/>
  		<typeAlias alias="CartDTO" type="kr.co.dong.catdog.CartDTO"/>
+ 		<typeAlias alias="OrdersDTO" type="kr.co.dong.catdog.OrdersDTO"/>
  	</typeAliases>
  </configuration>
