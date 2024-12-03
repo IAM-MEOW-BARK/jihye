@@ -212,27 +212,41 @@
 							        <div class="d-flex flex-column text-center">
 							            <h3 class="product_name">${product.product_name}</h3>
 							            <div class="product_price border-line">${product.product_price}원</div>
-							            <!-- 수량 조절 영역 -->
+							            <!-- 수량 -->
 							            <div class="quantity-control d-flex justify-content-center align-items-center">
 							                <button class="quantity-btn" type="button" onclick="del()">−</button>
 							                <span class="quantity-display" id="quantityDisplay">1</span>
 							                <button class="quantity-btn" type="button" onclick="add()">+</button>
 							            </div>
-							            <!-- 장바구니와 하트 버튼 -->
+							            <!-- 장바구니, 찜하기 -->
 							            <div class="button-area d-flex justify-content-center align-items-center gap-3">
-							               <!-- 장바구니 버튼 -->
-										    <a href="cart" class="cart-button">
-										        <svg width="18" height="18">
-										            <use xlink:href="#cart"></use>
-										        </svg> 장바구니
-										    </a>
+								            <form action="addCart" method="POST">
+								          		<input type="hidden" name="user_id" value="${user_id}" />
+											    <input type="hidden" name="product_code" value="${product.product_code}" />
+											    <input type="hidden" name="cart_quantity" id="cartQuantity" value="1" />
+								    
+								               <!-- 장바구니 버튼 -->
+								          		<button type="submit" class="cart-button">
+								          			<svg width="18" height="18">
+											            <use xlink:href="#cart"></use>
+											        </svg>장바구니
+										        </button>
+										        <!-- 
+											    <a href="cart" class="cart-button">
+											        <svg width="18" height="18">
+											            <use xlink:href="#cart"></use>
+											        </svg> 장바구니
+											    </a>
+											    -->
+											</form>   
 										    <!-- 하트 버튼 -->
 										    <!-- <span class="heart-button">♡</span> -->
-										    <a href="#" class="heart-button p-2 fs-6">
+										    <!-- <a href="#" class="heart-button p-2 fs-6">
 										    	<svg width="18" height="18">
 										              <use xlink:href="#heart"></use>
 							              		</svg>
 							              </a>
+							              	 -->
 										</div>
 							        </div>
 								</div>

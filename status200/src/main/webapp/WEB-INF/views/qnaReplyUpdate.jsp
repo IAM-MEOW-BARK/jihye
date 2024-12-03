@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>공지사항</title>
+    <title>상품 문의</title>
     <style type="text/css">
         /* 전체 레이아웃 */
         body {
@@ -16,8 +16,8 @@
             padding: 20px;
         }
 		.line {
-		    border-top: 1px solid #ccc; /* 얇은 라인 */
-		    margin: 20px 0;            /* 위아래 간격 */
+		    border-top: 1px solid #ccc; 
+		    margin: 20px 0;           
 		}
         .form-group {
             display: flex;
@@ -37,6 +37,7 @@
             border-radius: 4px;
             font-size: 14px;
         }
+		
         .form-group input[type="password"] {
         	width: 15%;
         }
@@ -48,8 +49,21 @@
         textarea {
             height: 300px;
         }
-        /* 버튼 */
-        .form-button {
+        #qna_reply {
+        	height: 100px;
+        }
+        .radio-group {
+            display: flex;
+            gap: 65px;
+            align-items: center;
+        }
+		.radio-group label {
+		    display: inline-flex; 
+		    align-items: center;
+		    gap: 5px; 
+		    white-space: nowrap;
+		}
+        .form-buttons {
             display: flex;
             justify-content: center;
             gap: 10px;
@@ -58,6 +72,7 @@
         }
         button {
             padding: 8px 17px;
+            border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 11px;
@@ -83,34 +98,44 @@
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <h2>공지글 수정</h2>
+        <h2>답변수정</h2>
         
-        <form action="noticeUpdate" method="post">
-        	<input type="hidden" name="notice_no" value="${noticeUpdate.notice_no}">
-        	<div class="line"></div>
-        	 	
-            <!-- 제목 -->
+        <form action="qnaReplyUpdate" method="post">
+        <!-- 숨겨진 필드 (qna_no 전달) -->
+ 		<input type="hidden" name="qna_no" value="${qnaReplyUpdate.qna_no}">
+            <div class="line"></div>
+             
+            <!-- 상품코드 -->
             <div class="form-group">
-                <label for="title">제목</label>
-                <input type="text" id="notice_title" name="notice_title" value="${noticeUpdate.notice_title}">
+                <label for="name">상품명</label>
+                <input type="text" id="product_name" name="product_name" value="${qnaReplyUpdate.product_name}" disabled>
             </div>
 
             <!-- 내용 -->
             <div class="form-group">
                 <label for="content">내용</label>
-                <textarea id="notice_content" name="notice_content">${noticeUpdate.notice_content}</textarea>
+                <textarea id="qna_content" name="qna_content" disabled>${qnaReplyUpdate.qna_content}</textarea>
             </div>
-
             
+            <!-- 답변 -->
+            <div class="form-group">
+                <label for="content">답변</label>
+                <textarea id="qna_reply" name="qna_reply">${qnaReplyUpdate.qna_reply }</textarea>
+            </div>
             
+           
             <div class="line"></div>
 
             <!-- 버튼 -->
-            <div class="form-button">
-                <button type="submit">수정</button>
+            <div class="form-buttons">
+                <button type="submit">등록</button>
                 <button type="reset" onclick="history.back()">취소</button>
             </div>
         </form>
     </div>
+
+   
+   
 </body>
+
 </html>

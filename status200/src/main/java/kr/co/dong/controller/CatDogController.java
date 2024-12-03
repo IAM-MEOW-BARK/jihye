@@ -180,9 +180,11 @@ public class CatDogController {
 	public String addToCart(@ModelAttribute CartDTO cartDTO, HttpSession session, RedirectAttributes redirectAttributes) {
 	    // 로그인 확인
 	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
-	    if (user == null) {
+	    String userId = (String) user.get("user_id");
+	    
+	    if (userId == null) {
 	        redirectAttributes.addFlashAttribute("error", "로그인이 필요합니다.");
-	        return "redirect:/login"; // 로그인 페이지로 이동
+	        return "redirect:/catdog-login"; // 로그인 페이지로 이동
 	    }
 
 	    try {
@@ -321,6 +323,7 @@ public class CatDogController {
 			return "/productDetail";
 		}
 		
+		
 		@RequestMapping(value = "/categoryList", method = RequestMethod.GET)
 		public String categoryList(
 		        
@@ -330,8 +333,6 @@ public class CatDogController {
 		        Model model) {
 
 			
-
-		    
 		    int pageSize = 10;
 		    int pageListSize = 10;
 
@@ -343,7 +344,7 @@ public class CatDogController {
 
 		   
 		    
-		    // 로그 추가
+		    
 		    System.out.println("totalPost: " + totalPost);
 		    System.out.println("totalPage: " + totalPage);
 		    System.out.println("start: " + start);
@@ -353,7 +354,7 @@ public class CatDogController {
 		    
 		    List<ProductDTO> categoryList = catDogService.categoryList(start, pageSize, product_category);
 
-		    // 로그 추가
+		    
 		    System.out.println("categoryList in Controller: " + categoryList);
 		    
 		    model.addAttribute("totalPage", totalPage);
@@ -621,17 +622,18 @@ public class CatDogController {
 	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
 
 	    
-	    // 비밀글 여부 확인
-	    if (qnaDTO.getQna_secret() == 1 || user_auth != 1) { // 관리자가 아닌 경우 비밀번호 확인
-	            if (qna_pwd == null || !qnaDTO.getQna_pwd().equals(qna_pwd)) {
-	                // 비밀번호가 없거나 일치하지 않으면 에러 메시지와 함께 목록으로 리다이렉트
-	                rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
-	                return "redirect:/qnaList";
-	            }
-	        }
+//	    // 비밀글 여부 확인
+//	    if (qnaDTO.getQna_secret() == 1 || user_auth != 1) { // 관리자가 아닌 경우 비밀번호 확인
+//	            if (qna_pwd == null || !qnaDTO.getQna_pwd().equals(qna_pwd)) {
+//	                // 비밀번호가 없거나 일치하지 않으면 에러 메시지와 함께 목록으로 리다이렉트
+//	                rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+//	                return "redirect:/qnaList";
+//	            }
+//	        }
 	    
 	    // 비밀번호가 일치하거나 공개글 또는 관리자인 경우 상세보기 페이지로 이동
 	    model.addAttribute("qnaDetail", qnaDTO);
+	    model.addAttribute("user_auth", user_auth);
 	    return "/qnaDetail";
 	}
 
@@ -759,7 +761,7 @@ public class CatDogController {
 		
 		if(r>0) {
 			attr.addFlashAttribute("msg", "수정에 성공 하였습니다.");
-			return "redirect:/qnaList";
+			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
 		}
 		return "redirect:/qnaUpdate?qna_no=" + qnaDTO.getQna_no();
 	}
@@ -798,6 +800,42 @@ public class CatDogController {
 		return "redirect:/qnaReply?qna_no=" + qnaDTO.getQna_no();
 	}
 	
+	// Q&A 답변 수정
+	@RequestMapping(value="/qnaReplyUpdate", method = RequestMethod.GET)
+	public String qnaReplyUpdate(@RequestParam("qna_no") int qna_no, Model model) {
+		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+		
+		
+		model.addAttribute("qnaReplyUpdate", qnaDTO);
+		return "/qnaReplyUpdate";
+	}
+	
+	@RequestMapping(value="/qnaReplyUpdate", method = RequestMethod.POST)
+	public String qnaReplyUpdate(QnaDTO qnaDTO, RedirectAttributes attr,HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		
+		int r = catDogService.qnaReplyUpdate(qnaDTO);
+		
+		if(r>0) {
+			attr.addFlashAttribute("msg", "수정에 성공 하였습니다.");
+			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
+		}
+		return "redirect:/qnaUpdate?qna_no=" + qnaDTO.getQna_no();
+	}
+	
+	// Q&A 답변 삭제
+	
+	
+//	@RequestMapping(value="/qnaDelete", method = RequestMethod.GET)
+//	public String qnaDelete(@RequestParam("qna_no") int qna_no, RedirectAttributes rttr){
+//		int r = catDogService.qnaDelete(qna_no);
+//		
+//		if(r>0) {
+//			rttr.addFlashAttribute("msg","글삭제에 성공하였습니다.");
+//			return "redirect:qnaList";
+//		}
+//		return "redirect:/qnaDetail?qna_no=" + qna_no;
+//	}
 	
 	// 상품 검색
 	@RequestMapping(value="productSearch", method = RequestMethod.GET)

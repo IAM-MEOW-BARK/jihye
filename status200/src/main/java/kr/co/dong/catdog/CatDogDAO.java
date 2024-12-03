@@ -82,8 +82,6 @@ public interface CatDogDAO {
     
     // 결제 skip 2차
     
-    
-//    public CartDTO checkCart(CartDTO cartDTO);
     // 상품 상세정보
     public ProductDTO productDetail(int product_code);
     public List<ReviewDTO> getReview(int product_code);
@@ -129,7 +127,6 @@ public interface CatDogDAO {
     // FAQ 상세 조회
     public FaqDTO faqDetail(int faq_no);
     
-    
     //공지사항 글 작성
     public int noticeRegister(NoticeDTO noticeDTO);
     
@@ -148,8 +145,14 @@ public interface CatDogDAO {
     // Q&A 글 삭제
     public int qnaDelete(int qna_no);
     
-    // Q&A 답변하기
+    // Q&A 답변 작성
     public int qnaReply(QnaDTO qnaDTO);
+    
+    // Q&A 답변 수정
+    public int qnaReplyUpdate(QnaDTO qnaDTO);
+    
+    // Q&A 답변 삭제
+    public int qnaReplyDelete(int qna_no);
     
     // 상품 검색
     //public List<ProductDTO> productList(int start, int pageSize);
@@ -159,7 +162,6 @@ public interface CatDogDAO {
     // FAQ 글 작성 
     public int faqRegister(FaqDTO faqDTO);
     
- 
     // FAQ 글 수정
     public int faqUpdate(FaqDTO faqDTO);
     

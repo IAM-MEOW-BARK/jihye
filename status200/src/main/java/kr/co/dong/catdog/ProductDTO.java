@@ -10,7 +10,14 @@ public class ProductDTO {
 	private String product_info;
 	private String product_regdate;
 	private String product_update;
+	private int cart_quantity;
 	
+	public int getCart_quantity() {
+		return cart_quantity;
+	}
+	public void setCart_quantity(int cart_quantity) {
+		this.cart_quantity = cart_quantity;
+	}
 	public int getProduct_code() {
 		return product_code;
 	}
@@ -70,9 +77,8 @@ public class ProductDTO {
 		return "ProductDTO [product_code=" + product_code + ", product_name=" + product_name + ", product_category="
 				+ product_category + ", product_price=" + product_price + ", thumbnail_img=" + thumbnail_img
 				+ ", product_img=" + product_img + ", product_info=" + product_info + ", product_regdate="
-				+ product_regdate + ", product_update=" + product_update + "]";
+				+ product_regdate + ", product_update=" + product_update + ", cart_quantity=" + cart_quantity + "]";
 	}
-	
-	
+
 	
 }

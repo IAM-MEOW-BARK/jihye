@@ -9071,6 +9071,7 @@ nav.topmenu li:not(:last-child)::after {
   line-height: 5.0;
   display:inline;
   margin-left: 10px;
+  
 }
 
 products-box-detail-price {

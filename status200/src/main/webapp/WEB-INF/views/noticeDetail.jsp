@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8" />
-	<title>공지사항 게시글</title>
+	<title>공지사항</title>
 	<style>
         /* 전체 레이아웃 */
         body {

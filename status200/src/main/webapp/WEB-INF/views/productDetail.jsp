@@ -56,10 +56,10 @@
 							</div>
 							
 							
-							<form action="/addCart" method="POST">
-    <input type="hidden" name="user_id" value="${sessionScope.user_id}" />
-    <input type="hidden" name="product_code" value="${productDetail.product_code}" />
-    <input type="hidden" name="cart_quantity" id="cartQuantity" value="1" />
+							<form action="addCart" method="POST">
+							    <input type="hidden" name="user_id" value="${user_id}" />
+							    <input type="hidden" name="product_code" value="${productDetail.product_code}" />
+							    <input type="hidden" name="cart_quantity" id="cartQuantity" value="1" />
 							
 							<!-- 수량 선택 -->
 							<div class="border-line control-wrapper">
@@ -83,15 +83,11 @@
 							    <fmt:formatNumber value="${productDetail.product_price}" pattern = "#,###"/>원</span>
 							</div>
 							
-							<!-- 장바구니 버튼
-							<button type="button" class="cart-button">장바구니</button>
-						 	-->
+							<!-- 장바구니 버튼 -->
 						 	<button type="submit" class="cart-button" >장바구니</button>
 						 	</form>
 	                    </div>
 	                </div>
-               
-
             </div>
         </section>
         

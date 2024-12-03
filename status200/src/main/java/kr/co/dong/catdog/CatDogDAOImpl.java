@@ -169,11 +169,6 @@ public class CatDogDAOImpl implements CatDogDAO{
 //		map.put("product_code", cartDTO.getProduct_code());
 		return sqlSession.insert(namespace+".addCart", cartDTO);
 	}
-//	@Override
-//	public int addCart(CartDTO cartDTO) throws Exception {
-//		// TODO Auto-generated method stub
-//		
-//	}
 	@Override
 	public ProductDTO productDetail(int product_code) {
 		// TODO Auto-generated method stub
@@ -338,6 +333,18 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".qnaReply", qnaDTO);
 	}
+	@Override
+	public int qnaReplyUpdate(QnaDTO qnaDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace+".qnaReplyUpdate", qnaDTO);
+	}
+
+	@Override
+	public int qnaReplyDelete(int qna_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(namespace+".qnaReplyDelete", qna_no);
+	}
+
 //	@Override
 //	public List<ProductDTO> productList(int start, int pageSize) {
 //		// TODO Auto-generated method stub
@@ -383,6 +390,7 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
+
 
 
 

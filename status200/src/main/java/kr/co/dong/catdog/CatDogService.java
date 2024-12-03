@@ -95,8 +95,14 @@ public interface CatDogService {
     // Q&A 글 삭제
     public int qnaDelete(int qna_no);
     
-    // Q&A 답변하기
+    // Q&A 답변 작성
     public int qnaReply(QnaDTO qnaDTO);
+    
+    // Q&A 답변 수정
+    public int qnaReplyUpdate(QnaDTO qnaDTO);
+    
+    // Q&A 답변 삭제
+    public int qnaReplyDelete(int qna_no);
     
     // 상품 검색
     //public List<ProductDTO> productList(int start, int pageSize);
@@ -105,8 +111,6 @@ public interface CatDogService {
     
     // FAQ 글 작성 
     public int faqRegister(FaqDTO faqDTO);
-    
-
     
     // FAQ 글 수정
     public int faqUpdate(FaqDTO faqDTO);

@@ -209,16 +209,16 @@
 						        <td class="qna-replyWrite"><a href="qnaReply?qna_no=${qna.qna_no}">답변하기</a></td>
 						    </c:when>
 						     <%-- 답변 완료된 경우 --%>
-    <c:when test="${!empty qna.qna_reply}">
-        <td class="qna-reply">답변완료</td>
-    </c:when>
-    <%-- 일반 회원일 경우 빈칸 표시 --%>
-    <c:otherwise>
-        <td>&nbsp;</td>
-    </c:otherwise>
-</c:choose>
-</tr>
-</c:forEach>
+						    <c:when test="${!empty qna.qna_reply}">
+						        <td class="qna-reply">답변완료</td>
+						    </c:when>
+						    <%-- 일반 회원일 경우 빈칸 표시 --%>
+						    <c:otherwise>
+						        <td>&nbsp;</td>
+						    </c:otherwise>
+						</c:choose>
+						</tr>
+						</c:forEach>
             </tbody>
         </table>
         
@@ -240,8 +240,8 @@
             
             <!-- 글쓰기 버튼 -->
             <c:if test="${user_auth == 0}">
-    <a class="write_button" href="qnaRegister">글쓰기</a>
-</c:if>
+			    <a class="write_button" href="qnaRegister">글쓰기</a>
+			</c:if>
         </div>
     </div>
    

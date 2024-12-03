@@ -244,6 +244,19 @@
 		where qna_no = #{qna_no}
 	</update>
 	
+	<!-- Q&A 답변 수정 -->
+	<update id="qnaReplyUpdate" parameterType="QnaDTO">
+		update qna
+		set qna_reply = #{qna_reply}
+		where qna_no = #{qna_no}
+	</update>
+	
+	<!-- Q&A 답변 삭제 -->
+	<delete id="qnaReplyDelete" parameterType="java.lang.Integer">
+		delete from qna
+		where qna_no = #{qna_no}
+	</delete>
+	
 	<!-- 상품검색 -->
 	<select id="productSearch" resultType="ProductDTO">
         select product_code, product_name, thumbnail_img

@@ -142,9 +142,17 @@
         <!-- 전체보기 버튼 -->
         <div class="button-container">
             <a href="qnaList" class="qnaList">목록</a>
-            <a href="qnaUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">수정</a>
-            <a href="qnaDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+	       	<c:choose>
+	       		<c:when test="${user_auth == 1}">
+	       			<a href="qnaReplyUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">e수정</a>
+	            	<a href="qnaReplyDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('삭제하시겠습니까?');">e삭제</a>
+	       		</c:when>
+	       		<c:otherwise>
+	       			<a href="qnaUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">수정</a>
+	            	<a href="qnaDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
+	       		</c:otherwise>
+	       	</c:choose>
         </div>
-    </div>
+    </div>    
 </body>
 </html>

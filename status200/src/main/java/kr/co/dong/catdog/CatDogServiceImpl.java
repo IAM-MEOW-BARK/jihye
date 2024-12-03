@@ -61,7 +61,11 @@ public class CatDogServiceImpl implements CatDogService {
 	
 	
 
-
+	@Override
+	public int addCart(CartDTO cartDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return catDogDAO.addCart(cartDTO);
+	}
 	@Override
 	public ProductDTO productDetail(int product_code) {
 		// TODO Auto-generated method stub
@@ -204,6 +208,17 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.qnaReply(qnaDTO);
 	}
+	@Override
+	public int qnaReplyUpdate(QnaDTO qnaDTO) {
+		// TODO Auto-generated method stub
+		return catDogDAO.qnaReplyUpdate(qnaDTO);
+	}
+
+	@Override
+	public int qnaReplyDelete(int qna_no) {
+		// TODO Auto-generated method stub
+		return catDogDAO.qnaReplyDelete(qna_no);
+	}
 //	@Override
 //	public List<ProductDTO> productList(int start, int pageSize) {
 //		// TODO Auto-generated method stub
@@ -247,12 +262,5 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.faqDelete(faq_no);
 	}
-
-	@Override
-	public int addCart(CartDTO cartDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return catDogDAO.addCart(cartDTO);
-	}
-
 	
 }
