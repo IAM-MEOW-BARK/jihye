@@ -185,11 +185,20 @@
 		where review_no = #{review_no}
 	</update>
 	
-	<!-- Q&A 상세 글 조회 -->
+	<!-- Q&A 상세 글 조회 
 	<select id="qnaDetail" parameterType="java.lang.Integer" resultType="QnaDTO">
 		select q.*, p.product_name
 		from qna q left join product p on q.product_code_fk = p.product_code
 		where q.qna_no = #{qna_no}
+	</select>
+	-->
+	<select id="qnaDetail" parameterType="map" resultType="QnaDTO">
+    select q.*, p.product_name
+    from qna q
+    left join product p on q.product_code_fk = p.product_code
+    where q.qna_no = #{qna_no}
+    and (q.qna_secret = 0 
+         or (q.qna_secret = 1 and q.qna_pwd = #{qna_pwd}))
 	</select>
 	
 	<!-- FAQ 상세 조회 -->
@@ -252,10 +261,11 @@
 	</update>
 	
 	<!-- Q&A 답변 삭제 -->
-	<delete id="qnaReplyDelete" parameterType="java.lang.Integer">
-		delete from qna
+	<update id="qnaReplyDelete" parameterType="java.lang.Integer">
+		update qna
+		set qna_reply = null
 		where qna_no = #{qna_no}
-	</delete>
+	</update>
 	
 	<!-- 상품검색 -->
 	<select id="productSearch" resultType="ProductDTO">

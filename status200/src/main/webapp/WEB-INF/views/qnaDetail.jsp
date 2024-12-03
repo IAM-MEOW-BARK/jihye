@@ -144,8 +144,8 @@
             <a href="qnaList" class="qnaList">목록</a>
 	       	<c:choose>
 	       		<c:when test="${user_auth == 1}">
-	       			<a href="qnaReplyUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">e수정</a>
-	            	<a href="qnaReplyDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('삭제하시겠습니까?');">e삭제</a>
+	       			<a href="qnaReplyUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">답변수정</a>
+	            	<a href="qnaReplyDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('답변을 삭제하시겠습니까?');">답변삭제</a>
 	       		</c:when>
 	       		<c:otherwise>
 	       			<a href="qnaUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">수정</a>

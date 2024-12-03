@@ -260,20 +260,25 @@
 	</section> <!-- / Main 캐러셀 리스트 -->
 
     <!-- 페이징 처리 -->
-    <div class="pagination-container">
-        <div class="pagination">
-            <c:if test="${startPage > 1}">
-                <a href="categoryList?pageNum=${startPage - 1}&pageListNum=${pageListNum-1}">&lt;</a>
-            </c:if>
-            <c:forEach begin="${startPage}" end="${endPage}" var="page">
-                <a href="categoryList?pageNum=${page}&pageListNum=${pageListNum}" 
-                   class="${currentPage == page ? 'active' : ''}">${page}</a>
-            </c:forEach>
-            <c:if test="${endPage  < totalPage}">
-                <a href="categoryList?pageNum=${endPage + 1}&pageListNum=${pageListNum+1}">&gt;</a>
-            </c:if>
-        </div>
+<div class="pagination-container">
+    <div class="pagination">
+        <!-- 이전 페이지 링크 -->
+        <c:if test="${startPage > 1}">
+            <a href="categoryList?product_category=${productCategory}&pageNum=${startPage - 1}&pageListNum=${pageListNum - 1}">&lt;</a>
+        </c:if>
+
+        <!-- 페이징 번호 -->
+        <c:forEach begin="${startPage}" end="${endPage}" var="page">
+            <a href="categoryList?product_category=${productCategory}&pageNum=${page}&pageListNum=${pageListNum}"
+               class="${currentPage == page ? 'active' : ''}">${page}</a>
+        </c:forEach>
+
+        <!-- 다음 페이지 링크 -->
+        <c:if test="${endPage < totalPage}">
+            <a href="categoryList?product_category=${productCategory}&pageNum=${endPage + 1}&pageListNum=${pageListNum + 1}">&gt;</a>
+        </c:if>
     </div>
+</div>
 	<script>
 		function add() {
 		    let quantityDisplay = document.getElementById("quantityDisplay");

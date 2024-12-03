@@ -184,41 +184,51 @@
             </thead>
             <tbody>
 				<c:forEach var="qna" items="${qnaList}">
-					<tr>
-						<td>${qna.qna_no}</td>
-						<td>
-							<c:choose>
-			                    <c:when test="${qna.qna_secret == 1}">
-			                        <!-- 비밀글 -->
-			                        <a href="javascript:void(0);" onclick="openPasswordModal('${qna.qna_no}')">
-			                            <span class="icon">&#128274;</span> 문의합니다
-			                        </a>
-			                    </c:when>
-			                    <c:otherwise>
-			                        <!-- 공개글 -->
-			                        <a href="qnaDetail?qna_no=${qna.qna_no}">
-			                            <span class="icon">&emsp;&nbsp;</span> ${qna.qna_content}
-			                        </a>
-			                    </c:otherwise>
-			                </c:choose>
-						</td>
-						<td>${qna.user_id}</td>
-						<td>${qna.qna_date}</td>
-						<c:choose>
-						    <c:when test="${user_auth == 1 && empty qna.qna_reply}">
-						        <td class="qna-replyWrite"><a href="qnaReply?qna_no=${qna.qna_no}">답변하기</a></td>
-						    </c:when>
-						     <%-- 답변 완료된 경우 --%>
-						    <c:when test="${!empty qna.qna_reply}">
-						        <td class="qna-reply">답변완료</td>
-						    </c:when>
-						    <%-- 일반 회원일 경우 빈칸 표시 --%>
-						    <c:otherwise>
-						        <td>&nbsp;</td>
-						    </c:otherwise>
-						</c:choose>
-						</tr>
-						</c:forEach>
+    <tr>
+        <td>${qna.qna_no}</td>
+        <td>
+            <c:choose>
+                <c:when test="${qna.qna_secret == 1}">
+                    <c:choose>
+                        <c:when test="${user_auth == 1}">
+                            <!-- 관리자는 비밀번호 없이 접근 가능 -->
+                            <a href="qnaDetail?qna_no=${qna.qna_no}">
+                                <span class="icon">&#128274;</span> 문의합니다
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <!-- 일반회원은 비밀번호 입력 필요 -->
+                            <a href="javascript:void(0);" onclick="openPasswordModal('${qna.qna_no}')">
+                                <span class="icon">&#128274;</span> 문의합니다
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:otherwise>
+                    <!-- 공개글 -->
+                    <a href="qnaDetail?qna_no=${qna.qna_no}">
+                        <span class="icon">&emsp;&nbsp;</span> ${qna.qna_content}
+                    </a>
+                </c:otherwise>
+            </c:choose>
+        </td>
+        <td>${qna.user_id}</td>
+        <td>${qna.qna_date}</td>
+        <c:choose>
+            <c:when test="${user_auth == 1 && empty qna.qna_reply}">
+                <td class="qna-replyWrite">
+                    <a href="qnaReply?qna_no=${qna.qna_no}">답변하기</a>
+                </td>
+            </c:when>
+            <c:when test="${!empty qna.qna_reply}">
+                <td class="qna-reply">답변완료</td>
+            </c:when>
+            <c:otherwise>
+                <td>&nbsp;</td>
+            </c:otherwise>
+        </c:choose>
+    </tr>
+</c:forEach>
             </tbody>
         </table>
         
@@ -262,27 +272,21 @@
 
 
 <script>
-//모달 열기
 function openPasswordModal(qnaId) {
-    // Q&A ID를 모달의 숨겨진 필드에 저장
-    const modal = document.getElementById('passwordModal');
-    document.getElementById('qnaId').value = qnaId;
-
-    // 모달 표시
-    modal.style.display = 'block';
+    const modal = document.getElementById("passwordModal");
+    document.getElementById("qnaId").value = qnaId;
+    modal.style.display = "block";
 }
 
-// 모달 닫기
 function closePasswordModal() {
-    const modal = document.getElementById('passwordModal');
-    modal.style.display = 'none';
+    const modal = document.getElementById("passwordModal");
+    modal.style.display = "none";
 }
 
-// 비밀번호 제출
 function submitPassword(event) {
     event.preventDefault();
-    const qnaId = document.getElementById('qnaId').value;
-    const password = document.getElementById('passwordInput').value;
+    const qnaId = document.getElementById("qnaId").value;
+    const password = document.getElementById("passwordInput").value;
 
     if (!password.trim()) {
         alert('비밀번호를 입력해주세요.');

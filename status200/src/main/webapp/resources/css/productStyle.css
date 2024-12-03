@@ -9185,6 +9185,12 @@ products-box-detail-price {
 	text-decoration: none;
 }
 
+.tab li.active {
+    color: #ff6600; /* 배경색 */
+    font-weight: bold; /* 글자 굵기 */
+    border-radius: 5px; /* 약간의 둥근 모서리 */
+}
+
 .detail-header {
 	margin-top: 40px;
 	height: 54px;

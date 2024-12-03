@@ -342,7 +342,7 @@ public class CatDogDAOImpl implements CatDogDAO{
 	@Override
 	public int qnaReplyDelete(int qna_no) {
 		// TODO Auto-generated method stub
-		return sqlSession.delete(namespace+".qnaReplyDelete", qna_no);
+		return sqlSession.update(namespace+".qnaReplyDelete", qna_no);
 	}
 
 //	@Override

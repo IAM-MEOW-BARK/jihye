@@ -180,12 +180,15 @@ public class CatDogController {
 	public String addToCart(@ModelAttribute CartDTO cartDTO, HttpSession session, RedirectAttributes redirectAttributes) {
 	    // 로그인 확인
 	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
-	    String userId = (String) user.get("user_id");
 	    
-	    if (userId == null) {
+	    // 로그인 여부 확인
+	    if (user == null || user.get("user_id") == null) {
 	        redirectAttributes.addFlashAttribute("error", "로그인이 필요합니다.");
 	        return "redirect:/catdog-login"; // 로그인 페이지로 이동
 	    }
+	 // 세션에서 사용자 ID 가져오기
+	    String userId = (String) user.get("user_id");
+	    cartDTO.setUser_id(userId); // CartDTO에 사용자 ID 설정
 
 	    try {
 	        // 장바구니 추가 서비스 호출
@@ -282,7 +285,7 @@ public class CatDogController {
 
    
    
-	// 상품 상세페이지
+		// 상품 상세페이지
 		@RequestMapping(value="/productDetail", method = RequestMethod.GET)
 		public String productDetail(@RequestParam("product_code") int product_code, Model model) {
 			
@@ -622,14 +625,14 @@ public class CatDogController {
 	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
 
 	    
-//	    // 비밀글 여부 확인
-//	    if (qnaDTO.getQna_secret() == 1 || user_auth != 1) { // 관리자가 아닌 경우 비밀번호 확인
-//	            if (qna_pwd == null || !qnaDTO.getQna_pwd().equals(qna_pwd)) {
-//	                // 비밀번호가 없거나 일치하지 않으면 에러 메시지와 함께 목록으로 리다이렉트
-//	                rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
-//	                return "redirect:/qnaList";
-//	            }
-//	        }
+	    // 비밀글 여부 확인
+	    if (qnaDTO.getQna_secret() == 1 && user_auth != 1) { // 관리자가 아닌 경우 비밀번호 확인
+	            if (qna_pwd == null || !qnaDTO.getQna_pwd().equals(qna_pwd)) {
+	                // 비밀번호가 없거나 일치하지 않으면 에러 메시지와 함께 목록으로 리다이렉트
+	                rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+	                return "redirect:/qnaList";
+	            }
+	        }
 	    
 	    // 비밀번호가 일치하거나 공개글 또는 관리자인 경우 상세보기 페이지로 이동
 	    model.addAttribute("qnaDetail", qnaDTO);
@@ -824,7 +827,17 @@ public class CatDogController {
 	}
 	
 	// Q&A 답변 삭제
-	
+	@RequestMapping(value = "/qnaReplyDelete", method = RequestMethod.GET)
+	public String qnaReplyClear(@RequestParam("qna_no") int qna_no, RedirectAttributes redirectAttributes) {
+	    try {
+	        catDogService.qnaReplyDelete(qna_no);
+	        redirectAttributes.addFlashAttribute("msg", "Q&A 답변이 삭제되었습니다.");
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        redirectAttributes.addFlashAttribute("error", "답변 삭제 중 오류가 발생했습니다.");
+	    }
+	    return "redirect:/qnaList";
+	}
 	
 //	@RequestMapping(value="/qnaDelete", method = RequestMethod.GET)
 //	public String qnaDelete(@RequestParam("qna_no") int qna_no, RedirectAttributes rttr){
