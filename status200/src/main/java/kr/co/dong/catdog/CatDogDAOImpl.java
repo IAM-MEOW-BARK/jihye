@@ -289,9 +289,12 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.selectOne(namespace+".reviewDetail", review_no);
 	}
 	@Override
-	public QnaDTO qnaDetail(int qna_no) {
+	public QnaDTO qnaDetail(int qna_no, String qna_pwd) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".qnaDetail", qna_no);
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("qna_no", qna_no);
+	    map.put("qna_pwd", qna_pwd);
+	    return sqlSession.selectOne(namespace + ".qnaDetail", map);
 	}
 	@Override
 	public FaqDTO faqDetail(int faq_no) {

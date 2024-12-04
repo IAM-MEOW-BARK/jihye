@@ -164,9 +164,9 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.reviewDetail(review_no);
 	}
 	@Override
-	public QnaDTO qnaDetail(int qna_no) {
+	public QnaDTO qnaDetail(int qna_no, String qna_pwd) {
 		// TODO Auto-generated method stub
-		return catDogDAO.qnaDetail(qna_no);
+		return catDogDAO.qnaDetail(qna_no, qna_pwd);
 	}
 	@Override
 	public FaqDTO faqDetail(int faq_no) {

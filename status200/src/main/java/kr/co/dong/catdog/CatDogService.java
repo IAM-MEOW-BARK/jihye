@@ -72,7 +72,7 @@ public interface CatDogService {
     public int reviewUpdateReadCnt(int review_no);
     
     // Q&A 상세보기
-    public QnaDTO qnaDetail(int qna_no);
+    public QnaDTO qnaDetail(int qna_no, String qna_pwd);
     
     // FAQ 상세 조회
     public FaqDTO faqDetail(int faq_no);

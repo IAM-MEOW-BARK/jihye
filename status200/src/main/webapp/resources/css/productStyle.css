@@ -9071,7 +9071,6 @@ nav.topmenu li:not(:last-child)::after {
   line-height: 5.0;
   display:inline;
   margin-left: 10px;
-  
 }
 
 products-box-detail-price {
@@ -9140,8 +9139,6 @@ products-box-detail-price {
 	text-align: right;
 	margin-left:235px;
 }
-
-
 
 
 
@@ -9238,6 +9235,7 @@ products-box-detail-price {
 	font-weight: 550;
 	font-size: 20px;
 }
+
 #addressInfo-box {
 	/* background-color: #F7F7F7; */
 	width: 100%;
@@ -9270,6 +9268,7 @@ products-box-detail-price {
     overflow: hidden;
     position: relative;
     margin: 0 auto;
+    margin-top:20px;
 }
 
 
@@ -9361,6 +9360,7 @@ html {
 	height: 45px;
 	
 	margin: 0 20px;
+	 margin-top: -10px; /* 장바구니 버튼 여백 줄임 */
 	border: 1px solid #ff6600;
 	border-radius: 6px;
 	background-color: #ffffff;

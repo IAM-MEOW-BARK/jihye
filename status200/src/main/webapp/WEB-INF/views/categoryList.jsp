@@ -25,9 +25,10 @@
 		.product-item .tab-image {
 		    display: block;
 		    margin: 0 auto; 
-		    height: 200px;
-		    width: 200px;
-		    object-fit: cover; 
+		    height: 250px;
+		    width: 250px;
+		    object-fit: cover;
+		    border-radius: 4px;
 		}
 		.product-item .product_name {
 		    margin-top: 10px; 
@@ -99,7 +100,7 @@
 		    justify-content: center;
 		    align-items: center;
 		    gap: 20px; 
-		    margin-bottom: 20px;
+		    margin-bottom: 70px;
 		}
 		
 		/* 버튼 스타일 */
@@ -192,7 +193,7 @@
 
 			<div class="row">
 				<div class="col-md-12">
-					<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5">
+					<div class="product-grid row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-4">
 
 						<!-- 리스트에서 아이템 하나 -->
 						

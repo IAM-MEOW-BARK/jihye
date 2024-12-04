@@ -251,46 +251,50 @@
         </div>
     </div>
     
-   	   <!-- 모달 -->
-		<div id="passwordModal" class="modal">
-		    <div class="modal-content">
-		        <span class="close" onclick="closePasswordModal()">&times;</span>
-		        <h2>비밀번호를 입력하세요</h2>
-		        <form id="passwordForm" onsubmit="submitPassword(event)">
-		            <input type="password" id="passwordInput" placeholder="비밀번호 입력">
-		            <input type="hidden" id="qnaId">
-		            <button type="submit">확인</button>
-		        </form>
-		    </div>
-		</div>
+    <!-- 비밀번호 입력 모달 -->
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closePasswordModal()">&times;</span>
+            <h2>비밀번호를 입력하세요</h2>
+            <form id="passwordForm" onsubmit="submitPassword(event)">
+                <input type="password" id="passwordInput" placeholder="비밀번호 입력">
+                <input type="hidden" id="qnaId">
+                <button type="submit">확인</button>
+            </form>
+        </div>
+    </div>
 
-<script>
-	function openPasswordModal(qnaId) {
-	    const modal = document.getElementById("passwordModal");
-	    document.getElementById("qnaId").value = qnaId;
-	    modal.style.display = "block";
-	}
-	
-	function closePasswordModal() {
-	    const modal = document.getElementById("passwordModal");
-	    modal.style.display = "none";
-	}
-	
-	function submitPassword(event) {
-	    event.preventDefault();
-	    const qnaId = document.getElementById("qnaId").value;
-	    const password = document.getElementById("passwordInput").value;
-	
-	    if (!password.trim()) {
-	        alert('비밀번호를 입력해주세요.');
-	        return;
-	    }
-	
-	    // 서버에 비밀번호와 Q&A ID 전송
-	    window.location.href = `qnaDetail?qna_no=${qnaId}&qna_pwd=${password}`;
-	}
-</script>
-<script>
+    <script>
+        function openPasswordModal(qnaId) {
+            const modal = document.getElementById("passwordModal");
+            document.getElementById("qnaId").value = qnaId;
+            modal.style.display = "block";
+        }
+
+        function closePasswordModal() {
+            const modal = document.getElementById("passwordModal");
+            modal.style.display = "none";
+        }
+
+        function submitPassword(event) {
+            event.preventDefault();
+
+            const qnaId = document.getElementById("qnaId").value;
+            const password = document.getElementById("passwordInput").value;
+
+            if (!qnaId.trim()) {
+                alert("Q&A 번호가 올바르지 않습니다.");
+                return;
+            }
+            if (!password.trim()) {
+                alert("비밀번호를 입력해주세요.");
+                return;
+            }
+
+        // 서버로 요청 전송
+       window.location.href = "qnaDetail?qna_no=${qnaId}&qna_pwd=${password}";
+    }
+
 	document.addEventListener("DOMContentLoaded", function () {
 	    // 모든 qna-reply 셀을 가져옵니다.
 	    const replyCells = document.querySelectorAll("td.qna-reply");

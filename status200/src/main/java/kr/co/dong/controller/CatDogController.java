@@ -329,7 +329,7 @@ public class CatDogController {
 		        Model model) {
 
 			
-		    int pageSize = 15;
+		    int pageSize = 12;
 		    int pageListSize = 10;
 
 		    int totalPost = catDogService.categoryTotalPost(product_category);
@@ -605,33 +605,38 @@ public class CatDogController {
 		return "/reviewDetail";
 	}
 	
-	// Q&A 상세조회
 	@RequestMapping(value = "/qnaDetail", method = RequestMethod.GET)
-	public String qnaDetail(@RequestParam("qna_no") int qna_no,
-	                        @RequestParam(value = "qna_pwd", required = false) String qna_pwd,
-	                        RedirectAttributes rttr, HttpSession session, Model model) {
-		// Q&A 상세 정보 가져오기
-		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
-		
-		// 세션에서 사용자 정보 가져오기
+	public String qnaDetail(
+	    @RequestParam(value = "qna_no", required = true) int qna_no,
+	    @RequestParam(value = "qna_pwd", required = false) String qna_pwd,
+	    RedirectAttributes rttr, HttpSession session, Model model) {
+
+	    // Q&A 데이터 가져오기
+	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no, qna_pwd);
+	    if (qnaDTO == null) {
+	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
+	        return "redirect:/qnaList";
+	    }
+
+	    // 사용자 권한 확인
 	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
 	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
 
-	    
-	    // 비밀글 여부 확인
-	    if (qnaDTO.getQna_secret() == 1 && user_auth != 1) { // 관리자가 아닌 경우 비밀번호 확인
-	            if (qna_pwd == null || !qnaDTO.getQna_pwd().equals(qna_pwd)) {
-	                // 비밀번호가 없거나 일치하지 않으면 에러 메시지와 함께 목록으로 리다이렉트
-	                rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
-	                return "redirect:/qnaList";
-	            }
+	    // 비밀글 접근 권한 확인
+	    if (qnaDTO.getQna_secret() == 1 && user_auth != 1) {
+	        if (qna_pwd == null || !qna_pwd.equals(qnaDTO.getQna_pwd())) {
+	            rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+	            return "redirect:/qnaList";
 	        }
-	    
-	    // 비밀번호가 일치하거나 공개글 또는 관리자인 경우 상세보기 페이지로 이동
+	    }
+
+	    // Q&A 상세 데이터 전달
 	    model.addAttribute("qnaDetail", qnaDTO);
 	    model.addAttribute("user_auth", user_auth);
 	    return "/qnaDetail";
 	}
+
+
 
 	
 	// 공지사항 작성
@@ -739,72 +744,72 @@ public class CatDogController {
 		}
 
 
-	// Q&A 수정
-	@RequestMapping(value="/qnaUpdate", method = RequestMethod.GET)
-	public String qnaUpdate(@RequestParam("qna_no") int qna_no, Model model) {
-		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
-		
-		
-		model.addAttribute("qnaUpdate", qnaDTO);
-		return "/qnaUpdate";
-	}
-	
-	@RequestMapping(value="/qnaUpdate", method = RequestMethod.POST)
-	public String qnaUpdate(QnaDTO qnaDTO, RedirectAttributes attr,HttpServletRequest request) throws Exception {
-		request.setCharacterEncoding("UTF-8");
-		
-		int r = catDogService.qnaUpdate(qnaDTO);
-		
-		if(r>0) {
-			attr.addFlashAttribute("msg", "수정에 성공 하였습니다.");
-			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
-		}
-		return "redirect:/qnaUpdate?qna_no=" + qnaDTO.getQna_no();
-	}
-	
-	// Q&A 삭제
-	@RequestMapping(value="/qnaDelete", method = RequestMethod.GET)
-	public String qnaDelete(@RequestParam("qna_no") int qna_no, RedirectAttributes rttr){
-		int r = catDogService.qnaDelete(qna_no);
-		
-		if(r>0) {
-			rttr.addFlashAttribute("msg","글삭제에 성공하였습니다.");
-			return "redirect:qnaList";
-		}
-		return "redirect:/qnaDetail?qna_no=" + qna_no;
-	}
-	
-	// Q&A 답변 작성
-	@RequestMapping(value="/qnaReply", method = RequestMethod.GET)
-	public String qnaReply(@RequestParam("qna_no") int qna_no, Model model) {
-		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
-		
-		model.addAttribute("qnaReply", qnaDTO);
-		return "/qnaReply";
-	}
-	
-	@RequestMapping(value="/qnaReply", method = RequestMethod.POST)
-	public String qnaReply(QnaDTO qnaDTO, RedirectAttributes attr, HttpServletRequest request) throws Exception {
-		request.setCharacterEncoding("UTF-8");
-		
-		int r = catDogService.qnaReply(qnaDTO);
-		
-		if(r>0) {
-			attr.addFlashAttribute("msg", "답변이 작성되었습니다.");
-			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
-		}
-		return "redirect:/qnaReply?qna_no=" + qnaDTO.getQna_no();
-	}
-	
-	// Q&A 답변 수정
-	@RequestMapping(value="/qnaReplyUpdate", method = RequestMethod.GET)
-	public String qnaReplyUpdate(@RequestParam("qna_no") int qna_no, Model model) {
-		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
-		
-		
-		model.addAttribute("qnaReplyUpdate", qnaDTO);
-		return "/qnaReplyUpdate";
-	}
+//	// Q&A 수정
+//	@RequestMapping(value="/qnaUpdate", method = RequestMethod.GET)
+//	public String qnaUpdate(@RequestParam("qna_no") int qna_no, Model model) {
+//		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+//		
+//		
+//		model.addAttribute("qnaUpdate", qnaDTO);
+//		return "/qnaUpdate";
+//	}
+//	
+//	@RequestMapping(value="/qnaUpdate", method = RequestMethod.POST)
+//	public String qnaUpdate(QnaDTO qnaDTO, RedirectAttributes attr,HttpServletRequest request) throws Exception {
+//		request.setCharacterEncoding("UTF-8");
+//		
+//		int r = catDogService.qnaUpdate(qnaDTO);
+//		
+//		if(r>0) {
+//			attr.addFlashAttribute("msg", "수정에 성공 하였습니다.");
+//			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
+//		}
+//		return "redirect:/qnaUpdate?qna_no=" + qnaDTO.getQna_no();
+//	}
+//	
+//	// Q&A 삭제
+//	@RequestMapping(value="/qnaDelete", method = RequestMethod.GET)
+//	public String qnaDelete(@RequestParam("qna_no") int qna_no, RedirectAttributes rttr){
+//		int r = catDogService.qnaDelete(qna_no);
+//		
+//		if(r>0) {
+//			rttr.addFlashAttribute("msg","글삭제에 성공하였습니다.");
+//			return "redirect:qnaList";
+//		}
+//		return "redirect:/qnaDetail?qna_no=" + qna_no;
+//	}
+//	
+//	// Q&A 답변 작성
+//	@RequestMapping(value="/qnaReply", method = RequestMethod.GET)
+//	public String qnaReply(@RequestParam("qna_no") int qna_no, Model model) {
+//		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+//		
+//		model.addAttribute("qnaReply", qnaDTO);
+//		return "/qnaReply";
+//	}
+//	
+//	@RequestMapping(value="/qnaReply", method = RequestMethod.POST)
+//	public String qnaReply(QnaDTO qnaDTO, RedirectAttributes attr, HttpServletRequest request) throws Exception {
+//		request.setCharacterEncoding("UTF-8");
+//		
+//		int r = catDogService.qnaReply(qnaDTO);
+//		
+//		if(r>0) {
+//			attr.addFlashAttribute("msg", "답변이 작성되었습니다.");
+//			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
+//		}
+//		return "redirect:/qnaReply?qna_no=" + qnaDTO.getQna_no();
+//	}
+//	
+//	// Q&A 답변 수정
+//	@RequestMapping(value="/qnaReplyUpdate", method = RequestMethod.GET)
+//	public String qnaReplyUpdate(@RequestParam("qna_no") int qna_no, Model model) {
+//		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+//		
+//		
+//		model.addAttribute("qnaReplyUpdate", qnaDTO);
+//		return "/qnaReplyUpdate";
+//	}
 	
 	@RequestMapping(value="/qnaReplyUpdate", method = RequestMethod.POST)
 	public String qnaReplyUpdate(QnaDTO qnaDTO, RedirectAttributes attr,HttpServletRequest request) throws Exception {

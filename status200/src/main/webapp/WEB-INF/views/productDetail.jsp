@@ -19,7 +19,7 @@
             <div class="container px-4 px-lg-5 my-5">
             	
             	
-	                <div class="row gx-4 gx-lg-5 align-items-center">
+	                <div class="row gx-4 gx-lg-5 align-items-center"  style="display: flex; ">
                     <!-- 상품 썸네일 -->
                     <div class="col-md-6">
                         <div class="product-image-container">
@@ -28,7 +28,7 @@
                         </div>
                     </div>
 	                    <!-- 상품 정보 -->
-	                    <div class="col-md-6">
+	                    <div class="col-md-6" style="display: flex; flex-direction: column; justify-content: center margin-top:-10px;;">
 	                        <!-- 상품명 
 	                        <h1 class="display-7 fw-bolder">${productDetail.product_name}</h1>
 							-->
@@ -43,7 +43,9 @@
 	                     	<!-- 상품 가격 -->
 	                     	<div class="products-box-detail-price border-line">
 								<span class="products-box-detail-postInfo-title">가격</span>
-								<span class="products-box-detail-price-figure">${productDetail.product_price}</span> <span>원</span>
+								<span class="products-box-detail-price-figure">
+									<fmt:formatNumber value="${productDetail.product_price}" pattern="#,###"/> 원
+    							</span>
 							</div>
 							
 							<!-- 배송 정보 -->
