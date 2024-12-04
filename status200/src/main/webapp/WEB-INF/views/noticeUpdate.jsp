@@ -87,24 +87,18 @@
         
         <form action="noticeUpdate" method="post">
         	<input type="hidden" name="notice_no" value="${noticeUpdate.notice_no}">
-        	<div class="line"></div>
-        	 	
+        	<div class="line"></div>  	 	
             <!-- 제목 -->
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" id="notice_title" name="notice_title" value="${noticeUpdate.notice_title}">
             </div>
-
             <!-- 내용 -->
             <div class="form-group">
                 <label for="content">내용</label>
                 <textarea id="notice_content" name="notice_content">${noticeUpdate.notice_content}</textarea>
             </div>
-
-            
-            
             <div class="line"></div>
-
             <!-- 버튼 -->
             <div class="form-button">
                 <button type="submit">수정</button>

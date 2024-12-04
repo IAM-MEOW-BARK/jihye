@@ -24,23 +24,23 @@
 		
 		.product-item .tab-image {
 		    display: block;
-		    margin: 0 auto; /* 이미지 가운데 정렬 */
+		    margin: 0 auto; 
 		    height: 200px;
 		    width: 200px;
-		    object-fit: cover; /* 이미지 크기 조정 */
+		    object-fit: cover; 
 		}
 		.product-item .product_name {
-		    margin-top: 10px; /* 이미지와 텍스트 간 간격 */
+		    margin-top: 10px; 
 		}
 		
 		.product-item .button-area {
-		    width: 100%; /* 버튼이 적절히 정렬되도록 설정 */
+		    width: 100%; 
 		}
 		
 		.product_name {
 			font-size: 11px;
 			font-weight: 500;
-			 margin-bottom: 0px; /* 간격을 줄임 */
+			margin-bottom: 0px; 
 		}
 		.product_price {
 			color: #727272;
@@ -73,14 +73,14 @@
 	        font-weight: bold; 
 	    }
 	    a {
-		    text-decoration: none; /* 언더라인 제거 */
+		    text-decoration: none; 
 		    }
-			    /* 공통 컨트롤 박스 스타일 (수량, 가격 등) */
+		/* 공통 컨트롤 박스 스타일 (수량, 가격 등) */
 		.control-wrapper {
 		    display: flex;
 		    align-items: center;
-		    gap: 15px; /* 요소 간 간격 */
-		    margin: 10px 0; /* 아래 요소와 간격 */
+		    gap: 15px; 
+		    margin: 10px 0; 
 		}
 		
 		/* 수량 조절 버튼 */
@@ -88,9 +88,9 @@
 		    display: flex;
 		    justify-content: center;
 		    align-items: center;
-		    gap: 10px; /* 버튼 간격 */
+		    gap: 10px; 
 		    margin-top: 10px;
-		    margin-bottom: 10px; /* 장바구니와 하트와 간격 */
+		    margin-bottom: 10px; 
 		}
 		
 		/* 장바구니와 하트 버튼 */
@@ -98,7 +98,7 @@
 		    display: flex;
 		    justify-content: center;
 		    align-items: center;
-		    gap: 20px; /* 버튼 간 간격 */
+		    gap: 20px; 
 		    margin-bottom: 20px;
 		}
 		
@@ -148,7 +148,7 @@
 		    fill: #ffffff;
 		}
 		
-		/* 하트 버튼 */
+		/* 하트 버튼 
 		.heart-button {
 		    display: inline-flex;
 		    align-items: center;
@@ -158,14 +158,11 @@
 		    cursor: pointer;
 		    border: 1px solid #d1d1d1;
 		    border-radius: 4px;
-		    
 		}
-		
 		.heart-button:active  {
 			fill: #dd3333;
 		}
-
-
+		*/
 </style>
 </head>
 <body>
@@ -215,7 +212,7 @@
 							            <!-- 수량 -->
 							            <div class="quantity-control d-flex justify-content-center align-items-center">
 							                <button class="quantity-btn" type="button" onclick="del()">−</button>
-							                <span class="quantity-display" id="quantityDisplay">1</span>
+							                <span class="quantity-num" id="quantityNum">1</span>
 							                <button class="quantity-btn" type="button" onclick="add()">+</button>
 							            </div>
 							            <!-- 장바구니, 찜하기 -->
@@ -281,18 +278,19 @@
 </div>
 	<script>
 		function add() {
-		    let quantityDisplay = document.getElementById("quantityDisplay");
-		    let quantity = parseInt(quantityDisplay.textContent);
-		    quantityDisplay.textContent = quantity + 1;
+		    const quantityElement = document.getElementById("quantityNum");		    
+		    let quantity = parseInt(quantityElement.textContent);
+		    quantityElement.textContent = quantity + 1;
 		}
 	
 		function del() {
-		    let quantityDisplay = document.getElementById("quantityDisplay");
-		    let quantity = parseInt(quantityDisplay.textContent);
+		    const quantityElement = document.getElementById("quantityNum");
+		    let quantity = parseInt(quantityElement.textContent);
 		    if (quantity > 1) {
-		        quantityDisplay.textContent = quantity - 1;
+		        quantityElement.textContent = quantity - 1;
 		    }
 		}
+
 	</script>
 
 	

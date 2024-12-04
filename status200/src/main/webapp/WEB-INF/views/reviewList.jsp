@@ -40,15 +40,14 @@
             color: transparent; 
         }
 		.tab-image {
-		    max-width: 50px; /* 테이블에 맞는 최대 너비 설정 */
-		    max-height: 50px; /* 테이블에 맞는 최대 높이 설정 */
-		    object-fit: cover; /* 비율을 유지하며 이미지를 크기에 맞게 조정 */
-		    border: 1px solid #ccc; /* 테두리 추가 */
-		    border-radius: 5px; /* 모서리 둥글게 */
+		    max-width: 50px; 
+		    max-height: 50px; 
+		    object-fit: cover;
+		    border: 1px solid #ccc; 
+		    border-radius: 5px; 
 		    display: block;
-		    margin: 0 auto; /* 이미지를 가운데 정렬 */
+		    margin: 0 auto; 
 		}
-		
 		a {
 			text-decoration: none;
 	        color: inherit;
@@ -59,11 +58,9 @@
             color: #ffa500;
             letter-spacing: -2px;
         } 
-        
         .star-empty {
 		    color: #ccc;
 		}
-		
 		.pagination-container {
             display: flex;
             justify-content: center; 
@@ -84,7 +81,6 @@
 	        color: #ff6600; 
 	        font-weight: bold; 
 	    }
-
     </style>
 </head>
 <body>
@@ -145,8 +141,7 @@
                 <c:if test="${endPage  < totalPage}">
                     <a href="reviewList?pageNum=${endPage + 1}&pageListNum=${pageListNum+1}">&gt;</a>
                 </c:if>
-            </div>
-            
+            </div>        
         </div>
     </div>
 </body>

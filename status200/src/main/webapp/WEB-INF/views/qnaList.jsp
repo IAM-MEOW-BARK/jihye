@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>공지사항</title>
+    <title>Q&A</title>
     <style>
         /* 전체 레이아웃 */
         body {
@@ -19,13 +19,13 @@
         }
         table {
             width: 100%;
-            border-collapse: collapse; /* 테두리를 하나로 합침 */
+            border-collapse: collapse;
             margin-bottom: 20px;
             table-layout: fixed;
         }
         table th, table td {
-            border-top: 1px solid #ccc; /* 위쪽 줄만 추가 */
-            border-bottom: 1px solid #ccc; /* 아래쪽 줄만 추가 */
+            border-top: 1px solid #ccc; 
+            border-bottom: 1px solid #ccc;
             padding: 10px;
             text-align: center;
             font-size: 13px;
@@ -48,13 +48,12 @@
 		table th:nth-child(2) {
 			text-align: center;
 			}
-		
 		table th:nth-child(3), table td:nth-child(3),
 		table th:nth-child(4), table td:nth-child(4) { 
 		    width: 15%;
 		}
 		a {
-			text-decoration: none; /* 공통적으로 필요한 경우 */
+			text-decoration: none; 
 	        color: inherit;
 		}
 		.qna-replyWrite {
@@ -67,8 +66,8 @@
 		}
 		.pagination-container {
             display: flex;
-            justify-content: space-between; /* 양쪽 정렬 */
-            align-items: center; /* 세로 정렬 */
+            justify-content: space-between;
+            align-items: center;
             margin: 20px 0;
         }
         .pagination {
@@ -94,7 +93,6 @@
             border-radius: 4px;
             background-color: #ffffff;
             color: #ff6600;
-            
         }
          .write_button:hover {
             background-color: #ff6600;
@@ -122,12 +120,11 @@
             text-align: center;
         }
         .modal-content h2 {
-       		margin-bottom: 10px; /* 제목과 입력창 간격 조절 */
+       		margin-bottom: 10px; 
    		}
-
    		#passwordInput {
-	        margin-top: 10px; /* 입력창 위치 조정 */
-	        margin-bottom: 20px; /* 입력창과 버튼 간격 조정 */
+	        margin-top: 10px; 
+	        margin-bottom: 20px; 
 	        padding: 10px;
 	        width: 80%;
 	        border-radius: 5px;
@@ -135,19 +132,18 @@
     	}
         #passwordInput:focus {
 	        outline: none;
-	        border-radius: 5px; /* 기본 브라우저 포커스 제거 */
-	        border: 1px solid #ff6600; /* 포커스 시 테두리 색상 */	
+	        border-radius: 5px; 
+	        border: 1px solid #ff6600; 
     	}
    		 #passwordForm button {
-	        padding: 10px 20px; /* 버튼 내부 여백 */
-	        font-size: 11px; /* 글씨 크기 */
+	        padding: 10px 20px;
+	        font-size: 11px; 
 	        border: 1px solid #ff6600;
-	        border-radius: 5px; /* 버튼 모서리 둥글게 */
-	        background-color: #ffffff; /* 배경색 */
-	        color:  #ff6600; /* 글씨 색 */
-	        cursor: pointer; /* 커서 포인터 */
-    }
-
+	        border-radius: 5px; 
+	        background-color: #ffffff; 
+	        color:  #ff6600;
+	        cursor: pointer; 
+    	}
 	    #passwordForm button:hover {
 	      
 	            background-color: #ff6600;
@@ -184,51 +180,51 @@
             </thead>
             <tbody>
 				<c:forEach var="qna" items="${qnaList}">
-    <tr>
-        <td>${qna.qna_no}</td>
-        <td>
-            <c:choose>
-                <c:when test="${qna.qna_secret == 1}">
-                    <c:choose>
-                        <c:when test="${user_auth == 1}">
-                            <!-- 관리자는 비밀번호 없이 접근 가능 -->
-                            <a href="qnaDetail?qna_no=${qna.qna_no}">
-                                <span class="icon">&#128274;</span> 문의합니다
-                            </a>
-                        </c:when>
-                        <c:otherwise>
-                            <!-- 일반회원은 비밀번호 입력 필요 -->
-                            <a href="javascript:void(0);" onclick="openPasswordModal('${qna.qna_no}')">
-                                <span class="icon">&#128274;</span> 문의합니다
-                            </a>
-                        </c:otherwise>
-                    </c:choose>
-                </c:when>
-                <c:otherwise>
-                    <!-- 공개글 -->
-                    <a href="qnaDetail?qna_no=${qna.qna_no}">
-                        <span class="icon">&emsp;&nbsp;</span> ${qna.qna_content}
-                    </a>
-                </c:otherwise>
-            </c:choose>
-        </td>
-        <td>${qna.user_id}</td>
-        <td>${qna.qna_date}</td>
-        <c:choose>
-            <c:when test="${user_auth == 1 && empty qna.qna_reply}">
-                <td class="qna-replyWrite">
-                    <a href="qnaReply?qna_no=${qna.qna_no}">답변하기</a>
-                </td>
-            </c:when>
-            <c:when test="${!empty qna.qna_reply}">
-                <td class="qna-reply">답변완료</td>
-            </c:when>
-            <c:otherwise>
-                <td>&nbsp;</td>
-            </c:otherwise>
-        </c:choose>
-    </tr>
-</c:forEach>
+				    <tr>
+				        <td>${qna.qna_no}</td>
+				        <td>
+				            <c:choose>
+				                <c:when test="${qna.qna_secret == 1}">
+				                    <c:choose>
+				                        <c:when test="${user_auth == 1}">
+				                            <!-- 관리자는 비밀번호 없이 접근 가능 -->
+				                            <a href="qnaDetail?qna_no=${qna.qna_no}">
+				                                <span class="icon">&#128274;</span> 문의합니다
+				                            </a>
+				                        </c:when>
+				                        <c:otherwise>
+				                            <!-- 일반회원은 비밀번호 입력 필요 -->
+				                            <a href="javascript:void(0);" onclick="openPasswordModal('${qna.qna_no}')">
+				                                <span class="icon">&#128274;</span> 문의합니다
+				                            </a>
+				                        </c:otherwise>
+				                    </c:choose>
+				                </c:when>
+				                <c:otherwise>
+				                    <!-- 공개글 -->
+				                    <a href="qnaDetail?qna_no=${qna.qna_no}">
+				                        <span class="icon">&emsp;&nbsp;</span> ${qna.qna_content}
+				                    </a>
+                				</c:otherwise>
+            			</c:choose>
+				        </td>
+				        <td>${qna.user_id}</td>
+				        <td>${qna.qna_date}</td>
+				        <c:choose>
+				            <c:when test="${user_auth == 1 && empty qna.qna_reply}">
+				                <td class="qna-replyWrite">
+				                    <a href="qnaReply?qna_no=${qna.qna_no}">답변하기</a>
+				                </td>
+				            </c:when>
+				            <c:when test="${!empty qna.qna_reply}">
+				                <td class="qna-reply">답변완료</td>
+				            </c:when>
+				            <c:otherwise>
+				                <td>&nbsp;</td>
+				            </c:otherwise>
+				        </c:choose>
+    				</tr>
+				</c:forEach>
             </tbody>
         </table>
         
@@ -254,65 +250,61 @@
 			</c:if>
         </div>
     </div>
-   
-   
+    
    	   <!-- 모달 -->
-<div id="passwordModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closePasswordModal()">&times;</span>
-        <h2>비밀번호를 입력하세요</h2>
-        <form id="passwordForm" onsubmit="submitPassword(event)">
-            <input type="password" id="passwordInput" placeholder="비밀번호 입력">
-            <input type="hidden" id="qnaId">
-            <button type="submit">확인</button>
-        </form>
-    </div>
-</div>
-
-
+		<div id="passwordModal" class="modal">
+		    <div class="modal-content">
+		        <span class="close" onclick="closePasswordModal()">&times;</span>
+		        <h2>비밀번호를 입력하세요</h2>
+		        <form id="passwordForm" onsubmit="submitPassword(event)">
+		            <input type="password" id="passwordInput" placeholder="비밀번호 입력">
+		            <input type="hidden" id="qnaId">
+		            <button type="submit">확인</button>
+		        </form>
+		    </div>
+		</div>
 
 <script>
-function openPasswordModal(qnaId) {
-    const modal = document.getElementById("passwordModal");
-    document.getElementById("qnaId").value = qnaId;
-    modal.style.display = "block";
-}
-
-function closePasswordModal() {
-    const modal = document.getElementById("passwordModal");
-    modal.style.display = "none";
-}
-
-function submitPassword(event) {
-    event.preventDefault();
-    const qnaId = document.getElementById("qnaId").value;
-    const password = document.getElementById("passwordInput").value;
-
-    if (!password.trim()) {
-        alert('비밀번호를 입력해주세요.');
-        return;
-    }
-
-    // 서버에 비밀번호와 Q&A ID 전송
-    window.location.href = `qnaDetail?qna_no=${qnaId}&qna_pwd=${password}`;
-}
+	function openPasswordModal(qnaId) {
+	    const modal = document.getElementById("passwordModal");
+	    document.getElementById("qnaId").value = qnaId;
+	    modal.style.display = "block";
+	}
+	
+	function closePasswordModal() {
+	    const modal = document.getElementById("passwordModal");
+	    modal.style.display = "none";
+	}
+	
+	function submitPassword(event) {
+	    event.preventDefault();
+	    const qnaId = document.getElementById("qnaId").value;
+	    const password = document.getElementById("passwordInput").value;
+	
+	    if (!password.trim()) {
+	        alert('비밀번호를 입력해주세요.');
+	        return;
+	    }
+	
+	    // 서버에 비밀번호와 Q&A ID 전송
+	    window.location.href = `qnaDetail?qna_no=${qnaId}&qna_pwd=${password}`;
+	}
 </script>
-    <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // 모든 qna-reply 셀을 가져옵니다.
-        const replyCells = document.querySelectorAll("td.qna-reply");
-
-        replyCells.forEach(cell => {
-            if (!cell.textContent.trim()) {
-                // 내용이 비어 있으면 셀 비우기
-                cell.textContent = ""; 
-            } else {
-                // 내용이 있으면 "답변완료" 표시
-                cell.textContent = "답변완료";
-            }
-        });
-    });
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+	    // 모든 qna-reply 셀을 가져옵니다.
+	    const replyCells = document.querySelectorAll("td.qna-reply");
+	
+	    replyCells.forEach(cell => {
+	        if (!cell.textContent.trim()) {
+	            // 내용이 비어 있으면 셀 비우기
+	            cell.textContent = ""; 
+	        } else {
+	            // 내용이 있으면 "답변완료" 표시
+	            cell.textContent = "답변완료";
+	        }
+	    });
+	});
 </script>
-
 </body>
 </html>

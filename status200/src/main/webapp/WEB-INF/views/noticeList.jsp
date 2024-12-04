@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>공지사항</title>
+    <title>Q&A</title>
     <style>
         /* 전체 레이아웃 */
         body {
@@ -19,13 +19,13 @@
         }
         table {
             width: 100%;
-            border-collapse: collapse; /* 테두리를 하나로 합침 */
+            border-collapse: collapse;
             margin-bottom: 20px;
             table-layout: fixed;
         }
         table th, table td {
-            border-top: 1px solid #ccc; /* 위쪽 줄만 추가 */
-            border-bottom: 1px solid #ccc; /* 아래쪽 줄만 추가 */
+            border-top: 1px solid #ccc; 
+            border-bottom: 1px solid #ccc;
             padding: 10px;
             text-align: center;
             font-size: 13px;
@@ -84,11 +84,9 @@
             border: 1px solid #ff6600;
             border-radius: 4px;
             background-color: #ffffff;
-            color: #ff6600;
-            
+            color: #ff6600;  
         }
-         .write_button:hover {
-        	
+         .write_button:hover { 	
             background-color: #ff6600;
             color: #ffffff;
         } 
@@ -114,12 +112,12 @@
             text-align: center;
         }
         .modal-content h2 {
-       		margin-bottom: 10px; /* 제목과 입력창 간격 조절 */
+       		margin-bottom: 10px; 
    		}
 
    		#passwordInput {
-	        margin-top: 10px; /* 입력창 위치 조정 */
-	        margin-bottom: 20px; /* 입력창과 버튼 간격 조정 */
+	        margin-top: 10px; 
+	        margin-bottom: 20px; 
 	        padding: 10px;
 	        width: 80%;
 	        border-radius: 5px;
@@ -127,21 +125,19 @@
     	}
         #passwordInput:focus {
 	        outline: none;
-	        border-radius: 5px; /* 기본 브라우저 포커스 제거 */
-	        border: 1px solid #ff6600; /* 포커스 시 테두리 색상 */	
+	        border-radius: 5px; 
+	        border: 1px solid #ff6600; 
     	}
    		 #passwordForm button {
-	        padding: 10px 20px; /* 버튼 내부 여백 */
-	        font-size: 11px; /* 글씨 크기 */
+	        padding: 10px 20px; 
+	        font-size: 11px; 
 	        border: 1px solid #ff6600;
-	        border-radius: 5px; /* 버튼 모서리 둥글게 */
-	        background-color: #ffffff; /* 배경색 */
-	        color:  #ff6600; /* 글씨 색 */
-	        cursor: pointer; /* 커서 포인터 */
-    }
-
+	        border-radius: 5px;
+	        background-color: #ffffff; 
+	        color:  #ff6600; 
+	        cursor: pointer; 
+   	 	}
 	    #passwordForm button:hover {
-	      
 	            background-color: #ff6600;
 	            color: #ffffff;
 	    }
@@ -179,7 +175,6 @@
 					<tr>
 						<td>${notice.notice_no}</td>
 						<td><a href="noticeDetail?notice_no=${notice.notice_no}&pageNum=${currentPage}&pageListNum=${pageListNum}">${notice.notice_title}</a></td>
-
 						<td>${notice.notice_date}</td>
 						<td>${notice.notice_readcnt}</td>
 					</tr>
@@ -195,24 +190,17 @@
                     <a href="noticeList?pageNum=${startPage - 1}&pageListNum=${pageListNum-1}">&lt;</a>
                 </c:if>
                 <c:forEach begin="${startPage}" end="${endPage}" var="page">
-                    <a href="noticeList?pageNum=${page}&pageListNum=${pageListNum}" 
-  						 class="${currentPage == page ? 'active' : ''}">${page}</a>
-
+                    <a href="noticeList?pageNum=${page}&pageListNum=${pageListNum}" class="${currentPage == page ? 'active' : ''}">${page}</a>
                 </c:forEach>
                 <c:if test="${endPage  < totalPage}">
                     <a href="noticeList?pageNum=${endPage + 1}&pageListNum=${pageListNum+1}">&gt;</a>
                 </c:if>
             </div>
-            
             <!-- 글쓰기 버튼 -->
             <c:if test="${user_auth == 1}">
             	<a class="write_button" href="noticeRegister">글쓰기</a>
-           	</c:if>
-            
+           	</c:if> 
         </div>
     </div>
-    	
-   
-  
 </body>
 </html>

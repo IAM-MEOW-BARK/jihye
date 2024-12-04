@@ -25,7 +25,7 @@
             margin-bottom: 20px;
         }
         .form-group label {
-            width: 10%; /* 레이블 넓이 */
+            width: 10%;
             font-weight: 500;
             color: #333;
         }
@@ -102,30 +102,25 @@
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <h2>수정하기</h2>
+        <h2>Q&A 수정</h2>
         
         <form action="qnaUpdate" method="post">
         <input type="hidden" name="qna_no" value="${qnaUpdate.qna_no}">
             <div class="line"></div>
-             
             <!-- 상품코드 -->
             <div class="form-group">
                 <label for="code">상품명</label>
                 <input type="text" id="product_name" name="product_name" value="${qnaUpdate.product_name}" readonly>
-
                 <!-- 실제로 서버로 전송할 상품코드 -->
 				<input type="hidden" id="product_code_fk" name="product_code_fk" value="${qnaUpdate.product_code_fk}">
-                
                 <button type="button" onclick="openSearchPopup()">상품검색</button>
             </div>
 
-			
             <!-- 내용 -->
             <div class="form-group">
                 <label for="content">내용</label>
                 <textarea id="qna_content" name="qna_content">${qnaUpdate.qna_content}</textarea>
             </div>
-            
             <!-- 공개/비공개 -->
             <div class="form-group">
                 <label>SECRET</label>
@@ -134,15 +129,12 @@
                     <label><input type="radio" name="qna_secret" value="1"> 비밀글</label>
                 </div>
             </div>
-            
             <!-- 비밀번호 -->
             <div class="form-group">
                 <label for="password">비밀번호</label>
                 <input type="password" id="qna_pwd" name="qna_pwd" placeholder="비밀번호를 입력하세요." disabled>
             </div>
-            
             <div class="line"></div>
-
             <!-- 버튼 -->
             <div class="form-buttons">
                 <button type="submit">등록</button>
@@ -151,15 +143,11 @@
         </form>
     </div>
 
-    <!-- JavaScript -->
     <script>
 	    function openSearchPopup() {
-	        window.open('productSearch?keyword=', '상품 검색', 'width=800,height=600,scrollbars=yes');
-	    	
+	        window.open('productSearch?keyword=', '상품 검색', 'width=800,height=600,scrollbars=yes');  	
 	    }
 	    
-	    
-	
         const publicRadio = document.querySelector('input[name="qna_secret"][value="0"]');
         const privateRadio = document.querySelector('input[name="qna_secret"][value="1"]');
         const passwordInput = document.getElementById('qna_pwd');
@@ -177,8 +165,6 @@
                 passwordInput.disabled = false; // 활성화
             }
         });
-        
-        
     </script>
 </body>
 

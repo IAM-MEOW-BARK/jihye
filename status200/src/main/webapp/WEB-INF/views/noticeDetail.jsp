@@ -16,45 +16,38 @@
             margin: 0 auto;
             padding: 20px;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
             table-layout: fixed;
         }
-
         table th, table td {
             border: 1px solid #ccc;
             padding: 10px;
             font-size: 13px;
         }
-
         table th {
             background-color: #feebe1;
             font-weight: bold;
             text-align: center;
             width: 5%;
         }
-
         table td {
         	padding-left: 20px;
             white-space: normal;
             word-wrap: break-word;
             line-height: 1.6;
             text-align: left;
-        }
-        
+        }       
         tbody {
 	        height: 500px;
 	    }
-
         /* 버튼 스타일 */
         .button-container {
             text-align: center;
             margin-top: 20px;
         }
-
         .noticeList, .noticeUpdate, .noticeDelete {
             padding: 8px 17px;
             border: 1px solid #ff6600;
@@ -64,23 +57,20 @@
             cursor: pointer;
             text-decoration: none;
             font-size: 11px;
-        }
-        
+        }       
         .noticeUpdate, .noticeDelete {
         	border: 1px solid #727272;
             background-color: #ffffff;
             color: #727272;
         }
-	
         .noticeList:hover, .noticeUpdate:hover, .noticeDelete:hover {
          	border: 1px solid #ff6600;
             background-color: #ff6600;
             color: #ffffff;
             text-decoration: none;
         }
-
         /* 모달 스타일 */
-                .modal {
+        .modal {
             display: none;
             position: fixed;
             z-index: 1;
@@ -100,39 +90,35 @@
             border-radius: 5px;
             text-align: center;
         }
-         .modal-content h2 {
-        margin-bottom: 10px; /* 제목과 입력창 간격 조절 */
-    }
-
-    #passwordInput {
-        margin-top: 10px; /* 입력창 위치 조정 */
-        margin-bottom: 20px; /* 입력창과 버튼 간격 조정 */
-        padding: 10px;
-        width: 80%;
-        border-radius: 5px;
-         border: 1px solid #ccc;
-    }
+        .modal-content h2 {
+        	margin-bottom: 10px;
+   		}
+	    #passwordInput {
+	        margin-top: 10px;
+	        margin-bottom: 20px; 
+	        padding: 10px;
+	        width: 80%;
+	        border-radius: 5px;
+	         border: 1px solid #ccc;
+	    }
         #passwordInput:focus {
         outline: none;
-        border-radius: 5px; /* 기본 브라우저 포커스 제거 */
-        border: 1px solid #ff6600; /* 포커스 시 테두리 색상 */
-    }
-    #passwordForm button {
-        padding: 10px 20px; /* 버튼 내부 여백 */
-        font-size: 11px; /* 글씨 크기 */
-        border: 1px solid #ff6600;
-        border-radius: 5px; /* 버튼 모서리 둥글게 */
-        background-color: #ffffff; /* 배경색 */
-        color:  #ff6600; /* 글씨 색 */
-        cursor: pointer; /* 커서 포인터 */
-    }
-
-    #passwordForm button:hover {
-      
+        border-radius: 5px; 
+        border: 1px solid #ff6600; 
+   		}
+	    #passwordForm button {
+	        padding: 10px 20px; 
+	        font-size: 11px; 
+	        border: 1px solid #ff6600;
+	        border-radius: 5px; 
+	        background-color: #ffffff; 
+	        color:  #ff6600; 
+	        cursor: pointer; 
+	    }
+	    #passwordForm button:hover {   
             background-color: #ff6600;
             color: #ffffff;
-    }
-
+	    }
         .close {
             color: #aaa;
             float: right;
@@ -140,14 +126,12 @@
             font-weight: bold;
             cursor: pointer;
         }
-
         .close:hover,
         .close:focus {
             color: black;
             text-decoration: none;
             cursor: pointer;
-        }
-        
+        } 
     </style>
 </head>
 <body>
@@ -175,11 +159,10 @@
         	<a href="backToList?notice_no=${noticeDetail.notice_no}">backToList</a>
             <a href="noticeList?pageNum=${pageNum}&pageListNum=${pageListNum}" class="noticeList">목록</a>
             
-             <!-- userAuth가 1일 때만 수정/삭제 버튼 표시 -->
+             <!-- user_auth가 1일 때, 수정/삭제 버튼 -->
             <c:if test="${user_auth == 1}">
 	            <a href="noticeUpdate?notice_no=${noticeDetail.notice_no}" class="noticeUpdate">수정</a>
-	            <a href="noticeDelete?notice_no=${noticeDetail.notice_no}" class="noticeDelete" onclick="return confirm('삭제하시겠습니까?');"> 삭제</a>
-	            
+	            <a href="noticeDelete?notice_no=${noticeDetail.notice_no}" class="noticeDelete" onclick="return confirm('삭제하시겠습니까?');">삭제</a> 
             </c:if>
         </div>
     </div>
@@ -194,7 +177,7 @@
             <button type="submit">확인</button>
         </form>
     </div>
-</div>
+	</div>
 
 <script>
     const modal = document.getElementById("passwordModal");
@@ -204,12 +187,10 @@
     function openModal() {
         modal.style.display = "block";
     }
-
     // 모달 닫기
     function closeModal() {
         modal.style.display = "none";
     }
-
     // 비밀번호 검증 및 삭제 처리
     function validatePassword() {
         const inputPassword = document.getElementById("passwordInput").value;

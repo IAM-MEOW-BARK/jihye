@@ -17,39 +17,32 @@
             margin: 0 auto;
             padding: 20px;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
             table-layout: fixed;
         }
-
         table th, table td {
             border: 1px solid #ccc;
             padding: 10px;
             font-size: 13px;
         }
-
         table th {
             background-color: #feebe1;
             font-weight: bold;
             text-align: center;
             width: 5%;
         }
-
         table td {
         	padding-left: 20px;
-            white-space: normal; /* 줄바꿈 허용 */
-            word-wrap: break-word; /* 긴 텍스트 자동 줄바꿈 */
-            line-height: 1.6; /* 텍스트 줄 간격 */
+            white-space: normal; 
+            word-wrap: break-word; 
+            line-height: 1.6; 
             text-align: left;
         }
-        
-		 /* 특정 셀 스타일 */
         .content-cell {
-            height: 500px; /* 원하는 높이 */
-            
+            height: 500px;
         }
         .review_content {
          	display: flex;
@@ -57,7 +50,6 @@
          	justify-content: center;
          	gap:50px;
          	text-align: left;
-         	
         }
         .stars {
 			display: inline-block;
@@ -72,7 +64,6 @@
             text-align: center;
             margin-top: 20px;
         }
-
         .reviewList {
             padding: 8px 17px;
             border: 1px solid #ff6600;
@@ -83,11 +74,9 @@
             text-decoration: none;
             font-size: 11px;
         }
-
         .reviewList:hover {
             background-color: #ff6600;
-            color: #ffffff;
-            
+            color: #ffffff;   
         }
     </style>
 </head>
@@ -137,15 +126,11 @@
 				            <img src="${pageContext.request.contextPath}/resources/upload/${reviewDetail.review_img}" 
 				                 alt="Review Image" 
 				                 style="max-width: 500px; max-height: 500px; object-fit: cover; border: 1px solid #ccc; border-radius: 5px; margin-left: 40px;">
-				
 				            <!-- 내용 -->
 				            <p style="flex: 1; margin-right: 40px;">${reviewDetail.review_content}</p>
 				        </div>
 				    </td>
 				</tr>
-
-
-             
             </tbody>
         </table>
 

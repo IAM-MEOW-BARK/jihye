@@ -17,39 +17,32 @@
             margin: 0 auto;
             padding: 20px;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
             table-layout: fixed;
         }
-
         table th, table td {
             border: 1px solid #ccc;
             padding: 10px;
             font-size: 13px;
         }
-
         table th {
             background-color: #feebe1;
             font-weight: bold;
             text-align: center;
             width: 5%;
         }
-
         table td {
         	padding-left: 20px;
-            white-space: normal; /* 줄바꿈 허용 */
-            word-wrap: break-word; /* 긴 텍스트 자동 줄바꿈 */
-            line-height: 1.6; /* 텍스트 줄 간격 */
+            white-space: normal; 
+            word-wrap: break-word; 
+            line-height: 1.6; 
             text-align: left;
         }
-        
-		 /* 특정 셀 스타일 */
         .content-cell {
-            height: 500px; /* 원하는 높이 */
-            
+            height: 500px; 
         }
 		.reply-label {
             display: inline-block;
@@ -64,12 +57,10 @@
             margin-top: 5px;
             color: #333;
         }
-        /* 버튼 스타일 */
         .button-container {
             text-align: center;
             margin-top: 20px;
         }
-
         .qnaList, .qnaUpdate, .qnaDelete {
             padding: 8px 17px;
             border: 1px solid #ff6600;
@@ -80,13 +71,11 @@
             text-decoration: none;
             font-size: 11px;
         }
-        
         .qnaUpdate, .qnaDelete {
         	border: 1px solid #727272;
             background-color: #ffffff;
             color: #727272;
         }
-
         .qnaList:hover, .qnaUpdate:hover, .qnaDelete:hover {
             border: 1px solid #ff6600;
             background-color: #ff6600;
@@ -118,17 +107,16 @@
                 </tr>
                 <tr class="content-cell">
                     <th>내용</th>
-                    <td>${qnaDetail.qna_content} 
-                    	 <!-- 답변 표시 -->
-                       <!--  <c:if test="${qnaDetail.qna_reply != null && !qnaDetail.qna_reply.isEmpty()}">  -->
-                            <div class="reply-container">
-                                <span class="reply-arrow">↳</span>
-                                <span class="reply-label">답변</span>
-                                <span class="reply-content">${qnaDetail.qna_reply}</span>
-                            </div>
-                      <!--  </c:if>  -->
-                    	
-                    </td>
+	                    <td>${qnaDetail.qna_content} 
+	                       <!-- 답변 표시 -->
+	                       <!--  <c:if test="${qnaDetail.qna_reply != null && !qnaDetail.qna_reply.isEmpty()}">  -->
+	                            <div class="reply-container">
+	                                <span class="reply-arrow">↳</span>
+	                                <span class="reply-label">답변</span>
+	                                <span class="reply-content">${qnaDetail.qna_reply}</span>
+	                            </div>
+	                      <!--  </c:if>  -->
+	                    </td>
                 </tr>
               <!--  
               	<tr>
@@ -144,8 +132,11 @@
             <a href="qnaList" class="qnaList">목록</a>
 	       	<c:choose>
 	       		<c:when test="${user_auth == 1}">
-	       			<a href="qnaReplyUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">답변수정</a>
-	            	<a href="qnaReplyDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('답변을 삭제하시겠습니까?');">답변삭제</a>
+	       			<!-- 답변이 있는 경우에만 답변 수정/삭제 버튼 표시 -->
+	           		<c:if test="${!empty qnaDetail.qna_reply}">
+		       			<a href="qnaReplyUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">답변수정</a>
+		            	<a href="qnaReplyDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('답변을 삭제하시겠습니까?');">답변삭제</a>
+		       		</c:if>
 	       		</c:when>
 	       		<c:otherwise>
 	       			<a href="qnaUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">수정</a>

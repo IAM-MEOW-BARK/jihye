@@ -12,7 +12,7 @@
     </head>
     
     <body>
-       <!-- %@ include file="include/header.jsp"%> -->
+       <%@ include file="include/header.jsp"%>
         
         <!-- 상품 상세페이지 상단 -->
         <section class="py-5">
@@ -347,25 +347,25 @@
 
 </script>
 <script>
-function increaseQuantity() {
-    const quantityInput = document.getElementById("cartQuantity");
-    const quantityDisplay = document.getElementById("quantityDisplay");
-    let quantity = parseInt(quantityInput.value);
-    quantity++;
-    quantityInput.value = quantity;
-    quantityDisplay.textContent = quantity;
-}
-
-function decreaseQuantity() {
-    const quantityInput = document.getElementById("cartQuantity");
-    const quantityDisplay = document.getElementById("quantityDisplay");
-    let quantity = parseInt(quantityInput.value);
-    if (quantity > 1) {
-        quantity--;
-        quantityInput.value = quantity;
-        quantityDisplay.textContent = quantity;
-    }
-}
+	function increaseQuantity() {
+	    const quantityInput = document.getElementById("cartQuantity");
+	    const quantityDisplay = document.getElementById("quantityDisplay");
+	    let quantity = parseInt(quantityInput.value);
+	    quantity++;
+	    quantityInput.value = quantity;
+	    quantityDisplay.textContent = quantity;
+	}
+	
+	function decreaseQuantity() {
+	    const quantityInput = document.getElementById("cartQuantity");
+	    const quantityDisplay = document.getElementById("quantityDisplay");
+	    let quantity = parseInt(quantityInput.value);
+	    if (quantity > 1) {
+	        quantity--;
+	        quantityInput.value = quantity;
+	        quantityDisplay.textContent = quantity;
+	    }
+	}
 </script>
 
  <!-- 아코디언 -->

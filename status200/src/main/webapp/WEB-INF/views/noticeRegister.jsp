@@ -85,26 +85,19 @@
     <div class="container">
         <h2>공지글 작성</h2>
         
- 
         <form action="noticeRegister" method="post">
-        	<div class="line"></div>
-        	 
+        	<div class="line"></div>    	 
             <!-- 제목 -->
             <div class="form-group">
                 <label for="title">제목</label>
                 <input type="text" id="notice_title" name="notice_title" placeholder="제목을 입력하세요.">
             </div>
-
             <!-- 내용 -->
             <div class="form-group">
                 <label for="content">내용</label>
                 <textarea id="notice_content" name="notice_content" placeholder="내용을 입력하세요."></textarea>
             </div>
-
-            
-            
-            <div class="line"></div>
-
+	       <div class="line"></div>
             <!-- 버튼 -->
             <div class="form-button">
                 <button type="submit">등록</button>
@@ -112,7 +105,5 @@
             </div>
         </form>
     </div>
-    
-	
 </body>
 </html>

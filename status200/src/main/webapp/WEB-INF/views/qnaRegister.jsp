@@ -25,7 +25,7 @@
             margin-bottom: 20px;
         }
         .form-group label {
-            width: 10%; /* 레이블 넓이 */
+            width: 10%; 
             font-weight: 500;
             color: #333;
         }
@@ -109,8 +109,6 @@
         		<input type="hidden" name="user_id" value="${qnaRegister.user_id}">
         	 -->
             <div class="line"></div>
-            
-            
             <!-- 상품코드 -->
             <div class="form-group">
                 <label for="code">상품명</label>
@@ -120,13 +118,11 @@
 				<input type="hidden" id="product_code_fk" name="product_code_fk">
                 <button type="button" onclick="openSearchPopup()">상품검색</button>
             </div>
-
             <!-- 내용 -->
             <div class="form-group">
                 <label for="content">내용</label>
                 <textarea id="qna_content" name="qna_content" placeholder="내용을 입력하세요."></textarea>
             </div>
-            
             <!-- 공개/비공개 -->
             <div class="form-group">
                 <label>비밀글 여부</label>
@@ -135,15 +131,12 @@
                     <label><input type="radio" name="qna_secret" value="1"> 비밀글</label>
                 </div>
             </div>
-            
             <!-- 비밀번호 -->
             <div class="form-group">
                 <label for="password">비밀번호</label>
                 <input type="password" id="qna_pwd" name="qna_pwd" placeholder="비밀번호를 입력하세요." disabled>
             </div>
-            
             <div class="line"></div>
-
             <!-- 버튼 -->
             <div class="form-buttons">
                 <button type="submit">등록</button>
@@ -152,7 +145,6 @@
         </form>
     </div>
 
-    <!-- JavaScript -->
     <script>
 	    function openSearchPopup() {
 	        window.open('productSearch?keyword=', '상품 검색', 'width=800,height=600,scrollbars=yes');
@@ -175,8 +167,6 @@
                 passwordInput.disabled = false; // 활성화
             }
         });
-        
-        
     </script>
 </body>
 
