@@ -90,6 +90,8 @@ public interface CatDogDAO {
     public int product_qnaTotal(int product_code);
     
     // 카테고리별 리스트
+    //public List<ProductDTO> categoryList(int start, int pageSize, int product_category, int product_code);
+   
   	public List <ProductDTO> categoryList(int start, int pageSize, int product_category);
   	public int categoryTotalPost(int product_category);
   	

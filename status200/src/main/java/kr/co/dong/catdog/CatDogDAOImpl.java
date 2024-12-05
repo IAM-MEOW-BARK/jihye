@@ -199,10 +199,9 @@ public class CatDogDAOImpl implements CatDogDAO{
 	public List<ProductDTO> categoryList(int start, int pageSize, int product_category) {
 		// TODO Auto-generated method stub
 		Map<String, Integer> map = new HashMap<>();
-		
-		
 		map.put("start", start);
 		map.put("pageSize", pageSize);
+		
 		map.put("product_category", product_category);
 		
 		return sqlSession.selectList(namespace+".categoryList", map);

@@ -212,16 +212,18 @@
 							            <div class="product_price border-line">${product.product_price}원</div>
 							            <!-- 수량 -->
 							            <div class="quantity-control d-flex justify-content-center align-items-center">
-							                <button class="quantity-btn" type="button" onclick="del()">−</button>
-							                <span class="quantity-num" id="quantityNum">1</span>
-							                <button class="quantity-btn" type="button" onclick="add()">+</button>
+							                 <!-- 고유 ID 설정 -->
+						                    <button class="quantity-btn" type="button" onclick="del('${product.product_code}')">−</button>
+						                    <span class="quantity-num" id="quantityNum_${product.product_code}">1</span>
+						                    
+						                    <button class="quantity-btn" type="button" onclick="add('${product.product_code}')">+</button>
 							            </div>
 							            <!-- 장바구니, 찜하기 -->
 							            <div class="button-area d-flex justify-content-center align-items-center gap-3">
 								            <form action="addCart" method="POST">
 								          		<input type="hidden" name="user_id" value="${user_id}" />
-											    <input type="hidden" name="product_code" value="${product.product_code}" />
-											    <input type="hidden" name="cart_quantity" id="cartQuantity" value="1" />
+											    <!-- <input type="hidden" name="product_code" value="${product.product_code}" />  -->
+ 											    <input type="hidden" name="cart_quantity" id="cartQuantity_${product.product_code}" value="1" />
 								    
 								               <!-- 장바구니 버튼 -->
 								          		<button type="submit" class="cart-button">
@@ -277,22 +279,6 @@
         </c:if>
     </div>
 </div>
-	<script>
-		function add() {
-		    const quantityElement = document.getElementById("quantityNum");		    
-		    let quantity = parseInt(quantityElement.textContent);
-		    quantityElement.textContent = quantity + 1;
-		}
-	
-		function del() {
-		    const quantityElement = document.getElementById("quantityNum");
-		    let quantity = parseInt(quantityElement.textContent);
-		    if (quantity > 1) {
-		        quantityElement.textContent = quantity - 1;
-		    }
-		}
-
-	</script>
 
 	
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/jquery-1.11.0.min.js"></script>
@@ -300,5 +286,36 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script src="${pageContext.request.contextPath}/resources/bootstrap/js/plugins.js"></script>
 	
+	<script>
+	function add(productCode) {
+	    const quantityElement = document.getElementById('quantityNum_${productCode}');
+	    const cartQuantityInput = document.getElementById('cartQuantity_${productCode}');
+
+	    if (quantityElement) {
+	        let quantity = parseInt(quantityElement.textContent);
+	        quantityElement.textContent = quantity + 1;
+
+	        if (cartQuantityInput) {
+	            cartQuantityInput.value = quantity + 1;
+	        }
+	    }
+	}
+
+	function del(productCode) {
+	    const quantityElement = document.getElementById('quantityNum_${productCode}');
+	    const cartQuantityInput = document.getElementById('cartQuantity_${productCode}');
+
+	    if (quantityElement) {
+	        let quantity = parseInt(quantityElement.textContent);
+	        if (quantity > 1) {
+	            quantityElement.textContent = quantity - 1;
+
+	            if (cartQuantityInput) {
+	                cartQuantityInput.value = quantity - 1;
+	            }
+	        }
+	    }
+	}
+	</script>
 </body>
 </html>

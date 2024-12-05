@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -346,7 +347,7 @@ public class CatDogController {
 		    System.out.println("start: " + start);
 		    System.out.println("pageSize: " + pageSize);
 		    
-		  
+		    
 		    
 		    List<ProductDTO> categoryList = catDogService.categoryList(start, pageSize, product_category);
 
@@ -432,7 +433,7 @@ public class CatDogController {
 	    mav.addObject("user_auth", user_auth); // 사용자 권한
 	    mav.setViewName("noticeList");
 	    return mav;
-	}
+	} 
 	
 	// 리뷰 리스트
 	@RequestMapping(value = "reviewList", method = RequestMethod.GET)
@@ -605,28 +606,63 @@ public class CatDogController {
 		return "/reviewDetail";
 	}
 	
+//	@RequestMapping(value = "/qnaDetail", method = RequestMethod.GET)
+//	public String qnaDetail(
+//	    @RequestParam(value = "qna_no", required = true) int qna_no,
+//	    @RequestParam(value = "qna_pwd", required = false) String qna_pwd,
+//	    RedirectAttributes rttr, HttpSession session, Model model) {
+//
+//	    // Q&A 데이터 가져오기
+//	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no, qna_pwd);
+//	    if (qnaDTO == null) {
+//	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
+//	        return "redirect:/qnaList";
+//	    }
+//
+//	    // 사용자 권한 확인
+//	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+//	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+//
+//	    // 비밀글 접근 권한 확인
+//	    if (qnaDTO.getQna_secret() == 1 && user_auth != 1) {
+//	        if (qna_pwd == null || !qna_pwd.equals(qnaDTO.getQna_pwd())) {
+//	            rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+//	            return "redirect:/qnaList";
+//	        }
+//	    }
+//
+//	    // Q&A 상세 데이터 전달
+//	    model.addAttribute("qnaDetail", qnaDTO);
+//	    model.addAttribute("user_auth", user_auth);
+//	    return "/qnaDetail";
+//	}
+
 	@RequestMapping(value = "/qnaDetail", method = RequestMethod.GET)
 	public String qnaDetail(
-	    @RequestParam(value = "qna_no", required = true) int qna_no,
-	    @RequestParam(value = "qna_pwd", required = false) String qna_pwd,
-	    RedirectAttributes rttr, HttpSession session, Model model) {
-
-	    // Q&A 데이터 가져오기
-	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no, qna_pwd);
-	    if (qnaDTO == null) {
-	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
-	        return "redirect:/qnaList";
-	    }
+	    @RequestParam(value = "qna_no") int qna_no,
+	    HttpSession session,
+	    Model model,
+	    RedirectAttributes rttr) {
 
 	    // 사용자 권한 확인
 	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
 	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
 
+	    // Q&A 데이터 가져오기
+	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no, null);
+	    if (qnaDTO == null) {
+	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
+	        return "redirect:/qnaList";
+	    }
+
 	    // 비밀글 접근 권한 확인
-	    if (qnaDTO.getQna_secret() == 1 && user_auth != 1) {
-	        if (qna_pwd == null || !qna_pwd.equals(qnaDTO.getQna_pwd())) {
-	            rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
-	            return "redirect:/qnaList";
+	    if (qnaDTO.getQna_secret() == 1) {
+	        if (user_auth != 1) { // 관리자가 아닌 경우
+	            Boolean hasAccess = (Boolean) session.getAttribute("qnaAccess_" + qna_no);
+	            if (hasAccess == null || !hasAccess) {
+	                rttr.addFlashAttribute("error", "비밀글에 접근 권한이 없습니다.");
+	                return "redirect:/qnaList";
+	            }
 	        }
 	    }
 
@@ -636,6 +672,25 @@ public class CatDogController {
 	    return "/qnaDetail";
 	}
 
+	
+	@RequestMapping(value = "/validatePassword", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> validatePassword(@RequestBody Map<String, Object> payload, HttpSession session) {
+	    int qna_no = Integer.parseInt(payload.get("qna_no").toString());
+	    String qna_pwd = payload.get("qna_pwd").toString();
+
+	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no, null);
+	    Map<String, Object> response = new HashMap<>();
+
+	    if (qnaDTO != null && qna_pwd.equals(qnaDTO.getQna_pwd())) {
+	        session.setAttribute("qnaAccess_" + qna_no, true); // 세션에 접근 권한 저장
+	        response.put("success", true);
+	    } else {
+	        response.put("success", false);
+	    }
+
+	    return response;
+	}
 
 
 	

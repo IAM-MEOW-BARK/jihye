@@ -70,6 +70,7 @@
 							        <button class="quantity-btn" type="button" onclick="del()">−</button>
 							        <!-- 수량 표시 -->
 							         <span class="quantity-display" id="quantityDisplay">1</span> 
+							        <!-- <input type="hidden" id="cartQuantity" name="cart_quantity" value="1">  -->
 							        <!--<input type="text" name="amounts" id="quantityDisplay" value="1" readonly> -->
 							        
 							        <button class="quantity-btn" type="button" onclick="add()">+</button>
