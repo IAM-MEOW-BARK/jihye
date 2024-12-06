@@ -288,11 +288,11 @@ public class CatDogDAOImpl implements CatDogDAO{
 		return sqlSession.selectOne(namespace+".reviewDetail", review_no);
 	}
 	@Override
-	public QnaDTO qnaDetail(int qna_no, String qna_pwd) {
+	public QnaDTO qnaDetail(int qna_no) {
 		// TODO Auto-generated method stub
 	    Map<String, Object> map = new HashMap<>();
 	    map.put("qna_no", qna_no);
-	    map.put("qna_pwd", qna_pwd);
+	    
 	    return sqlSession.selectOne(namespace + ".qnaDetail", map);
 	}
 	@Override
@@ -329,6 +329,11 @@ public class CatDogDAOImpl implements CatDogDAO{
 	public int qnaDelete(int qna_no) {
 		// TODO Auto-generated method stub
 		return sqlSession.delete(namespace+".qnaDelete", qna_no);
+	}
+	@Override
+	public QnaDTO qnaReplyDetail(int qna_no) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".qnaReplyDetail", qna_no);
 	}
 	@Override
 	public int qnaReply(QnaDTO qnaDTO) {
@@ -392,8 +397,5 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
-
-
-
 
 }

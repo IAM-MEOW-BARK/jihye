@@ -41,9 +41,7 @@
             line-height: 1.6; 
             text-align: left;
         }
-        .content-cell {
-            height: 400px; 
-        }
+
 		.reply-label {
             display: inline-block;
             padding: 5px 10px;;
@@ -80,7 +78,6 @@
             border: 1px solid #ff6600;
             background-color: #ff6600;
             color: #ffffff;
-            
         }
     </style>
 </head>
@@ -105,46 +102,33 @@
                     <th>작성일</th>
                     <td>${qnaDetail.qna_date}</td>
                 </tr>
-                <tr class="content-cell">
+                <tr class="content-cell" style="height: 300px;" >
                     <th>내용</th>
-	                    <td>${qnaDetail.qna_content} 
-	                       <!-- 답변 표시 
-	                         <c:if test="${qnaDetail.qna_reply != null && !qnaDetail.qna_reply.isEmpty()}">  
-	                            <div class="reply-container">
-	                                <span class="reply-arrow">↳</span>
-	                                <span class="reply-label">답변</span>
-	                                <span class="reply-content">${qnaDetail.qna_reply}</span>
-	                            </div>
-	                        </c:if>  -->
-	                    </td>
+	                    <td>${qnaDetail.qna_content}</td>
                 </tr>
-              <!--  
-              	<tr>
-                    <th>답변</th>
-                    <td>${qnaDetail.qna_reply}</td>
+                
+                <tr  class="reply-cell" style="height: 200px;">
+                	<th>답변</th>
+                	<td>${qnaDetail.qna_reply }</td>
                 </tr>
-               -->   
             </tbody>
         </table>
+        
 
         <!-- 전체보기 버튼 -->
         <div class="button-container">
             <a href="qnaList" class="qnaList">목록</a>
-	       	<!--<c:choose>
+	       	<c:choose>
 	       		<c:when test="${user_auth == 1}">
-	       			 답변이 있는 경우에만 답변 수정/삭제 버튼 표시 
+	       			<!-- 답변이 있는 경우에만 답변 수정/삭제 버튼 표시 -->
 	           		<c:if test="${!empty qnaDetail.qna_reply}">
 		       			<a href="qnaReplyUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">답변수정</a>
 		            	<a href="qnaReplyDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('답변을 삭제하시겠습니까?');">답변삭제</a>
 		       		</c:if>
 	       		</c:when>
-	       		<c:otherwise>-->
-	       		<c:if test="${user_auth == 0 }">
-	       			<a href="qnaUpdate?qna_no=${qnaDetail.qna_no}" class="qnaUpdate">수정</a>
-	            	<a href="qnaDelete?qna_no=${qnaDetail.qna_no}" class="qnaDelete" onclick="return confirm('삭제하시겠습니까?');">삭제</a>
-	       		</c:if>
-	       		<!-- </c:otherwise>
-	       	</c:choose> -->
+       		</c:choose>
+	       		
+	       	
         </div>
     </div>    
 </body>

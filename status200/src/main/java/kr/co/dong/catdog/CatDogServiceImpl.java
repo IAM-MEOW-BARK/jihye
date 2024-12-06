@@ -164,9 +164,9 @@ public class CatDogServiceImpl implements CatDogService {
 		return catDogDAO.reviewDetail(review_no);
 	}
 	@Override
-	public QnaDTO qnaDetail(int qna_no, String qna_pwd) {
+	public QnaDTO qnaDetail(int qna_no) {
 		// TODO Auto-generated method stub
-		return catDogDAO.qnaDetail(qna_no, qna_pwd);
+		return catDogDAO.qnaDetail(qna_no);
 	}
 	@Override
 	public FaqDTO faqDetail(int faq_no) {
@@ -202,6 +202,11 @@ public class CatDogServiceImpl implements CatDogService {
 	public int qnaDelete(int qna_no) {
 		// TODO Auto-generated method stub
 		return catDogDAO.qnaDelete(qna_no);
+	}
+	@Override
+	public QnaDTO qnaReplyDetail(int qna_no) {
+		// TODO Auto-generated method stub
+		return catDogDAO.qnaReplyDetail(qna_no);
 	}
 	@Override
 	public int qnaReply(QnaDTO qnaDTO) {
@@ -249,8 +254,6 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.reviewUpdateReadCnt(review_no);
 	}
-
-
 	@Override
 	public int faqUpdate(FaqDTO faqDTO) {
 		// TODO Auto-generated method stub
@@ -262,5 +265,4 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.faqDelete(faq_no);
 	}
-	
 }

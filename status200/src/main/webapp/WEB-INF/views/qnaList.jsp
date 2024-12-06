@@ -7,7 +7,6 @@
     <meta charset="UTF-8">
     <title>Q&A</title>
     <style>
-        /* 전체 레이아웃 */
         body {
             margin: 0;
             padding: 20px;
@@ -64,6 +63,11 @@
 		.qna-reply {
 			color: #ff6600
 		}
+		.qna-replyDetail {
+			text-align: left;
+			margin-left: 20px;
+			
+		}
 		.pagination-container {
             display: flex;
             justify-content: space-between;
@@ -98,7 +102,6 @@
             background-color: #ff6600;
             color: #ffffff;
         }  
-         /* 모달 스타일 */
         .modal {
             display: none;
             position: fixed;
@@ -146,8 +149,8 @@
     	}
 	    #passwordForm button:hover {
 	      
-	            background-color: #ff6600;
-	            color: #ffffff;
+            background-color: #ff6600;
+            color: #ffffff;
 	    }
         .close {
             color: #aaa;
@@ -167,7 +170,7 @@
 <body>
 	<%@ include file="include/board_nav.jsp"%>
     <div class="container">
-        <!-- 공지글 리스트 테이블 -->
+        <!-- 공지 리스트 테이블 -->
         <table>
             <thead>
                 <tr>
@@ -189,40 +192,68 @@
 				                        <c:when test="${user_auth == 1}">
 				                            <!-- 관리자는 비밀번호 없이 접근 가능 -->
 				                            <a href="qnaDetail?qna_no=${qna.qna_no}">
-				                                <span class="icon">&#128274;</span> 문의합니다
+				                                &#128274;&nbsp; ${qna.qna_content}
 				                            </a>
 				                        </c:when>
 				                        <c:otherwise>
 				                            <!-- 일반회원은 비밀번호 입력 필요 -->
 				                            <a href="javascript:void(0);" onclick="openPasswordModal('${qna.qna_no}')">
-				                                <span class="icon">&#128274;</span> 문의합니다
+				                                &#128274;&nbsp; 문의합니다
 				                            </a>
 				                        </c:otherwise>
 				                    </c:choose>
 				                </c:when>
 				                <c:otherwise>
 				                    <!-- 공개글 -->
-				                    <a href="qnaDetail?qna_no=${qna.qna_no}">
-				                        <span class="icon">&emsp;&nbsp;</span> ${qna.qna_content}
-				                    </a>
+				                    <a href="qnaDetail?qna_no=${qna.qna_no}">${qna.qna_content}</a>
                 				</c:otherwise>
             			</c:choose>
 				        </td>
 				        <td>${qna.user_id}</td>
 				        <td>${qna.qna_date}</td>
 				        <c:choose>
+				        	
 				            <c:when test="${user_auth == 1 && empty qna.qna_reply}">
 				                <td class="qna-replyWrite">
 				                    <a href="qnaReply?qna_no=${qna.qna_no}">답변하기</a>
 				                </td>
 				            </c:when>
+				           
 				            <c:when test="${!empty qna.qna_reply}">
 				                <td class="qna-reply">답변완료</td>
 				            </c:when>
 				            <c:otherwise>
-				                <td>&nbsp;</td>
+				                <td style="color:gray;">답변대기</td> 
 				            </c:otherwise>
 				        </c:choose>
+    				</tr>
+    				<tr>
+    					<!-- 0,유 - reply / 1,유 - i / 무x
+	   						<c:if test="${!empty qna.qna_reply}">
+	   							<td style="color: transparent;">${qna.qna_no }</td>
+	   							<td class="qna-replyDetail" colspan="4">
+	 								
+	   								↳ <a href="qnaReplyDetail?qna_no=${qna.qna_no}">[RE] ${qna.qna_reply }</a>
+	   							</td>
+	   						</c:if>
+	   					 -->
+	   					
+		   					 <c:choose>
+		   					 	
+		   					 	<c:when test="${qna.qna_secret == 1 && !empty qna.qna_reply }">
+		   					 		<td style="color:transparent;">${qna.qna_no }</td>
+		   					 		<td class="qna-replyDetail" colspan="4">
+	   								↳ <a href="qnaReplyDetail?qna_no=${qna.qna_no}">&#128274;&nbsp; 답변입니다.</a>
+	   								</td>
+		   					 	</c:when>
+		   					 	<c:when test="${qna.qna_secret == 0 && !empty qna.qna_reply }">
+		   					 		<td style="color:transparent;">${qna.qna_no }</td>
+		   					 		<td class="qna-replyDetail" colspan="4">
+	   								↳ <a href="qnaReplyDetail?qna_no=${qna.qna_no}">[RE] ${qna.qna_reply }</a>
+	   								</td>
+		   					 	</c:when>
+		   					 </c:choose>	
+		   						
     				</tr>
 				</c:forEach>
             </tbody>
@@ -244,7 +275,7 @@
                 </c:if>
             </div>
             
-            <!-- 글쓰기 버튼 -->
+            <!-- 일반회원 글쓰기 버튼 -->
             <c:if test="${user_auth == 0}">
 			    <a class="write_button" href="qnaRegister">글쓰기</a>
 			</c:if>
@@ -296,7 +327,7 @@
     }
 
 	document.addEventListener("DOMContentLoaded", function () {
-	    // 모든 qna-reply 셀을 가져옵니다.
+	    // qna-reply 셀 가져오기
 	    const replyCells = document.querySelectorAll("td.qna-reply");
 	
 	    replyCells.forEach(cell => {

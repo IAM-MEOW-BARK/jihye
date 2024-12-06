@@ -277,8 +277,6 @@ public class CatDogController {
 //		return "catdog-payment";
 //	}
    
-
-
 		// 상품 상세페이지
 		@RequestMapping(value="/productDetail", method = RequestMethod.GET)
 		public String productDetail(@RequestParam("product_code") int product_code, Model model) {
@@ -298,8 +296,6 @@ public class CatDogController {
 
 			String deliveryDate = dateFormat.format(delivery);
 			   
-			
-			
 			// 1. 상품 상세 정보
 		    ProductDTO productDTO = catDogService.productDetail(product_code);
 
@@ -320,16 +316,11 @@ public class CatDogController {
 			return "/productDetail";
 		}
 		
-		
 		@RequestMapping(value = "/categoryList", method = RequestMethod.GET)
-		public String categoryList(
-		        
-		        @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
-		        @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum,
-		        @RequestParam(value = "product_category") int product_category,
-		        Model model) {
+		public String categoryList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+						        @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum,
+						        @RequestParam(value = "product_category") int product_category, Model model) {
 
-			
 		    int pageSize = 12;
 		    int pageListSize = 10;
 
@@ -339,19 +330,13 @@ public class CatDogController {
 		    int startPage = (pageListNum - 1) * pageListSize + 1;
 		    int endPage = Math.min(startPage + pageListSize - 1, totalPage);
 
-		   
-		    
-		    
 		    System.out.println("totalPost: " + totalPost);
 		    System.out.println("totalPage: " + totalPage);
 		    System.out.println("start: " + start);
 		    System.out.println("pageSize: " + pageSize);
 		    
-		    
-		    
 		    List<ProductDTO> categoryList = catDogService.categoryList(start, pageSize, product_category);
 
-		    
 		    System.out.println("categoryList in Controller: " + categoryList);
 		    
 		    model.addAttribute("totalPage", totalPage);
@@ -365,8 +350,6 @@ public class CatDogController {
 		    return "categoryList";
 			}
 
-		
-	
 //	// 카테고리 리스트
 //	   @RequestMapping(value = "categoryList", method = RequestMethod.GET)
 //	   public ModelAndView categoryList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
@@ -403,36 +386,35 @@ public class CatDogController {
 	@RequestMapping(value = "noticeList", method = RequestMethod.GET)
 	public ModelAndView noticeList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 	                               @RequestParam(value = "pageListNum", defaultValue = "1") int pageListNum, HttpSession session) {
-		
-		
-		int pageSize = 10; // 한 페이지당 게시글 수
-	    int pageListSize = 10; // 한 번에 표시할 페이지 수
-	    
-	    // 세션에서 사용자 정보 가져오기
-        Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
-        int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
-
-	    // 전체 게시글 수
-	    int totalPost = catDogService.noticeTotalPost();
-	    int totalPage = (int) Math.ceil((double) totalPost / pageSize);
-
-	    // 현재 페이지에서 가져올 데이터의 시작 인덱스 계산
-	    int start = (pageNum - 1) * pageSize;
-	    
-	    // 현재 페이지 번호 목록의 시작과 끝
-	    int startPage = (pageListNum - 1) * pageListSize + 1;
-	    int endPage = Math.min(startPage + pageListSize - 1, totalPage);
-
-	    ModelAndView mav = new ModelAndView();
-	    mav.addObject("noticeList", catDogService.noticeList(start, pageSize)); // 게시글 목록
-	    mav.addObject("totalPage", totalPage); // 전체 페이지 수
-	    mav.addObject("currentPage", pageNum); // 현재 페이지 번호
-	    mav.addObject("pageListNum", pageListNum); // 1~10, 11~20 ...
-	    mav.addObject("startPage", startPage); // 페이지 네비게이션 시작
-	    mav.addObject("endPage", endPage); // 페이지 네비게이션 끝
-	    mav.addObject("user_auth", user_auth); // 사용자 권한
-	    mav.setViewName("noticeList");
-	    return mav;
+	
+			int pageSize = 10; // 한 페이지당 게시글 수
+		    int pageListSize = 10; // 한 번에 표시할 페이지 수
+		    
+		    // 세션에서 사용자 정보 가져오기
+	        Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+	        int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+	
+		    // 전체 게시글 수
+		    int totalPost = catDogService.noticeTotalPost();
+		    int totalPage = (int) Math.ceil((double) totalPost / pageSize);
+	
+		    // 현재 페이지에서 가져올 데이터의 시작 인덱스 계산
+		    int start = (pageNum - 1) * pageSize;
+		    
+		    // 현재 페이지 번호 목록의 시작과 끝
+		    int startPage = (pageListNum - 1) * pageListSize + 1;
+		    int endPage = Math.min(startPage + pageListSize - 1, totalPage);
+	
+		    ModelAndView mav = new ModelAndView();
+		    mav.addObject("noticeList", catDogService.noticeList(start, pageSize)); // 게시글 목록
+		    mav.addObject("totalPage", totalPage); // 전체 페이지 수
+		    mav.addObject("currentPage", pageNum); // 현재 페이지 번호
+		    mav.addObject("pageListNum", pageListNum); // 1~10, 11~20 ...
+		    mav.addObject("startPage", startPage); // 페이지 네비게이션 시작
+		    mav.addObject("endPage", endPage); // 페이지 네비게이션 끝
+		    mav.addObject("user_auth", user_auth); // 사용자 권한
+		    mav.setViewName("noticeList");
+		    return mav;
 	} 
 	
 	// 리뷰 리스트
@@ -635,8 +617,9 @@ public class CatDogController {
 //	    model.addAttribute("qnaDetail", qnaDTO);
 //	    model.addAttribute("user_auth", user_auth);
 //	    return "/qnaDetail";
-//	}
-
+//	} 
+	
+	
 	@RequestMapping(value = "/qnaDetail", method = RequestMethod.GET)
 	public String qnaDetail(
 	    @RequestParam(value = "qna_no") int qna_no,
@@ -649,7 +632,7 @@ public class CatDogController {
 	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
 
 	    // Q&A 데이터 가져오기
-	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no, null);
+	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
 	    if (qnaDTO == null) {
 	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
 	        return "redirect:/qnaList";
@@ -679,7 +662,7 @@ public class CatDogController {
 	    int qna_no = Integer.parseInt(payload.get("qna_no").toString());
 	    String qna_pwd = payload.get("qna_pwd").toString();
 
-	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no, null);
+	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no); //qna_pwd ? 
 	    Map<String, Object> response = new HashMap<>();
 
 	    if (qnaDTO != null && qna_pwd.equals(qnaDTO.getQna_pwd())) {
@@ -799,72 +782,103 @@ public class CatDogController {
 		}
 
 
-//	// Q&A 수정
-//	@RequestMapping(value="/qnaUpdate", method = RequestMethod.GET)
-//	public String qnaUpdate(@RequestParam("qna_no") int qna_no, Model model) {
-//		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
-//		
-//		
-//		model.addAttribute("qnaUpdate", qnaDTO);
-//		return "/qnaUpdate";
-//	}
-//	
-//	@RequestMapping(value="/qnaUpdate", method = RequestMethod.POST)
-//	public String qnaUpdate(QnaDTO qnaDTO, RedirectAttributes attr,HttpServletRequest request) throws Exception {
-//		request.setCharacterEncoding("UTF-8");
-//		
-//		int r = catDogService.qnaUpdate(qnaDTO);
-//		
-//		if(r>0) {
-//			attr.addFlashAttribute("msg", "수정에 성공 하였습니다.");
-//			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
-//		}
-//		return "redirect:/qnaUpdate?qna_no=" + qnaDTO.getQna_no();
-//	}
-//	
-//	// Q&A 삭제
-//	@RequestMapping(value="/qnaDelete", method = RequestMethod.GET)
-//	public String qnaDelete(@RequestParam("qna_no") int qna_no, RedirectAttributes rttr){
-//		int r = catDogService.qnaDelete(qna_no);
-//		
-//		if(r>0) {
-//			rttr.addFlashAttribute("msg","글삭제에 성공하였습니다.");
-//			return "redirect:qnaList";
-//		}
-//		return "redirect:/qnaDetail?qna_no=" + qna_no;
-//	}
-//	
-//	// Q&A 답변 작성
-//	@RequestMapping(value="/qnaReply", method = RequestMethod.GET)
-//	public String qnaReply(@RequestParam("qna_no") int qna_no, Model model) {
-//		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
-//		
-//		model.addAttribute("qnaReply", qnaDTO);
-//		return "/qnaReply";
-//	}
-//	
-//	@RequestMapping(value="/qnaReply", method = RequestMethod.POST)
-//	public String qnaReply(QnaDTO qnaDTO, RedirectAttributes attr, HttpServletRequest request) throws Exception {
-//		request.setCharacterEncoding("UTF-8");
-//		
-//		int r = catDogService.qnaReply(qnaDTO);
-//		
-//		if(r>0) {
-//			attr.addFlashAttribute("msg", "답변이 작성되었습니다.");
-//			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
-//		}
-//		return "redirect:/qnaReply?qna_no=" + qnaDTO.getQna_no();
-//	}
-//	
-//	// Q&A 답변 수정
-//	@RequestMapping(value="/qnaReplyUpdate", method = RequestMethod.GET)
-//	public String qnaReplyUpdate(@RequestParam("qna_no") int qna_no, Model model) {
-//		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
-//		
-//		
-//		model.addAttribute("qnaReplyUpdate", qnaDTO);
-//		return "/qnaReplyUpdate";
-//	}
+	// Q&A 수정
+	@RequestMapping(value="/qnaUpdate", method = RequestMethod.GET)
+	public String qnaUpdate(@RequestParam("qna_no") int qna_no, Model model) {
+		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+		
+		
+		model.addAttribute("qnaUpdate", qnaDTO);
+		return "/qnaUpdate";
+	}
+	
+	@RequestMapping(value="/qnaUpdate", method = RequestMethod.POST)
+	public String qnaUpdate(QnaDTO qnaDTO, RedirectAttributes attr,HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		
+		int r = catDogService.qnaUpdate(qnaDTO);
+		
+		if(r>0) {
+			attr.addFlashAttribute("msg", "수정에 성공 하였습니다.");
+			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
+		}
+		return "redirect:/qnaUpdate?qna_no=" + qnaDTO.getQna_no();
+	}
+	
+	// Q&A 삭제
+	@RequestMapping(value="/qnaDelete", method = RequestMethod.GET)
+	public String qnaDelete(@RequestParam("qna_no") int qna_no, RedirectAttributes rttr){
+		int r = catDogService.qnaDelete(qna_no);
+		
+		if(r>0) {
+			rttr.addFlashAttribute("msg","글삭제에 성공하였습니다.");
+			return "redirect:qnaList";
+		}
+		return "redirect:/qnaDetail?qna_no=" + qna_no;
+	}
+	
+	@RequestMapping(value = "/qnaReplyDetail", method = RequestMethod.GET)
+	public String qnaReplyDetail(@RequestParam(value = "qna_no") int qna_no, HttpSession session, Model model, RedirectAttributes rttr) {
+
+	    // 사용자 권한 확인
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+
+	    // Q&A 데이터 가져오기
+	    QnaDTO qnaDTO = catDogService.qnaReplyDetail(qna_no);
+	    if (qnaDTO == null) {
+	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
+	        return "redirect:/qnaList";
+	    }
+
+	    // 비밀글 접근 권한 확인
+	    if (qnaDTO.getQna_secret() == 1) {
+	        if (user_auth != 1) { // 관리자가 아닌 경우
+	            Boolean hasAccess = (Boolean) session.getAttribute("qnaAccess_" + qna_no);
+	            if (hasAccess == null || !hasAccess) {
+	                rttr.addFlashAttribute("error", "비밀글에 접근 권한이 없습니다.");
+	                return "redirect:/qnaList";
+	            }
+	        }
+	    }
+
+	    // Q&A 상세 데이터 전달
+	    model.addAttribute("qnaDetail", qnaDTO);
+	   // model.addAttribute("user_auth", user_auth);
+	    return "/qnaReplyDetail";
+	}
+
+	// Q&A 답변 작성
+	@RequestMapping(value="/qnaReply", method = RequestMethod.GET)
+	public String qnaReply(@RequestParam("qna_no") int qna_no, Model model) {
+		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+		
+		model.addAttribute("qnaReply", qnaDTO);
+		return "/qnaReply";
+	}
+	
+	@RequestMapping(value="/qnaReply", method = RequestMethod.POST)
+	public String qnaReply(QnaDTO qnaDTO, RedirectAttributes attr, HttpServletRequest request) throws Exception {
+		request.setCharacterEncoding("UTF-8");
+		
+		int r = catDogService.qnaReply(qnaDTO);
+		
+		if(r>0) {
+			attr.addFlashAttribute("msg", "답변이 작성되었습니다.");
+			return "redirect:/qnaDetail?qna_no=" + qnaDTO.getQna_no();
+		}
+		return "redirect:/qnaReply?qna_no=" + qnaDTO.getQna_no();
+	}
+	
+	// Q&A 답변 수정
+	@RequestMapping(value="/qnaReplyUpdate", method = RequestMethod.GET)
+	public String qnaReplyUpdate(@RequestParam("qna_no") int qna_no, Model model) {
+		QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+		
+		
+		model.addAttribute("qnaReplyUpdate", qnaDTO);
+		return "/qnaReplyUpdate";
+	}
 	
 	@RequestMapping(value="/qnaReplyUpdate", method = RequestMethod.POST)
 	public String qnaReplyUpdate(QnaDTO qnaDTO, RedirectAttributes attr,HttpServletRequest request) throws Exception {

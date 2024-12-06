@@ -24,7 +24,6 @@
 			c.user_id = #{user_id}
 	</select>
 	 
-	
 	<!-- 장바구니 추가 -->
 	<insert id="addCart" parameterType="cartDTO">
 		insert into cart(user_id, product_code, cart_quantity)
@@ -164,7 +163,7 @@
 		where notice_no = #{notice_no}
 	</select>
 	
-	<!-- 공지사항 조회수 1 증가하는 SQL -->
+	<!-- 공지사항 조회수 1 증가 -->
 	<update id="noticeUpdateReadCnt" parameterType="java.lang.Integer">
 		update notice
 		set notice_readcnt = notice_readcnt + 1
@@ -178,7 +177,7 @@
 		where review_no = #{review_no}
 	</select>
 	
-	<!-- 리뷰 조회수 1 증가하는 SQL -->
+	<!-- 리뷰 조회수 1 증가 -->
 	<update id="reviewUpdateReadCnt" parameterType="java.lang.Integer">
 		update review
 		set review_readcnt = review_readcnt + 1
@@ -193,13 +192,12 @@
 	</select>
 	-->
 	<select id="qnaDetail" parameterType="map" resultType="QnaDTO">
-    select q.*, p.product_name
-    from qna q
-    left join product p on q.product_code_fk = p.product_code
-    where q.qna_no = #{qna_no}
-    
-	</select>
-	
+	    select q.*, p.product_name
+	    from qna q
+	    left join product p on q.product_code_fk = p.product_code
+	    where q.qna_no = #{qna_no}
+		</select>
+
 	<!-- FAQ 상세 조회 -->
 	<select id="faqDetail" parameterType="java.lang.Integer" resultType="FaqDTO">
 		select *
@@ -207,45 +205,52 @@
 		where faq_no = #{faq_no}
 	</select>
 	
-	<!-- 공지사항 글 작성하는 SQL -->
+	<!-- 공지사항 글 작성 -->
 	<insert id="noticeRegister" parameterType="NoticeDTO">
 		insert into notice(notice_no, notice_title, notice_content, notice_date, notice_readcnt)
 		values (#{notice_no}, #{notice_title}, #{notice_content}, now(), #{notice_readcnt})		
 	</insert>
 	
-	<!-- 공지사항 글 수정하는 SQL -->
+	<!-- 공지사항 글 수정 -->
 	<update id="noticeUpdate" parameterType="NoticeDTO">
 		update notice
 		set notice_title = #{notice_title}, notice_content = #{notice_content}
 		where notice_no = #{notice_no}
 	</update>
 	
-	<!-- 공지사항 글 삭제하는 SQL -->
+	<!-- 공지사항 글 삭제 -->
 	<delete id="noticeDelete" parameterType="java.lang.Integer">
 		delete from notice
 		where notice_no = #{notice_no}
 	</delete>
 	
-	<!-- Q&A 글 작성하는 SQL -->
+	<!-- Q&A 글 작성 -->
 	<insert id="qnaRegister" parameterType="QnaDTO">
 		insert into qna( product_code_fk, user_id, qna_content, qna_secret, qna_date, qna_pwd)
 		values ( #{product_code_fk}, #{user_id}, #{qna_content}, #{qna_secret}, curdate(), #{qna_pwd})		
 	</insert>
 	
-	<!-- Q&A 글 수정하는 SQL -->
+	<!-- Q&A 글 수정 -->
 	<update id="qnaUpdate" parameterType="QnaDTO">
 		update qna
 		set product_code_fk=#{product_code_fk}, qna_content=#{qna_content}, qna_secret=#{qna_secret}, qna_date=curdate(), qna_pwd=#{qna_pwd}
 		where qna_no = #{qna_no}
 	</update>
 	
-	<!-- Q&A 글 삭제하는 SQL -->
+	<!-- Q&A 글 삭제 -->
 	<delete id="qnaDelete" parameterType="java.lang.Integer">
 		delete from qna
 		where qna_no = #{qna_no}
 	</delete>
 	
-	<!-- Q&A 글 답변 작성하는 SQL -->
+	<!-- Q&A 답변 조회 -->
+	<select id="qnaReplyDetail" parameterType="java.lang.Integer" resultType="QnaDTO">
+		select *
+		from qna
+		where qna_no = #{qna_no}
+	</select>
+	
+	<!-- Q&A 답변 작성 -->
 	<update id="qnaReply" parameterType="QnaDTO">
 		update qna
 		set qna_reply = #{qna_reply}
@@ -278,7 +283,7 @@
     	from product;
     </select>
      -->
-		<!-- FAQ 글 작성하는 SQL -->
+	<!-- FAQ 글 작성 -->
 	<insert id="faqRegister" parameterType="FaqDTO">
 		insert into faq(faq_no, faq_division, faq_question, faq_reply)
 		values (#{faq_no}, #{faq_division}, #{faq_question}, #{faq_reply})		
@@ -286,14 +291,14 @@
 	
 	
 	
-	<!-- FAQ 글 수정하는 SQL -->
+	<!-- FAQ 글 수정 -->
 	<update id="faqUpdate" parameterType="FaqDTO">
 		update faq
 		set faq_division = #{faq_division}, faq_question = #{faq_question}, faq_reply = #{faq_reply}
 		where faq_no = #{faq_no}
 	</update>
 	
-	<!-- FAQ 글 삭제하는 SQL -->
+	<!-- FAQ 글 삭제 -->
 	<delete id="faqDelete" parameterType="java.lang.Integer">
 		delete from faq
 		where faq_no = #{faq_no}

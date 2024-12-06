@@ -167,9 +167,7 @@
 </style>
 </head>
 <body>
-
 	<%@ include file="include/header.jsp"%>
-
 
 	<!-- Main 캐러셀 리스트 -->
 	<section class="pb-5">
@@ -186,7 +184,6 @@
             <c:when test="${productCategory == 5}">💜 의류/잡화</c:when>
         </c:choose>
     </h3>
-				
 					</div>
 				</div>
 			</div>
@@ -215,6 +212,7 @@
 							                 <!-- 고유 ID 설정 -->
 						                    <button class="quantity-btn" type="button" onclick="del('${product.product_code}')">−</button>
 						                    <span class="quantity-num" id="quantityNum_${product.product_code}">1</span>
+											    <!-- <input type="hidden" name="product_code" value="${product.product_code}" />  -->
 						                    
 						                    <button class="quantity-btn" type="button" onclick="add('${product.product_code}')">+</button>
 							            </div>
@@ -222,7 +220,6 @@
 							            <div class="button-area d-flex justify-content-center align-items-center gap-3">
 								            <form action="addCart" method="POST">
 								          		<input type="hidden" name="user_id" value="${user_id}" />
-											    <!-- <input type="hidden" name="product_code" value="${product.product_code}" />  -->
  											    <input type="hidden" name="cart_quantity" id="cartQuantity_${product.product_code}" value="1" />
 								    
 								               <!-- 장바구니 버튼 -->
