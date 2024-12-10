@@ -1,6 +1,7 @@
 package kr.co.dong.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -20,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +32,9 @@ import kr.co.dong.catdog.CartDTO;
 import kr.co.dong.catdog.CatDogService;
 import kr.co.dong.catdog.FaqDTO;
 import kr.co.dong.catdog.NoticeDTO;
+import kr.co.dong.catdog.OrderDTO;
+import kr.co.dong.catdog.OrderDetailDTO;
+import kr.co.dong.catdog.OrderItemDTO;
 import kr.co.dong.catdog.ProductDTO;
 import kr.co.dong.catdog.QnaDTO;
 import kr.co.dong.catdog.ReviewDTO;
@@ -50,6 +53,41 @@ public class CatDogController {
 	public String catdogLogin() {
 		return "catdog-login";
 	}
+	
+		// 전체 상품 출력
+	   @GetMapping(value = "/home")
+	   public ModelAndView list(HttpSession session) {
+	      ModelAndView mav = new ModelAndView();
+	      // 세션에서 사용자 ID 가져오기
+	      Map<String, Object> userMap = (Map<String, Object>) session.getAttribute("user");
+	      String user_id = userMap != null ? (String) userMap.get("user_id") : null;
+
+	      // 파라미터 맵 구성
+	      Map<String, Object> param = new HashMap<String, Object>();
+	      param.put("user_id", user_id);
+
+//	      // 카테고리별 상품 목록 조회
+//	      param.put("product_category", 1);
+//	      List<ProductDTO> list01 = catDogService.mainlist(param);
+//	      param.put("product_category", 2);
+//	      List<ProductDTO> list02 = catDogService.mainlist(param);
+//	      param.put("product_category", 3);
+//	      List<ProductDTO> list03 = catDogService.mainlist(param);
+//	      param.put("product_category", 4);
+//	      List<ProductDTO> list04 = catDogService.mainlist(param);
+//	      param.put("product_category", 5);
+//	      List<ProductDTO> list05 = catDogService.mainlist(param);
+//
+//	      // 뷰에 데이터 추가
+//	      mav.addObject("list01", list01);
+//	      mav.addObject("list02", list02);
+//	      mav.addObject("list03", list03);
+//	      mav.addObject("list04", list04);
+//	      mav.addObject("list05", list05);
+
+	      mav.setViewName("home");
+	      return mav;
+	   }
 	
 		// 로그인
 		@RequestMapping(value = "/catdog-login", method = RequestMethod.POST)
@@ -156,47 +194,134 @@ public class CatDogController {
 		    return response;
 		}
    
-		@RequestMapping(value = "/cart", method = RequestMethod.GET)
-		public String viewCart(HttpSession session, Model model) throws Exception {
-		    // 사용자 세션 확인
-		    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
-		    if (user == null) {
-		        return "redirect:/catdog-login"; // 로그인 페이지로 리다이렉트
-		    }
+		@GetMapping("/cart")
+		   public String cart(HttpSession session, Model model) throws Exception {
+		      Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+		      if (user == null) {
+		         return "redirect:/catdog-login";
+		      }
+		      String userId = (String) user.get("user_id");
+		      model.addAttribute("user_name", user.get("name"));
+		      model.addAttribute("user_id", userId);
+
+		      List<CartDTO> cartInfo = catDogService.getCartInfo(userId);
+		      if(cartInfo.isEmpty()) {
+		         model.addAttribute("isCartEmpty", true);
+		      } else {
+		      model.addAttribute("isCartEmpty", false);
+		      model.addAttribute("cartInfo", cartInfo);
+		      System.out.println("cartInfo = " + cartInfo);
+		      session.setAttribute("cartInfo", cartInfo); // post할 세션
+		      model.addAttribute("cartCost", catDogService.getCartCost(userId));
+		      }
+		      
+		      return "cart";
+		   }
+
+		   @PostMapping("/cart")
+		   public String processOrder(HttpSession session, HttpServletRequest request, RedirectAttributes rttr, Model model)
+		         throws Exception {
+		      Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+		      if (user == null) {
+		         return "redirect:/catdog-login";
+		      }
+		      String userId = (String) user.get("user_id");
+		      model.addAttribute("user_name", user.get("name"));
+		      model.addAttribute("user_id", userId);
+
+		      OrderDTO orderDTO = new OrderDTO();
+
+		      orderDTO.setUser_id_fk(userId);
+		      orderDTO.setPayment_status(0);
+		      String orderCode = catDogService.addOrder(orderDTO);
+		      orderDTO.setOrder_code(orderCode);
+
+		      List<CartDTO> cartItems = catDogService.getCartInfo(userId);
+
+		      List<OrderItemDTO> orderItems = new ArrayList<>();
+		      for (CartDTO cartItem : cartItems) {
+		         OrderItemDTO orderItem = new OrderItemDTO();
+		         orderItem.setOrder_code(orderCode);
+		         orderItem.setProduct_code(cartItem.getProduct_code());
+		         orderItem.setProduct_name(cartItem.getProduct_name());
+		         orderItem.setThumbnail_img(cartItem.getThumbnail_img());
+		         orderItem.setProduct_price(cartItem.getProduct_price());
+		         orderItem.setCart_quantity(cartItem.getCart_quantity());
+		         orderItem.setOrder_quantity(cartItem.getCart_quantity());
+		         orderItem.setTotal_price(cartItem.getCart_quantity() * cartItem.getProduct_price());
+		         orderItems.add(orderItem);
+		      }
+		      catDogService.addOrderItems(orderItems);
+
+		      model.addAttribute("orderDTO", orderDTO);
+		      model.addAttribute("orderItems", orderItems);
+
+		      System.out.println("~~~~~~~~ orderDTO ~~~~~~~ = " + orderDTO);
+		      System.out.println("~~~~~~~~ orderItems ~~~~~~~ = " + orderItems);
+
+		      OrderDetailDTO orderInfo = catDogService.getOrderDetail(orderCode);
+		      System.out.println("~~~~~~~~ orderInfo ~~~~~~~ = " + orderInfo);
+		      model.addAttribute("orderInfo", orderInfo);
+
+		      int totalCost = catDogService.getTotalCost(orderCode);
+		      model.addAttribute("totalCost", totalCost);
+
+		      System.out.println("  💛💛💛💛💛💛💛💛💛💛 orderDTO: " + orderDTO);
+		      System.out.println("  💛💛💛💛💛💛💛💛💛💛 OrderItems: " + orderItems);
+		      System.out.println("  💛💛💛💛💛💛💛💛💛💛 totalCost: " + totalCost);
+
+		      return "/catdog-payment";
+		   }
+		   
+		   @PostMapping("/cart/update")
+		   public String updateCartQuantity(CartDTO cartDTO) throws Exception {
+
+		      System.out.println("업데이트 아직인겨 = " + cartDTO);
+		      System.out.println("업데이트 아직이여 = " + cartDTO.getCart_quantity());
+		      catDogService.updateCartQuantity(cartDTO);
+		      System.out.println("업데이트 눌럿슈 = " + cartDTO);
+		      System.out.println("업데이트 햇슈 = " + cartDTO.getCart_quantity());
+		      return "redirect:/cart";
+		   }
+		   
+		   @PostMapping("/cart/delete")
+		   @ResponseBody
+		   public String deleteCart(CartDTO cartDTO) throws Exception {
+		      System.out.println("뭐 가져온겨???????? " + cartDTO);
+		      int result = catDogService.deleteCart(cartDTO);
+		      return result > 0 ? "success" : "failure";
+		   }
 	
-		    String userId = (String) user.get("user_id");
-	
-		    // 장바구니 정보 가져오기
-		    List<CartDTO> cartInfo = catDogService.getCartInfo(userId);
-		    model.addAttribute("cartInfo", cartInfo);
-	
-		    return "/cart"; // cart.jsp로 이동
-		}	
-	
-		@PostMapping(value = "/addCart")
-		public String addToCart(@ModelAttribute CartDTO cartDTO, HttpSession session, RedirectAttributes redirectAttributes) {
-		    // 로그인 확인
-		    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
-		    
-		    // 로그인 여부 확인
-		    if (user == null || user.get("user_id") == null) {
-		        redirectAttributes.addFlashAttribute("error", "로그인이 필요합니다.");
-		        return "redirect:/catdog-login";
-		    }
-		    // 세션에서 사용자 ID 가져오기
-		    String userId = (String) user.get("user_id");
-		    cartDTO.setUser_id(userId); // CartDTO에 사용자 ID 설정
-	
-		    try {
-		        // 장바구니 추가
-		        catDogService.addCart(cartDTO);
-		        redirectAttributes.addFlashAttribute("message", "장바구니에 추가되었습니다.");
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		        redirectAttributes.addFlashAttribute("error", "장바구니 추가 중 오류가 발생했습니다.");
-		    }
-		    return "redirect:/cart";
-		}
+		
+			@PostMapping(value = "/addCart")
+			public String addToCart(@ModelAttribute CartDTO cartDTO, HttpSession session, RedirectAttributes redirectAttributes) {
+			    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+
+			    // 로그인 여부 확인
+			    if (user == null || user.get("user_id") == null) {
+			        redirectAttributes.addFlashAttribute("error", "로그인이 필요합니다.");
+			        return "redirect:/catdog-login";
+			    }
+
+			    // 세션에서 사용자 ID 가져오기
+			    String userId = (String) user.get("user_id");
+			    cartDTO.setUser_id(userId); // CartDTO에 사용자 ID 설정
+
+			    try {
+			        // 장바구니 추가
+			        catDogService.addCart(cartDTO);
+			        redirectAttributes.addFlashAttribute("message", "장바구니에 추가되었습니다.");
+			    } catch (Exception e) {
+			        e.printStackTrace();
+			        redirectAttributes.addFlashAttribute("error", "장바구니 추가 중 오류가 발생했습니다.");
+			    }
+			    return "redirect:/cart";
+			}
+
+
+		
+		
+		
 //	@GetMapping("/cart")
 //	public String cart(@RequestParam("user_id") String user_id, HttpSession session, Model model) throws Exception {
 //		Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
@@ -277,44 +402,44 @@ public class CatDogController {
 //		return "catdog-payment";
 //	}
    
-		// 상품 상세페이지
-		@RequestMapping(value="/productDetail", method = RequestMethod.GET)
-		public String productDetail(@RequestParam("product_code") int product_code, Model model) {
-			
-			// 배송 예정일
-			Calendar calendar = Calendar.getInstance();	
-			int hour = calendar.get(Calendar.HOUR_OF_DAY);
-			
-			if (hour < 15) {
-				calendar.add(Calendar.DATE, 1);
-			} else {
-				calendar.add(Calendar.DATE, 2);
-			}
-			
-			Date delivery = calendar.getTime();
-			SimpleDateFormat dateFormat = new SimpleDateFormat("MM월 dd일(E)"); // 날짜와 요일 형식
+			// 상품 상세페이지
+			@RequestMapping(value="/productDetail", method = RequestMethod.GET)
+			public String productDetail(@RequestParam("product_code") int product_code, Model model) {
+				
+				// 배송 예정일
+				Calendar calendar = Calendar.getInstance();	
+				int hour = calendar.get(Calendar.HOUR_OF_DAY);
+				
+				if (hour < 15) {
+					calendar.add(Calendar.DATE, 1);
+				} else {
+					calendar.add(Calendar.DATE, 2);
+				}
+				
+				Date delivery = calendar.getTime();
+				SimpleDateFormat dateFormat = new SimpleDateFormat("MM월 dd일(E)"); // 날짜와 요일 형식
 
-			String deliveryDate = dateFormat.format(delivery);
+				String deliveryDate = dateFormat.format(delivery);
+				   
+				// 1. 상품 상세 정보
+			    ProductDTO productDTO = catDogService.productDetail(product_code);
+
+			    // 2. 리뷰 리스트 (최신 5개)
+			    List<ReviewDTO> getReview = catDogService.getReview(product_code);
+			    // 3. Q&A 리스트 (최신 5개)
+			    List<QnaDTO> getQna = catDogService.getQna(product_code);
+			    // 4. 상품 코드에 해당하는 게시글 개수 가져오기
+			    int product_reviewTotal = catDogService.product_reviewTotal(product_code);
+			    int product_qnaTotal = catDogService.product_qnaTotal(product_code);
 			   
-			// 1. 상품 상세 정보
-		    ProductDTO productDTO = catDogService.productDetail(product_code);
-
-		    // 2. 리뷰 리스트 (최신 5개)
-		    List<ReviewDTO> getReview = catDogService.getReview(product_code);
-		    // 3. Q&A 리스트 (최신 5개)
-		    List<QnaDTO> getQna = catDogService.getQna(product_code);
-		    // 4. 상품 코드에 해당하는 게시글 개수 가져오기
-		    int product_reviewTotal = catDogService.product_reviewTotal(product_code);
-		    int product_qnaTotal = catDogService.product_qnaTotal(product_code);
-		   
-		    model.addAttribute("productDetail", productDTO);
-		    model.addAttribute("getReview", getReview);
-		    model.addAttribute("getQna", getQna);
-		    model.addAttribute("product_reviewTotal", product_reviewTotal);
-		    model.addAttribute("product_qnaTotal", product_qnaTotal);
-		    model.addAttribute("deliveryDate", deliveryDate);
-			return "/productDetail";
-		}
+			    model.addAttribute("productDetail", productDTO);
+			    model.addAttribute("getReview", getReview);
+			    model.addAttribute("getQna", getQna);
+			    model.addAttribute("product_reviewTotal", product_reviewTotal);
+			    model.addAttribute("product_qnaTotal", product_qnaTotal);
+			    model.addAttribute("deliveryDate", deliveryDate);
+				return "/productDetail";
+			}
 		
 		@RequestMapping(value = "/categoryList", method = RequestMethod.GET)
 		public String categoryList(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
@@ -620,61 +745,124 @@ public class CatDogController {
 //	} 
 	
 	
+//	@RequestMapping(value = "/qnaDetail", method = RequestMethod.GET)
+//	public String qnaDetail(
+//	    @RequestParam(value = "qna_no", required = false) String qna_no,
+//	    @RequestParam(value = "qna_pwd", required = false) String qna_pwd,
+//	    HttpSession session, Model model, RedirectAttributes rttr) {
+//
+//	    // Q&A 번호가 비어 있는 경우 처리
+//	    if (qna_no == null || qna_no.trim().isEmpty()) {
+//	        rttr.addFlashAttribute("error", "유효하지 않은 Q&A 번호입니다.");
+//	        return "redirect:/qnaList";
+//	    }
+//
+//	    // Q&A 번호를 정수로 변환
+//	    int qnaNo;
+//	    try {
+//	        qnaNo = Integer.parseInt(qna_no);
+//	    } catch (NumberFormatException e) {
+//	        rttr.addFlashAttribute("error", "Q&A 번호 형식이 잘못되었습니다.");
+//	        return "redirect:/qnaList";
+//	    }
+//
+//	    // Q&A 정보 조회
+//	    QnaDTO qnaDTO = catDogService.qnaDetail(qnaNo);
+//	    if (qnaDTO == null) {
+//	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
+//	        return "redirect:/qnaList";
+//	    }
+//
+//	    // 비밀번호 확인
+//	    if (qnaDTO.getQna_secret() == 1 && !qnaDTO.getQna_pwd().equals(qna_pwd)) {
+//	        rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+//	        return "redirect:/qnaList";
+//	    }
+//	    
+//	    
+//	    model.addAttribute("qnaDetail", qnaDTO);
+//	    return "/qnaDetail";
+//	}
+//
+//	@RequestMapping(value = "/qnaDetail", method = RequestMethod.POST)
+//	public String qnaDetail(
+//	    @RequestParam("qna_no") int qna_no,
+//	    @RequestParam("qna_pwd") String qna_pwd,
+//	    HttpSession session, Model model, RedirectAttributes rttr) {
+//
+//	    // Q&A 정보 조회
+//	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+//	    if (qnaDTO == null) {
+//	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
+//	        return "redirect:/qnaList";
+//	    }
+//
+//	    // 비밀번호 확인
+//	    if (qnaDTO.getQna_secret() == 1 && !qnaDTO.getQna_pwd().equals(qna_pwd)) {
+//	        rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+//	        return "redirect:/qnaList";
+//	    }
+//
+//	    model.addAttribute("qnaDetail", qnaDTO);
+//	    return "/qnaDetail";
+//	}
+//
+//	
+	
 	@RequestMapping(value = "/qnaDetail", method = RequestMethod.GET)
-	public String qnaDetail(
-	    @RequestParam(value = "qna_no") int qna_no,
-	    HttpSession session,
-	    Model model,
-	    RedirectAttributes rttr) {
+	public String qnaDetailGet(
+	    @RequestParam("qna_no") int qna_no,
+	    HttpSession session, Model model, RedirectAttributes rttr) {
 
-	    // 사용자 권한 확인
-	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
-	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
-
-	    // Q&A 데이터 가져오기
+	    // Q&A 정보 조회
 	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
 	    if (qnaDTO == null) {
 	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
 	        return "redirect:/qnaList";
 	    }
 
-	    // 비밀글 접근 권한 확인
-	    if (qnaDTO.getQna_secret() == 1) {
-	        if (user_auth != 1) { // 관리자가 아닌 경우
-	            Boolean hasAccess = (Boolean) session.getAttribute("qnaAccess_" + qna_no);
-	            if (hasAccess == null || !hasAccess) {
-	                rttr.addFlashAttribute("error", "비밀글에 접근 권한이 없습니다.");
-	                return "redirect:/qnaList";
-	            }
-	        }
+	    // 사용자 권한 확인
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+	    int userAuth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+
+	    // 비밀 글 접근 제한 (일반 회원만 제한)
+	    if (qnaDTO.getQna_secret() == 1 && userAuth != 1) { // 관리자 제외
+	        rttr.addFlashAttribute("error", "비밀글은 비밀번호 입력이 필요합니다.");
+	        return "redirect:/qnaList";
 	    }
 
-	    // Q&A 상세 데이터 전달
 	    model.addAttribute("qnaDetail", qnaDTO);
-	    model.addAttribute("user_auth", user_auth);
 	    return "/qnaDetail";
 	}
 
-	
-	@RequestMapping(value = "/validatePassword", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> validatePassword(@RequestBody Map<String, Object> payload, HttpSession session) {
-	    int qna_no = Integer.parseInt(payload.get("qna_no").toString());
-	    String qna_pwd = payload.get("qna_pwd").toString();
 
-	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no); //qna_pwd ? 
-	    Map<String, Object> response = new HashMap<>();
+	@RequestMapping(value = "/qnaDetail", method = RequestMethod.POST)
+	public String qnaDetailPost(
+	    @RequestParam("qna_no") int qna_no,
+	    @RequestParam("qna_pwd") String qna_pwd,
+	    HttpSession session, Model model, RedirectAttributes rttr) {
 
-	    if (qnaDTO != null && qna_pwd.equals(qnaDTO.getQna_pwd())) {
-	        session.setAttribute("qnaAccess_" + qna_no, true); // 세션에 접근 권한 저장
-	        response.put("success", true);
-	    } else {
-	        response.put("success", false);
+	    QnaDTO qnaDTO = catDogService.qnaDetail(qna_no);
+	    if (qnaDTO == null) {
+	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
+	        return "redirect:/qnaList";
 	    }
 
-	    return response;
-	}
+	    // 사용자 권한 확인
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+	    int userAuth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
 
+	    // 관리자 접근 시 비밀번호 확인 건너뜀
+	    if (qnaDTO.getQna_secret() == 1 && userAuth != 1) {
+	        if (!qna_pwd.equals(qnaDTO.getQna_pwd())) {
+	            rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+	            return "redirect:/qnaList";
+	        }
+	    }
+
+	    model.addAttribute("qnaDetail", qnaDTO);
+	    return "/qnaDetail";
+	}
 
 	
 	// 공지사항 작성
@@ -818,11 +1006,11 @@ public class CatDogController {
 	}
 	
 	@RequestMapping(value = "/qnaReplyDetail", method = RequestMethod.GET)
-	public String qnaReplyDetail(@RequestParam(value = "qna_no") int qna_no, HttpSession session, Model model, RedirectAttributes rttr) {
-
-	    // 사용자 권한 확인
-	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
-	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+	public String qnaReplyDetail(
+	    @RequestParam("qna_no") int qna_no,
+	    HttpSession session,
+	    RedirectAttributes rttr,
+	    Model model) {
 
 	    // Q&A 데이터 가져오기
 	    QnaDTO qnaDTO = catDogService.qnaReplyDetail(qna_no);
@@ -831,20 +1019,52 @@ public class CatDogController {
 	        return "redirect:/qnaList";
 	    }
 
-	    // 비밀글 접근 권한 확인
-	    if (qnaDTO.getQna_secret() == 1) {
-	        if (user_auth != 1) { // 관리자가 아닌 경우
+	    // 사용자 권한 확인
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+	    int user_auth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+
+	    // 비밀 답변글 접근 처리
+	    if (qnaDTO.getQna_secret() == 1) { // 비밀글일 경우
+	        if (user_auth != 1) { // 관리자가 아닌 경우 비밀번호 확인 필요
 	            Boolean hasAccess = (Boolean) session.getAttribute("qnaAccess_" + qna_no);
 	            if (hasAccess == null || !hasAccess) {
-	                rttr.addFlashAttribute("error", "비밀글에 접근 권한이 없습니다.");
-	                return "redirect:/qnaList";
+	                rttr.addFlashAttribute("error", "비밀글은 비밀번호 입력이 필요합니다.");
+	                return "redirect:/qnaList"; // 비밀번호 입력이 필요한 경우
 	            }
 	        }
 	    }
 
-	    // Q&A 상세 데이터 전달
-	    model.addAttribute("qnaDetail", qnaDTO);
-	   // model.addAttribute("user_auth", user_auth);
+	    // 공개글일 경우 비밀번호 확인 없이 접근 가능
+	    model.addAttribute("qnaReplyDetail", qnaDTO);
+	    model.addAttribute("user_auth", user_auth);
+	    return "/qnaReplyDetail";
+	}
+	
+	@RequestMapping(value = "/qnaReplyDetail", method = RequestMethod.POST)
+	public String qnaReplyDetailPost(
+	    @RequestParam("qna_no") int qna_no,
+	    @RequestParam("qna_pwd") String qna_pwd,
+	    HttpSession session, Model model, RedirectAttributes rttr) {
+
+	    QnaDTO qnaDTO = catDogService.qnaReplyDetail(qna_no);
+	    if (qnaDTO == null) {
+	        rttr.addFlashAttribute("error", "Q&A 정보를 찾을 수 없습니다.");
+	        return "redirect:/qnaList";
+	    }
+
+	    // 사용자 권한 확인
+	    Map<String, Object> user = (Map<String, Object>) session.getAttribute("user");
+	    int userAuth = (user != null && user.get("user_auth") != null) ? (int) user.get("user_auth") : 0;
+
+	    // 관리자 접근 시 비밀번호 확인 건너뜀
+	    if (qnaDTO.getQna_secret() == 1 && userAuth != 1) {
+	        if (!qna_pwd.equals(qnaDTO.getQna_pwd())) {
+	            rttr.addFlashAttribute("error", "비밀번호가 일치하지 않습니다.");
+	            return "redirect:/qnaList";
+	        }
+	    }
+
+	    model.addAttribute("qnaReplyDetail", qnaDTO);
 	    return "/qnaReplyDetail";
 	}
 
@@ -1063,4 +1283,4 @@ public class CatDogController {
 	    return "redirect:/faqList"; // 삭제 후 FAQ 리스트로 이동
 	}
 	
-}
+} 

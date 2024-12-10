@@ -1,7 +1,9 @@
 package kr.co.dong.catdog;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.inject.Inject;
 
@@ -55,17 +57,47 @@ public class CatDogServiceImpl implements CatDogService {
 	public List<CartDTO> getCartItem(String user_id) throws Exception {
 		return catDogDAO.getCartItem(user_id);
 	}
+	@Override
+	public int getCartCost(String user_id) throws Exception {
+		return catDogDAO.getCartCost(user_id);
+	}
+
 	
+	@Override
+	public int deleteCart(CartDTO cartDTO) throws Exception {
+		return catDogDAO.deleteCart(cartDTO);
+	}
 	
+	@Override
+	public int updateCartQuantity(CartDTO cartDTO) throws Exception {
+		return catDogDAO.updateCartQuantity(cartDTO);
+	}
+	
+//	@Override
+//	public int addCart(CartDTO cartDTO) throws Exception {
+//		// TODO Auto-generated method stub
+//		return catDogDAO.addCart(cartDTO);
+//	}
+
+	@Override
+	public int addCart(CartDTO cartDTO) throws Exception {
+	    // 기존 장바구니 수량 조회
+	    int currentQuantity = catDogDAO.getCartQuantity(cartDTO);
+
+	    if (currentQuantity > 0) {
+	        // 상품이 이미 장바구니에 있는 경우, 수량 합산
+	        cartDTO.setCart_quantity(currentQuantity + cartDTO.getCart_quantity());
+	        return catDogDAO.updateCartQuantity(cartDTO);
+	    } else {
+	        // 상품이 장바구니에 없는 경우, 새롭게 추가
+	        return catDogDAO.addCart(cartDTO);
+	    }
+	}
 	
 	
 	
 
-	@Override
-	public int addCart(CartDTO cartDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return catDogDAO.addCart(cartDTO);
-	}
+
 	@Override
 	public ProductDTO productDetail(int product_code) {
 		// TODO Auto-generated method stub
@@ -265,4 +297,102 @@ public class CatDogServiceImpl implements CatDogService {
 		// TODO Auto-generated method stub
 		return catDogDAO.faqDelete(faq_no);
 	}
+
+	@Override
+	public int getCartQuantity(CartDTO cartDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return catDogDAO.getCartQuantity(cartDTO);
+	}
+
+	@Override
+	public List<ProductDTO> mainlist(int product_category) {
+		return null;
+	}
+
+	@Override
+	public List<OrderDTO> getRecentOrder(String user_id) throws Exception {
+
+		return catDogDAO.getRecentOrders(user_id);
+	}
+
+	@Override
+	public List<OrderDTO> detailOrder(String order_code) throws Exception {
+		return catDogDAO.getDetailOrders(order_code);
+	}
+
+	@Override
+	public OrderDetailDTO getOrderDetail(String order_code) throws Exception {
+		return catDogDAO.getOrderDetail(order_code); // DAO 호출
+	}
+
+	@Override
+	public int getTotalCost(String order_code) throws Exception {
+		return catDogDAO.getTotalCost(order_code);
+	}
+
+	@Override
+	public List<OrderItemDetailDTO> getOrderItemDetail(String order_code) throws Exception {
+		return catDogDAO.getOrderItemDetail(order_code);
+	}
+
+	@Override
+	public List<MyDTO> getMyOrders(String user_id) throws Exception {
+		return catDogDAO.getMyOrders(user_id);
+	}
+
+//	@Override
+//	public String addOrder(OrderDTO orderDTO) throws Exception {
+//		// 랜덤 코드 생성
+//		String orderCode = generateOrderCode();
+//		orderDTO.setOrder_code(orderCode);
+//		catDogDAO.addOrder(orderDTO);
+//
+//		// 데이터베이스 삽입
+//		return orderCode;
+//	}
+//
+//	private String generateOrderCode() {
+//		// UUID를 이용하여 랜덤 코드 생성
+//		String oc = LocalDate.now().format(DateTimeFormatter.ofPattern("yyMMdd"))
+//				+ UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+//		return oc;
+//	}
+
+	@Override
+	public void addOrderItems(List<OrderItemDTO> orderItems) throws Exception {
+		catDogDAO.addOrderItems(orderItems);
+	}
+
+	@Override
+	public int isReview(ReviewDTO reviewDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return catDogDAO.isReview(reviewDTO);
+	}
+
+	@Override
+	public int regReview(ReviewDTO reviewDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return catDogDAO.regReview(reviewDTO);
+	}
+
+	@Override
+	public List<OrderDTO> getRecentOrders(String user_id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<OrderDTO> getDetailOrders(String order_code) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String addOrder(OrderDTO orderDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
 }

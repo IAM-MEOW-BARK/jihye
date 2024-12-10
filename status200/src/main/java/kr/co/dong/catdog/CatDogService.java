@@ -5,6 +5,39 @@ import java.util.Map;
 
 
 public interface CatDogService {
+	
+	public List<ProductDTO> mainlist(int product_category);
+
+	
+
+	public List<OrderDTO> getRecentOrder(String user_id) throws Exception;
+
+	public List<OrderDTO> detailOrder(String order_code) throws Exception;
+
+	public OrderDetailDTO getOrderDetail(String order_code) throws Exception;
+
+	public List<MyDTO> getMyOrders(String user_id) throws Exception;
+
+	public String addOrder(OrderDTO orderDTO) throws Exception;
+
+	public void addOrderItems(List<OrderItemDTO> orderItems) throws Exception;
+
+
+	public int isReview(ReviewDTO reviewDTO) throws Exception;
+
+	public int regReview(ReviewDTO reviewDTO) throws Exception;
+	
+	// 최근 주문 내역 (최신 5개 등 제한)
+		public List<OrderDTO> getRecentOrders(String user_id) throws Exception;
+
+		// 상세 주문 내역
+		public List<OrderDTO> getDetailOrders(String order_code) throws Exception;
+
+		// 주문 총 결제액
+		public int getTotalCost(String order_code) throws Exception;
+		
+		public List<OrderItemDetailDTO> getOrderItemDetail(String order_code) throws Exception;
+	
 	// 로그인
 	public Map login(Map<String, Object> map);
 	
@@ -21,6 +54,13 @@ public interface CatDogService {
 	
 	public List<CartDTO> getCartItem(String user_id) throws Exception;
 	
+	public int updateCartQuantity(CartDTO cartDTO) throws Exception;
+	
+	public int getCartCost(String user_id) throws Exception;
+
+	public int deleteCart(CartDTO cartDTO) throws Exception;
+	
+	
 	// 찜하기 추가
     public int addWish(String user_id, int product_code) throws Exception;
 
@@ -31,6 +71,8 @@ public interface CatDogService {
 	
     // 장바구니 추가
     public int addCart(CartDTO cartDTO) throws Exception;
+    
+    int getCartQuantity(CartDTO cartDTO) throws Exception;
     
 	// 상품 상세정보
     public ProductDTO productDetail(int product_code);

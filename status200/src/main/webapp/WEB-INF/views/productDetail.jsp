@@ -61,19 +61,19 @@
 							<form action="addCart" method="POST">
 							    <input type="hidden" name="user_id" value="${user_id}" />
 							    <input type="hidden" name="product_code" value="${productDetail.product_code}" />
-							    <input type="hidden" name="cart_quantity" id="cartQuantity" value="1" />
+							   
 							
 							<!-- 수량 선택 -->
 							<div class="border-line control-wrapper">
 							    <span class="products-box-detail-postInfo-title">수량</span>
 							    <div class="quantity-control">
-							        <button class="quantity-btn" type="button" onclick="del()">−</button>
+							       <button class="quantity-btn" type="button" onclick="updateQuantity('del')">−</button>
 							        <!-- 수량 표시 -->
 							         <span class="quantity-display" id="quantityDisplay">1</span> 
-							        <!-- <input type="hidden" id="cartQuantity" name="cart_quantity" value="1">  -->
+							         <input type="hidden" id="cartQuantity" name="cart_quantity" value="1">
 							        <!--<input type="text" name="amounts" id="quantityDisplay" value="1" readonly> -->
 							        
-							        <button class="quantity-btn" type="button" onclick="add()">+</button>
+							       <button class="quantity-btn" type="button" onclick="updateQuantity('add')">+</button>
 							        <span  id="totalPrice" class="total-price">
 							        	<fmt:formatNumber value="${productDetail.product_price}" pattern = "#,###"/>원</span>
 							    </div>
@@ -304,71 +304,30 @@
        
 
 		<script>
-		// 수량 증가
-		function add() {
-		    // 가져오기
-		    let quantityDisplay = document.getElementById("quantityDisplay"); // 수량 표시
-		    let sellPrice = ${productDetail.product_price}; // 상품 가격
-		    let totalPrice = document.getElementById("totalPrice"); // 총 금액 표시
-		    let allTotalPrice = document.getElementById("allTotalPrice"); // 주문 금액 표시
+		function updateQuantity(action) {
+		    const quantityInput = document.getElementById("cartQuantity");
+		    const quantityDisplay = document.getElementById("quantityDisplay");
+		    const sellPrice = ${productDetail.product_price};
+		    const totalPrice = document.getElementById("totalPrice");
+		    const allTotalPrice = document.getElementById("allTotalPrice");
 
-		    // 수량 증가
-		    let quantity = parseInt(quantityDisplay.textContent); // 현재 수량
-		    quantity += 1;
-		    quantityDisplay.textContent = quantity; // 업데이트된 수량 표시
+		    let quantity = parseInt(quantityInput.value);
 
-		    // 총 금액 계산
-		    let totalAmount = quantity * sellPrice;
-
-		    // 총 금액 표시
-		    totalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원";
-		    allTotalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원"; // 주문 금액도 업데이트
-		}
-
-		// 수량 감소
-		function del() {
-		    // 가져오기
-		    let quantityDisplay = document.getElementById("quantityDisplay"); // 수량 표시
-		    let sellPrice = ${productDetail.product_price}; // 상품 가격
-		    let totalPrice = document.getElementById("totalPrice"); // 총 금액 표시
-		    let allTotalPrice = document.getElementById("allTotalPrice"); // 주문 금액 표시
-
-		    // 수량 감소
-		    let quantity = parseInt(quantityDisplay.textContent); // 현재 수량
-		    if (quantity > 1) {
-		        quantity -= 1;
-		        quantityDisplay.textContent = quantity; // 업데이트된 수량 표시
-
-		        // 총 금액 계산
-		        let totalAmount = quantity * sellPrice;
-
-		        // 총 금액 표시
-		        totalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원";
-		        allTotalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원"; // 주문 금액도 업데이트
+		    if (action === 'add') {
+		        quantity++;
+		    } else if (action === 'del' && quantity > 1) {
+		        quantity--;
 		    }
-		}
 
-</script>
-<script>
-	function increaseQuantity() {
-	    const quantityInput = document.getElementById("cartQuantity");
-	    const quantityDisplay = document.getElementById("quantityDisplay");
-	    let quantity = parseInt(quantityInput.value);
-	    quantity++;
-	    quantityInput.value = quantity;
-	    quantityDisplay.textContent = quantity;
-	}
-	
-	function decreaseQuantity() {
-	    const quantityInput = document.getElementById("cartQuantity");
-	    const quantityDisplay = document.getElementById("quantityDisplay");
-	    let quantity = parseInt(quantityInput.value);
-	    if (quantity > 1) {
-	        quantity--;
-	        quantityInput.value = quantity;
-	        quantityDisplay.textContent = quantity;
-	    }
-	}
+		    // 업데이트된 수량 반영
+		    quantityInput.value = quantity;
+		    quantityDisplay.textContent = quantity;
+
+		    // 총 금액 계산 및 반영
+		    const totalAmount = quantity * sellPrice;
+		    totalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원";
+		    allTotalPrice.textContent = totalAmount.toLocaleString('ko-KR') + "원";
+		}
 </script>
 
  <!-- 아코디언 -->

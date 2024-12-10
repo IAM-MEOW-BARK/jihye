@@ -4,6 +4,32 @@ import java.util.List;
 import java.util.Map;
 
 public interface CatDogDAO {
+	
+	public List<ProductDTO> mainlist(Map<String, Object> param);
+    
+    // 카트
+    public String addOrder(OrderDTO orderDTO) throws Exception;
+    public void addOrderItems(List<OrderItemDTO> orderItems) throws Exception;
+   
+   // 정보 확인
+   public OrderDetailDTO getOrderDetail(String order_code) throws Exception;
+   
+   // 마이페이지
+    public List<MyDTO> getMyOrders(String user_id) throws Exception;
+    
+    public int isReview(ReviewDTO reviewDTO) throws Exception;
+   
+   public int regReview(ReviewDTO reviewDTO) throws Exception;
+   
+    // 최근 주문 내역 (최신 5개 등 제한)
+	public List<OrderDTO> getRecentOrders(String user_id) throws Exception;
+
+	// 상세 주문 내역
+	public List<OrderDTO> getDetailOrders(String order_code) throws Exception;
+
+	// 주문 총 결제액
+	public int getTotalCost(String order_code) throws Exception;
+   
 	// 로그인
 	public Map login(Map<String, Object> map);	
 	
@@ -33,10 +59,13 @@ public interface CatDogDAO {
     
     /*장바구니 보류*/    
     // 장바구니 추가
-    public int addCart(CartDTO cartDTO) throws Exception;
-    
-    // 장바구니 삭제
-    public int deleteCart(int product_id) throws Exception;
+ 	public int addCart(CartDTO cartDTO) throws Exception;
+
+ 	// 장바구니 삭제
+ 	public int deleteCart(CartDTO cartDTO) throws Exception;
+ 	
+ 	//장바구니 수량 변경
+ 	public int updateCartQuantity(CartDTO cartDTO) throws Exception;
     
     // 찜한 상품 리스트 조회
     public List<ProductDTO> getWish(String user_id) throws Exception;
@@ -52,15 +81,18 @@ public interface CatDogDAO {
     
     // 장바구니 상품 정보
     public List<CartDTO> getCartItem(String user_id) throws Exception;
+    
+    // 장바구니 총 가격
+ 	public int getCartCost(String user_id) throws Exception;
 
-    // 최근 주문 내역 (최신 5개 등 제한)
-    public List<OrdersDTO> getRecentOrders(String user_id) throws Exception;
 
     // 전체 주문 내역
     public List<OrdersDTO> getAllOrders(String user_id, String order_code) throws Exception;
 
     // 주문 내역 상세 표시
     public OrdersDTO getOrderDetail(int order_code) throws Exception;
+    
+    public List<OrderItemDetailDTO> getOrderItemDetail(String order_code) throws Exception;
     
     /*관리자*/
     // 전체 상품 관리 리스트
@@ -88,6 +120,11 @@ public interface CatDogDAO {
     public List<QnaDTO> getQna(int product_code);
     public int product_reviewTotal(int product_code);
     public int product_qnaTotal(int product_code);
+    
+    // 현재 수량 조회
+    int getCartQuantity(CartDTO cartDTO) throws Exception;
+    
+    
     
     // 카테고리별 리스트
     //public List<ProductDTO> categoryList(int start, int pageSize, int product_category, int product_code);

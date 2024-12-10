@@ -84,12 +84,17 @@ public class CatDogDAOImpl implements CatDogDAO{
     	return sqlSession.selectList(namespace + ".getCartItem", user_id);
     }
     
-
+    
+    @Override
+	public int updateCartQuantity(CartDTO cartDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return sqlSession.update(namespace + ".updateCartQuantity", cartDTO);
+	}
 
 	@Override
-	public int deleteCart(int product_id) throws Exception {
+	public int deleteCart(CartDTO cartDTO) throws Exception {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(namespace + ".deleteCart", cartDTO);
 	}
 
 	@Override
@@ -111,9 +116,9 @@ public class CatDogDAOImpl implements CatDogDAO{
 	}
 
 	@Override
-	public List<OrdersDTO> getRecentOrders(String user_id) throws Exception {
+	public List<OrderDTO> getRecentOrders(String user_id) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList(namespace + ".getRecentOrders", user_id);
 	}
 
 	@Override
@@ -169,6 +174,12 @@ public class CatDogDAOImpl implements CatDogDAO{
 //		map.put("product_code", cartDTO.getProduct_code());
 		return sqlSession.insert(namespace+".addCart", cartDTO);
 	}
+	
+	@Override
+    public int getCartQuantity(CartDTO cartDTO) throws Exception {
+        return sqlSession.selectOne(namespace + ".getCartQuantity", cartDTO);
+    }
+	
 	@Override
 	public ProductDTO productDetail(int product_code) {
 		// TODO Auto-generated method stub
@@ -290,10 +301,10 @@ public class CatDogDAOImpl implements CatDogDAO{
 	@Override
 	public QnaDTO qnaDetail(int qna_no) {
 		// TODO Auto-generated method stub
-	    Map<String, Object> map = new HashMap<>();
-	    map.put("qna_no", qna_no);
+	    //Map<String, Object> map = new HashMap<>();
+	    //map.put("qna_no", qna_no);
 	    
-	    return sqlSession.selectOne(namespace + ".qnaDetail", map);
+	    return sqlSession.selectOne(namespace + ".qnaDetail", qna_no);
 	}
 	@Override
 	public FaqDTO faqDetail(int faq_no) {
@@ -397,5 +408,65 @@ public class CatDogDAOImpl implements CatDogDAO{
 		// TODO Auto-generated method stub
 		return sqlSession.update(namespace+".reviewUpdateReadCnt", review_no);
 	}
+
+	@Override
+	public int getCartCost(String user_id) throws Exception {
+		return sqlSession.selectOne(namespace + ".getCartCost", user_id);
+		
+	}
+
+	@Override
+    public List<ProductDTO> mainlist(Map<String, Object> param) {
+       // TODO Auto-generated method stub
+       return sqlSession.selectList(namespace + ".mainlist", param);
+    }
+
+	@Override
+	public String addOrder(OrderDTO orderDTO) throws Exception {
+		sqlSession.insert(namespace + ".addOrder", orderDTO);
+		return orderDTO.getOrder_code(); // MyBatis에서 반환된 order_code 사용
+	}
+
+	@Override
+	public void addOrderItems(List<OrderItemDTO> orderItems) throws Exception {
+		sqlSession.insert(namespace + ".addOrderItems", orderItems);
+	}
+
+	// 수정한 거
+		public OrderDetailDTO getOrderDetail(String order_code) throws Exception {
+			return sqlSession.selectOne(namespace + ".getOrderDetail", order_code);
+		}
+
+		public List<MyDTO> getMyOrders(String user_id) throws Exception {
+			return sqlSession.selectList(namespace + ".getMyOrders", user_id);
+		}
+
+
+		@Override
+		public int isReview(ReviewDTO reviewDTO) throws Exception {
+			// TODO Auto-generated method stub
+			return sqlSession.selectOne(namespace + ".isReview", reviewDTO);
+		}
+
+		@Override
+		public int regReview(ReviewDTO reviewDTO) throws Exception {
+			// TODO Auto-generated method stub
+			return sqlSession.insert(namespace + ".regReview", reviewDTO);
+		}
+
+		public List<OrderDTO> getDetailOrders(String order_code) throws Exception {
+			return sqlSession.selectList(namespace + ".getDetailOrder", order_code);
+		}
+
+		// 주문 총 결제액
+		public int getTotalCost(String order_code) throws Exception {
+			return sqlSession.selectOne(namespace + ".getTotalCost", order_code);
+		}
+
+		public List<OrderItemDetailDTO> getOrderItemDetail(String order_code) throws Exception {
+			return sqlSession.selectList(namespace + ".getOrderItemDetail", order_code);
+		}
+
+	
 
 }
